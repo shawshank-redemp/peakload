@@ -1,0 +1,19 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: tracking
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  metrics:
+    tags:
+      application: tracking
+    distribution:
+      # Needed for p95/p99 latency panels in Grafana.
+      percentiles-histogram:
+        http.server.requests: true

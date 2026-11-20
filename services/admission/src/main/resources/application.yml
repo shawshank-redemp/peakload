@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: admission
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  metrics:
+    tags:
+      application: admission
+    distribution:
+      # Needed for p95/p99 latency panels in Grafana.
+      percentiles-histogram:
+        http.server.requests: true

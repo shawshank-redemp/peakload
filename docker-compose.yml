@@ -1,0 +1,112 @@
+# Peakload: one command brings up infrastructure, the four services and monitoring.
+#   docker compose up --build
+# Infra only (run the services from your IDE instead):
+#   docker compose up postgres redis redpanda prometheus grafana
+# Host ports for postgres and grafana come from .env (see README). MinIO is behind the "later" profile.
+
+services:
+  # ---------- infrastructure ----------
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: peakload
+      POSTGRES_USER: peakload
+      POSTGRES_PASSWORD: peakload
+    ports: ["${POSTGRES_PORT:-5432}:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U peakload -d peakload"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:v24.2.7
+    command:
+      - redpanda
+      - start
+      - --mode=dev-container
+      - --smp=1
+      - --memory=1G
+      - --reserve-memory=0M
+      - --overprovisioned
+      - --kafka-addr=internal://0.0.0.0:9092,external://0.0.0.0:19092
+      - --advertise-kafka-addr=internal://redpanda:9092,external://localhost:19092
+    ports: ["19092:19092"]
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health | grep -q 'Healthy:.*true'"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  minio:
+    # Not needed until week 4. Start explicitly with: docker compose --profile later up minio
+    profiles: ["later"]
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: peakload
+      MINIO_ROOT_PASSWORD: peakload123
+    ports: ["9000:9000", "9001:9001"]
+    volumes: ["miniodata:/data"]
+
+  # ---------- monitoring ----------
+  prometheus:
+    image: prom/prometheus:latest
+    volumes: ["./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro"]
+    ports: ["9090:9090"]
+
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    ports: ["${GRAFANA_PORT:-3000}:3000"]
+    depends_on: [prometheus]
+
+  # ---------- services ----------
+  # In week 0 the services do not use the infrastructure yet. From week 1 on,
+  # add depends_on: { postgres: { condition: service_healthy } } etc. as each one needs it.
+  admission:
+    build: { context: ., args: { SERVICE: admission } }
+    ports: ["8080:8080"]
+
+  order:
+    build: { context: ., args: { SERVICE: order } }
+    ports: ["8081:8081"]
+
+  dispatch:
+    build: { context: ., args: { SERVICE: dispatch } }
+    ports: ["8082:8082"]
+
+  tracking:
+    build: { context: ., args: { SERVICE: tracking } }
+    ports: ["8083:8083"]
+
+  # ---------- load test ----------
+  # Runs inside the compose network, so traffic does not go through host port forwarding.
+  #   docker compose --profile loadtest run --rm k6 run /loadtest/baseline.js
+  # Change the rate with: docker compose --profile loadtest run --rm -e RATE=400 k6 run /loadtest/baseline.js
+  k6:
+    profiles: ["loadtest"]
+    image: grafana/k6:latest
+    volumes: ["./loadtest:/loadtest:ro"]
+    environment:
+      BASE_URL: http://admission:8080
+    depends_on: [admission]
+
+volumes:
+  pgdata:
+  miniodata:

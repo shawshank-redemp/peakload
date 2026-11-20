@@ -1,0 +1,19 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: dispatch
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  metrics:
+    tags:
+      application: dispatch
+    distribution:
+      # Needed for p95/p99 latency panels in Grafana.
+      percentiles-histogram:
+        http.server.requests: true

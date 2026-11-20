@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: peakload
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ["admission:8080", "order:8081", "dispatch:8082", "tracking:8083"]
