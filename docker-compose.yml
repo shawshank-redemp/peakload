@@ -86,6 +86,12 @@ services:
   order:
     build: { context: ., args: { SERVICE: order } }
     ports: ["8081:8081"]
+    environment:
+      # Inside the compose network the database is reachable as postgres:5432, not localhost.
+      DB_URL: jdbc:postgresql://postgres:5432/peakload
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   dispatch:
     build: { context: ., args: { SERVICE: dispatch } }

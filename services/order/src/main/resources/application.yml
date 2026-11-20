@@ -1,9 +1,27 @@
+
 server:
   port: 8081
 
 spring:
   application:
     name: order
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:15432/peakload}
+    username: ${DB_USER:peakload}
+    password: ${DB_PASSWORD:peakload}
+    hikari:
+      # Fixed-size pool: minimum-idle equals maximum-pool-size, so connections are opened once
+      # and never closed or reopened under load (no connection-setup spikes during a surge).
+      # 10 is a starting guess, not a measured result. Revisit after the Step 6 load test.
+      maximum-pool-size: 10
+      minimum-idle: 10
+      # Fail a request after 2 s if no connection is free, rather than queueing it indefinitely.
+      connection-timeout: 2000
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
 
 management:
   endpoints:
