@@ -41,7 +41,7 @@ class IdempotencyIT extends AbstractIntegrationTest {
 
         assertEquals(201, postOrder(key, client, ORDER_BODY).statusCode());
 
-        String differentBody = "{\"customerId\":\"c-it\",\"city\":\"Pune\",\"totalPaise\":9999}";
+        String differentBody = "{\"customerId\":\"c-it\",\"city\":\"Pune\",\"totalPaise\":9999,\"pickupLat\":18.52,\"pickupLon\":73.85}";
         HttpResponse<String> conflicting = postOrder(key, client, differentBody);
         assertEquals(422, conflicting.statusCode());
         assertEquals("idempotency_key_reused", parse(conflicting).get("error").asText());

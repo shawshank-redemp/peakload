@@ -31,6 +31,11 @@ class OutboxWriter {
 
     /** Inserts one event row. The row's id is the event id (UUIDv7) that consumers use to deduplicate. */
     void append(String eventType, UUID orderId, String status, long version, String city) {
+        append(eventType, orderId, status, version, city, Map.of());
+    }
+
+    /** As above, with extra payload fields (for example the pickup point on OrderCreated). */
+    void append(String eventType, UUID orderId, String status, long version, String city, Map<String, Object> extra) {
         UUID eventId = UuidCreator.getTimeOrderedEpoch();
 
         Map<String, Object> payload = new LinkedHashMap<>();
@@ -39,6 +44,7 @@ class OutboxWriter {
         payload.put("version", version);
         payload.put("city", city);
         payload.put("occurredAt", Instant.now().toString());
+        payload.putAll(extra);
 
         jdbc.update("""
                 INSERT INTO outbox (id, aggregate_type, aggregate_id, event_type, payload)

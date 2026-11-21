@@ -135,11 +135,13 @@ public class OrderService {
     private IdempotentResult placeOrder(String clientId, String idempotencyKey, OrderInput input) {
         UUID orderId = UuidCreator.getTimeOrderedEpoch(); // UUIDv7: time-ordered, so new rows append to the index
         jdbc.update("""
-                INSERT INTO orders (id, client_id, status, version, payload)
-                VALUES (?, ?, 'CREATED', 0, ?::jsonb)
-                """, orderId, clientId, hasher.canonicalJson(input));
+                INSERT INTO orders (id, client_id, status, version, payload, pickup_lat, pickup_lon)
+                VALUES (?, ?, 'CREATED', 0, ?::jsonb, ?, ?)
+                """, orderId, clientId, hasher.canonicalJson(input), input.pickupLat(), input.pickupLon());
         // Same transaction as the order row: the event exists if and only if the order was created.
-        outbox.append(OutboxWriter.ORDER_CREATED, orderId, "CREATED", 0, input.city());
+        // The pickup point is in the event so dispatch can find riders without calling the order service.
+        outbox.append(OutboxWriter.ORDER_CREATED, orderId, "CREATED", 0, input.city(),
+                Map.of("pickupLat", input.pickupLat(), "pickupLon", input.pickupLon()));
 
         Map<String, Object> view = new LinkedHashMap<>();
         view.put("orderId", orderId.toString());

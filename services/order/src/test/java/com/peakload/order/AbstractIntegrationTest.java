@@ -72,7 +72,7 @@ abstract class AbstractIntegrationTest {
         registry.add("spring.kafka.bootstrap-servers", REDPANDA::getBootstrapServers);
     }
 
-    protected static final String ORDER_BODY = "{\"customerId\":\"c-it\",\"city\":\"Pune\",\"totalPaise\":1200}";
+    protected static final String ORDER_BODY = "{\"customerId\":\"c-it\",\"city\":\"Pune\",\"totalPaise\":1200,\"pickupLat\":18.52,\"pickupLon\":73.85}";
 
     private static final HttpClient HTTP = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(5)).build();
 

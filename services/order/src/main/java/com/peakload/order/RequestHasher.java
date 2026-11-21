@@ -33,6 +33,8 @@ class RequestHasher {
         fields.put("city", input.city());
         fields.put("customerId", input.customerId());
         fields.put("totalPaise", input.totalPaise());
+        fields.put("pickupLat", input.pickupLat());
+        fields.put("pickupLon", input.pickupLon());
         try {
             return mapper.writeValueAsString(fields);
         } catch (JsonProcessingException e) {

@@ -38,6 +38,9 @@ export default function () {
     customerId: `c-${Math.floor(Math.random() * 100000)}`,
     city: CITIES[Math.floor(Math.random() * CITIES.length)],
     totalPaise: 100 + Math.floor(Math.random() * 5000),
+    // Pickup point near Pune. Required since Week 2 (dispatch uses it to find riders).
+    pickupLat: 18.45 + Math.random() * 0.15,
+    pickupLon: 73.80 + Math.random() * 0.15,
   });
   const res = http.post(`${BASE}/orders`, body, {
     headers: {

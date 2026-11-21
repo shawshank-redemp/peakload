@@ -4,7 +4,7 @@ package com.peakload.order;
  * A validated, trimmed order body. Only this type is hashed and stored, so the same order always
  * produces the same canonical form.
  */
-record OrderInput(String customerId, String city, long totalPaise) {
+record OrderInput(String customerId, String city, long totalPaise, double pickupLat, double pickupLon) {
 
     private static final int MAX_TEXT_LENGTH = 255;
 
@@ -20,7 +20,13 @@ record OrderInput(String customerId, String city, long totalPaise) {
         if (body.totalPaise() == null || body.totalPaise() <= 0) {
             throw ApiException.badRequest("invalid_total", "totalPaise must be greater than 0");
         }
-        return new OrderInput(customerId, city, body.totalPaise());
+        if (body.pickupLat() == null || body.pickupLat().isNaN() || body.pickupLat() < -90 || body.pickupLat() > 90) {
+            throw ApiException.badRequest("invalid_pickup_latitude", "pickupLat must be a number between -90 and 90");
+        }
+        if (body.pickupLon() == null || body.pickupLon().isNaN() || body.pickupLon() < -180 || body.pickupLon() > 180) {
+            throw ApiException.badRequest("invalid_pickup_longitude", "pickupLon must be a number between -180 and 180");
+        }
+        return new OrderInput(customerId, city, body.totalPaise(), body.pickupLat(), body.pickupLon());
     }
 
     private static String requireText(String field, String value) {

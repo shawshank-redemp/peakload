@@ -12,25 +12,25 @@ class RequestHasherTest {
 
     @Test
     void canonicalFormSortsKeysAndIgnoresWhitespace() {
-        OrderInput input = new OrderInput("c-1", "Pune", 1200L);
+        OrderInput input = new OrderInput("c-1", "Pune", 1200L, 18.52, 73.85);
 
         assertThat(hasher.canonicalJson(input))
-                .isEqualTo("{\"city\":\"Pune\",\"customerId\":\"c-1\",\"totalPaise\":1200}");
+                .isEqualTo("{\"city\":\"Pune\",\"customerId\":\"c-1\",\"pickupLat\":18.52,\"pickupLon\":73.85,\"totalPaise\":1200}");
     }
 
     @Test
     void sameOrderGivesSameHashAndDifferentOrderGivesDifferentHash() {
-        String first = hasher.hash(new OrderInput("c-1", "Pune", 1200L));
+        String first = hasher.hash(new OrderInput("c-1", "Pune", 1200L, 18.52, 73.85));
 
-        assertThat(hasher.hash(new OrderInput("c-1", "Pune", 1200L))).isEqualTo(first);
-        assertThat(hasher.hash(new OrderInput("c-1", "Pune", 1300L))).isNotEqualTo(first);
+        assertThat(hasher.hash(new OrderInput("c-1", "Pune", 1200L, 18.52, 73.85))).isEqualTo(first);
+        assertThat(hasher.hash(new OrderInput("c-1", "Pune", 1300L, 18.52, 73.85))).isNotEqualTo(first);
         assertThat(first).hasSize(64);
     }
 
     @Test
     void validationTrimsFieldsSoSpacingDoesNotChangeTheHash() {
-        OrderInput padded = OrderInput.validated(new CreateOrderRequest("  c-1 ", " Pune", 1200L));
-        OrderInput clean = OrderInput.validated(new CreateOrderRequest("c-1", "Pune", 1200L));
+        OrderInput padded = OrderInput.validated(new CreateOrderRequest("  c-1 ", " Pune", 1200L, 18.52, 73.85));
+        OrderInput clean = OrderInput.validated(new CreateOrderRequest("c-1", "Pune", 1200L, 18.52, 73.85));
 
         assertThat(hasher.hash(padded)).isEqualTo(hasher.hash(clean));
     }
