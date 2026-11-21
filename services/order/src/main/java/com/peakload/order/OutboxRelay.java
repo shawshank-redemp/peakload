@@ -3,6 +3,7 @@ package com.peakload.order;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import java.util.List;
 import java.util.UUID;
@@ -36,25 +37,32 @@ class OutboxRelay {
     static final String HEADER_EVENT_TYPE = "event-type";
 
     private static final Logger log = LoggerFactory.getLogger(OutboxRelay.class);
-    private static final long SEND_TIMEOUT_SECONDS = 10;
 
     private final JdbcTemplate jdbc;
     private final KafkaTemplate<String, String> kafka;
     private final TransactionTemplate tx;
     private final int batchSize;
+    private final Duration sendWait;
     private final Counter published;
     private final Counter failures;
 
+    /**
+     * @param sendWait how long the relay waits for one ack. This must be longer than the producer's
+     *                 delivery.timeout.ms. Then a send is either acked or has definitely failed by the
+     *                 time the relay gives up, so a late copy cannot land after the relay has retried.
+     */
     OutboxRelay(
             JdbcTemplate jdbc,
             KafkaTemplate<String, String> kafka,
             TransactionTemplate tx,
             @Value("${peakload.outbox.relay.batch-size:100}") int batchSize,
+            @Value("${peakload.outbox.relay.send-wait:PT15S}") Duration sendWait,
             MeterRegistry registry) {
         this.jdbc = jdbc;
         this.kafka = kafka;
         this.tx = tx;
         this.batchSize = batchSize;
+        this.sendWait = sendWait;
         this.published = Counter.builder("outbox.events.published")
                 .description("Outbox events acknowledged by the broker")
                 .register(registry);
@@ -93,7 +101,7 @@ class OutboxRelay {
         for (OutboxRow row : rows) {
             try {
                 // Key = order id, so all events for one order go to the same partition, in order.
-                kafka.send(record(row)).get(SEND_TIMEOUT_SECONDS, TimeUnit.SECONDS);
+                kafka.send(record(row)).get(sendWait.toMillis(), TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 failures.increment();

@@ -13,6 +13,11 @@
 
   <artifactId>order</artifactId>
 
+  <properties>
+    <!-- Pinned: Testcontainers 1.19.8 (managed by Boot 3.3.5) sends Docker API 1.32, which Docker Desktop 29 rejects. -->
+    <testcontainers.version>1.21.4</testcontainers.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -66,6 +71,21 @@
     <version>6.1.1</version>
 </dependency>
 
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>redpanda</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -73,6 +93,19 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <!-- Surefire runs *Test classes (fast, no containers). Failsafe runs *IT classes (Testcontainers) in verify. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

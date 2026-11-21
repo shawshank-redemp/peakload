@@ -33,6 +33,22 @@ spring:
         # Idempotent producer: a retried send does not create a duplicate in the partition.
         # This does not make the whole pipeline exactly-once; consumers still deduplicate.
         enable.idempotence: true
+        # Timeout invariant, from the outside in:
+        #   max.block.ms <= delivery.timeout.ms <= peakload.outbox.relay.send-wait
+        # Why each link holds:
+        # - linger.ms + request.timeout.ms <= delivery.timeout.ms is required by Kafka. Here 0 + 5 s <= 10 s.
+        # - request.timeout.ms (5 s) is one attempt. The producer retries until delivery.timeout.ms (10 s),
+        #   then fails the send with a final result.
+        # - max.block.ms bounds the send() call itself. send() blocks while it waits for topic metadata
+        #   (for example during a broker outage on a cold producer). Without this bound it blocks for
+        #   Kafka's default of 60 s, which is longer than the relay's wait.
+        # - The relay waits send-wait (15 s) for the future. That is longer than delivery.timeout.ms, so
+        #   the final result always arrives first. The relay never retries a row while an earlier copy
+        #   may still be in flight, and so it does not create a late duplicate.
+        linger.ms: 0
+        request.timeout.ms: 5000
+        delivery.timeout.ms: 10000
+        max.block.ms: 10000
     consumer:
       # A new consumer group starts from the oldest message, so no events are skipped on first start.
       auto-offset-reset: earliest
@@ -43,6 +59,9 @@ peakload:
       # Pause between relay runs, and rows per batch. Each row is sent and acknowledged one at a time.
       interval: ${OUTBOX_RELAY_INTERVAL:PT1S}
       batch-size: 100
+      # Upper bound on waiting for one ack. Must be longer than delivery.timeout.ms (10 s); see the
+      # timeout invariant under spring.kafka.producer.properties.
+      send-wait: PT15S
   idempotency:
     # How long a key is remembered. After this time the same key counts as unseen and a
     # retry creates a new order. Measured in ISO-8601 (PT24H = 24 hours).
