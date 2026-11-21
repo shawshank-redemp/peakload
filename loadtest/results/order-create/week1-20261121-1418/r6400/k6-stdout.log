@@ -1,0 +1,148 @@
+ Container peakload-k6-run-b34a73d66c3c Creating 
+ Container peakload-k6-run-b34a73d66c3c Created 
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /loadtest/order-create.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 2000 max VUs, 1m0s max duration (incl. graceful stop):
+              * create_orders: 6400.00 iterations/s for 30s (maxVUs: 200-2000, gracefulStop: 30s)
+
+
+running (0m01.0s), 0146/0217 VUs, 5889 complete and 0 interrupted iterations
+create_orders   [   3% ] 0146/0217 VUs  01.0s/30s  6400.00 iters/s
+
+running (0m02.0s), 0258/0303 VUs, 11789 complete and 0 interrupted iterations
+create_orders   [   7% ] 0258/0303 VUs  02.0s/30s  6400.00 iters/s
+
+running (0m03.0s), 0143/0307 VUs, 18290 complete and 0 interrupted iterations
+create_orders   [  10% ] 0143/0307 VUs  03.0s/30s  6400.00 iters/s
+
+running (0m04.0s), 0018/0307 VUs, 24806 complete and 0 interrupted iterations
+create_orders   [  13% ] 0018/0307 VUs  04.0s/30s  6400.00 iters/s
+
+running (0m05.0s), 0034/0307 VUs, 31270 complete and 0 interrupted iterations
+create_orders   [  17% ] 0034/0307 VUs  05.0s/30s  6400.00 iters/s
+
+running (0m06.0s), 0108/0307 VUs, 37524 complete and 0 interrupted iterations
+create_orders   [  20% ] 0108/0307 VUs  06.0s/30s  6400.00 iters/s
+
+running (0m07.0s), 0100/0307 VUs, 43934 complete and 0 interrupted iterations
+create_orders   [  23% ] 0100/0307 VUs  07.0s/30s  6400.00 iters/s
+
+running (0m08.0s), 0262/0307 VUs, 50172 complete and 0 interrupted iterations
+create_orders   [  27% ] 0263/0307 VUs  08.0s/30s  6400.00 iters/s
+
+running (0m09.0s), 0013/0307 VUs, 56821 complete and 0 interrupted iterations
+create_orders   [  30% ] 0013/0307 VUs  09.0s/30s  6400.00 iters/s
+
+running (0m10.0s), 0334/0368 VUs, 62661 complete and 0 interrupted iterations
+create_orders   [  33% ] 0334/0368 VUs  10.0s/30s  6400.00 iters/s
+
+running (0m11.0s), 0105/0368 VUs, 69292 complete and 0 interrupted iterations
+create_orders   [  37% ] 0105/0368 VUs  11.0s/30s  6400.00 iters/s
+
+running (0m12.0s), 0159/0368 VUs, 75639 complete and 0 interrupted iterations
+create_orders   [  40% ] 0159/0368 VUs  12.0s/30s  6400.00 iters/s
+
+running (0m13.0s), 0201/0368 VUs, 81866 complete and 0 interrupted iterations
+create_orders   [  43% ] 0201/0368 VUs  13.0s/30s  6400.00 iters/s
+
+running (0m14.0s), 0454/0484 VUs, 87345 complete and 0 interrupted iterations
+create_orders   [  47% ] 0454/0484 VUs  14.0s/30s  6400.00 iters/s
+
+running (0m15.0s), 0188/0484 VUs, 94009 complete and 0 interrupted iterations
+create_orders   [  50% ] 0188/0484 VUs  15.0s/30s  6400.00 iters/s
+
+running (0m16.0s), 0319/0484 VUs, 100277 complete and 0 interrupted iterations
+create_orders   [  53% ] 0319/0484 VUs  16.0s/30s  6400.00 iters/s
+
+running (0m17.0s), 0293/0541 VUs, 106440 complete and 0 interrupted iterations
+create_orders   [  57% ] 0293/0541 VUs  17.0s/30s  6400.00 iters/s
+
+running (0m18.0s), 0606/0645 VUs, 112148 complete and 0 interrupted iterations
+create_orders   [  60% ] 0606/0645 VUs  18.0s/30s  6400.00 iters/s
+
+running (0m19.0s), 0306/0674 VUs, 118757 complete and 0 interrupted iterations
+create_orders   [  63% ] 0306/0674 VUs  19.0s/30s  6400.00 iters/s
+
+running (0m20.0s), 0080/0674 VUs, 125381 complete and 0 interrupted iterations
+create_orders   [  67% ] 0080/0674 VUs  20.0s/30s  6400.00 iters/s
+
+running (0m21.0s), 0059/0674 VUs, 131788 complete and 0 interrupted iterations
+create_orders   [  70% ] 0059/0674 VUs  21.0s/30s  6400.00 iters/s
+
+running (0m22.0s), 0082/0674 VUs, 138171 complete and 0 interrupted iterations
+create_orders   [  73% ] 0082/0674 VUs  22.0s/30s  6400.00 iters/s
+
+running (0m23.0s), 0731/0738 VUs, 143658 complete and 0 interrupted iterations
+create_orders   [  77% ] 0731/0738 VUs  23.0s/30s  6400.00 iters/s
+
+running (0m24.0s), 0190/0741 VUs, 150577 complete and 0 interrupted iterations
+create_orders   [  80% ] 0190/0741 VUs  24.0s/30s  6400.00 iters/s
+
+running (0m25.0s), 0237/0741 VUs, 156945 complete and 0 interrupted iterations
+create_orders   [  83% ] 0237/0741 VUs  25.0s/30s  6400.00 iters/s
+
+running (0m26.0s), 0036/0741 VUs, 163548 complete and 0 interrupted iterations
+create_orders   [  87% ] 0036/0741 VUs  26.0s/30s  6400.00 iters/s
+
+running (0m27.0s), 0104/0741 VUs, 169876 complete and 0 interrupted iterations
+create_orders   [  90% ] 0104/0741 VUs  27.0s/30s  6400.00 iters/s
+
+running (0m28.0s), 0557/0741 VUs, 175821 complete and 0 interrupted iterations
+create_orders   [  93% ] 0557/0741 VUs  28.0s/30s  6400.00 iters/s
+
+running (0m29.0s), 0569/0741 VUs, 182212 complete and 0 interrupted iterations
+create_orders   [  97% ] 0570/0741 VUs  29.0s/30s  6400.00 iters/s
+
+running (0m30.0s), 0253/0741 VUs, 188927 complete and 0 interrupted iterations
+create_orders   [ 100% ] 0253/0741 VUs  30.0s/30s  6400.00 iters/s
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(99)<200' p(99)=168.35ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 189415  6307.105045/s
+    checks_succeeded...: 100.00% 189415 out of 189415
+    checks_failed......: 0.00%   0 out of 189415
+
+    ✓ status is 201
+
+    HTTP
+    http_req_duration..............: med=22.83ms p(95)=121.81ms p(99)=168.35ms
+      { expected_response:true }...: med=22.83ms p(95)=121.81ms p(99)=168.35ms
+    http_req_failed................: 0.00%  0 out of 189415
+    http_reqs......................: 189415 6307.105045/s
+
+    EXECUTION
+    dropped_iterations.............: 2589   86.208035/s
+    iteration_duration.............: med=22.94ms p(95)=121.97ms p(99)=168.41ms
+    iterations.....................: 189415 6307.105045/s
+    vus............................: 251    min=12          max=726
+    vus_max........................: 741    min=217         max=741
+
+    NETWORK
+    data_received..................: 46 MB  1.5 MB/s
+    data_sent......................: 49 MB  1.6 MB/s
+
+
+
+
+running (0m30.0s), 0000/0741 VUs, 189415 complete and 0 interrupted iterations
+create_orders ✓ [ 100% ] 0000/0741 VUs  30s  6400.00 iters/s

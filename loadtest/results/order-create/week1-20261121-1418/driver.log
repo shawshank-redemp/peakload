@@ -1,0 +1,96 @@
+[14:18:45] output: loadtest/results/order-create/week1-20261121-1418
+[14:18:45] === warmup-r20: RATE=20 DURATION=30s
+[14:18:45] outbox drained before reset after 0s
+[14:18:45] tables truncated
+[14:19:17] warmup-r20: verdict=PASS k6_exit=0 drain_seconds=0
+[14:19:17] === r0050: RATE=50 DURATION=30s
+[14:19:18] outbox drained before reset after 1s
+[14:19:18] tables truncated
+[14:19:50] r0050: verdict=PASS k6_exit=0 drain_seconds=1
+[14:19:50] === r0100: RATE=100 DURATION=30s
+[14:19:50] outbox drained before reset after 0s
+[14:19:51] tables truncated
+[14:20:23] r0100: verdict=PASS k6_exit=0 drain_seconds=0
+[14:20:23] === r0200: RATE=200 DURATION=30s
+[14:20:23] outbox drained before reset after 0s
+[14:20:23] tables truncated
+[14:20:56] r0200: verdict=PASS k6_exit=0 drain_seconds=0
+[14:20:56] === r0400: RATE=400 DURATION=30s
+[14:20:56] outbox drained before reset after 0s
+[14:20:56] tables truncated
+[14:21:29] r0400: verdict=PASS k6_exit=0 drain_seconds=0
+[14:21:29] === r0800: RATE=800 DURATION=30s
+[14:21:29] outbox drained before reset after 0s
+[14:21:29] tables truncated
+[14:22:02] r0800: verdict=PASS k6_exit=0 drain_seconds=0
+[14:22:02] === r1200: RATE=1200 DURATION=30s
+[14:22:02] outbox drained before reset after 0s
+[14:22:02] tables truncated
+[14:22:34] r1200: verdict=PASS k6_exit=0 drain_seconds=1
+[14:22:34] === r1600: RATE=1600 DURATION=30s
+[14:22:35] outbox drained before reset after 1s
+[14:22:35] tables truncated
+[14:23:07] r1600: verdict=PASS k6_exit=0 drain_seconds=1
+[14:23:07] === r2000: RATE=2000 DURATION=30s
+[14:23:07] outbox drained before reset after 0s
+[14:23:07] tables truncated
+[14:23:40] r2000: verdict=PASS k6_exit=0 drain_seconds=0
+[14:23:40] === r2400: RATE=2400 DURATION=30s
+[14:23:40] outbox drained before reset after 0s
+[14:23:40] tables truncated
+[14:24:13] r2400: verdict=PASS k6_exit=0 drain_seconds=0
+[14:24:13] === r2800: RATE=2800 DURATION=30s
+[14:24:13] outbox drained before reset after 0s
+[14:24:13] tables truncated
+[14:24:45] r2800: verdict=PASS k6_exit=0 drain_seconds=0
+[14:24:45] === r3200: RATE=3200 DURATION=30s
+[14:24:46] outbox drained before reset after 0s
+[14:24:46] tables truncated
+[14:25:18] r3200: verdict=PASS k6_exit=0 drain_seconds=0
+[14:25:18] === r3600: RATE=3600 DURATION=30s
+[14:25:18] outbox drained before reset after 0s
+[14:25:18] tables truncated
+[14:25:51] r3600: verdict=PASS k6_exit=0 drain_seconds=0
+[14:25:51] === r4000: RATE=4000 DURATION=30s
+[14:25:51] outbox drained before reset after 0s
+[14:25:51] tables truncated
+[14:26:24] r4000: verdict=PASS k6_exit=0 drain_seconds=2
+[14:26:24] cap 4000 reached without a threshold failure
+[14:26:24] no knee found up to the cap; no knee repeats
+[14:26:24] done. Results: loadtest/results/order-create/week1-20261121-1418
+[14:27:04] output: loadtest/results/order-create/week1-20261121-1418 (extend)
+[14:27:04] extending from 4400 req/s (cap 6400)
+[14:27:04] === r4400: RATE=4400 DURATION=30s
+[14:27:04] outbox drained before reset after 0s
+[14:27:04] tables truncated
+[14:27:37] r4400: verdict=PASS k6_exit=0 drain_seconds=1
+[14:27:37] === r4800: RATE=4800 DURATION=30s
+[14:27:37] outbox drained before reset after 0s
+[14:27:37] tables truncated
+[14:28:12] r4800: verdict=PASS k6_exit=0 drain_seconds=4
+[14:28:12] === r5200: RATE=5200 DURATION=30s
+[14:28:12] outbox drained before reset after 0s
+[14:28:12] tables truncated
+[14:28:55] r5200: verdict=PASS k6_exit=0 drain_seconds=10
+[14:28:55] === r5600: RATE=5600 DURATION=30s
+[14:28:55] outbox drained before reset after 0s
+[14:28:55] tables truncated
+[14:29:42] r5600: verdict=FAIL k6_exit=99 drain_seconds=16
+[14:29:42] === r6000: RATE=6000 DURATION=30s
+[14:29:43] outbox drained before reset after 1s
+[14:29:43] tables truncated
+[14:30:30] r6000: verdict=FAIL k6_exit=99 drain_seconds=16
+[14:30:30] === r6400: RATE=6400 DURATION=30s
+[14:30:31] outbox drained before reset after 1s
+[14:30:31] tables truncated
+[14:31:21] r6400: verdict=PASS k6_exit=0 drain_seconds=19
+[14:31:21] knee (lowest rate where the threshold fails): 5600 req/s
+[14:31:21] === rep-r5200: RATE=5200 DURATION=30s
+[14:31:21] outbox drained before reset after 0s
+[14:31:21] tables truncated
+[14:32:04] rep-r5200: verdict=PASS k6_exit=0 drain_seconds=11
+[14:32:04] === rep-r5600: RATE=5600 DURATION=30s
+[14:32:04] outbox drained before reset after 0s
+[14:32:04] tables truncated
+[14:32:49] rep-r5600: verdict=FAIL k6_exit=99 drain_seconds=13
+[14:32:49] done. Results: loadtest/results/order-create/week1-20261121-1418
