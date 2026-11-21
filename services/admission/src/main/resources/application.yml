@@ -1,9 +1,48 @@
 server:
   port: 8080
+  # Port stays 8080 (published by compose) until the measurement step says otherwise.
 
 spring:
   application:
     name: admission
+
+  # Each request runs on a virtual thread, so the blocking upstream calls are cheap to wait on.
+  threads:
+    virtual:
+      enabled: true
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:15432/peakload}
+    username: ${DB_USER:peakload}
+    password: ${DB_PASSWORD:peakload}
+    hikari:
+      # Menu reads run in the "admission" schema, as the dispatch service does for its own tables.
+      schema: admission
+      # Fixed-size pool, same pattern as the other services. The browse endpoint is the only DB user.
+      maximum-pool-size: 10
+      minimum-idle: 10
+      connection-timeout: 2000
+
+  flyway:
+    enabled: true
+    schemas: admission
+    create-schemas: true
+    locations: classpath:db/migration
+
+peakload:
+  admission:
+    upstream:
+      # Where POST /orders and the other order routes are sent.
+      order-url: ${ORDER_URL:http://localhost:8081}
+      # Opening a TCP connection to the upstream. A longer wait means the upstream is effectively down.
+      connect-timeout: ${UPSTREAM_CONNECT_TIMEOUT:PT0.5S}
+      # Waiting for the upstream's response after the request was sent. Timeout here gives 504.
+      read-timeout: ${UPSTREAM_READ_TIMEOUT:PT2S}
+      # Waiting for a free pooled connection. Timeout here gives 503 (the pool is full).
+      connection-request-timeout: ${UPSTREAM_POOL_WAIT:PT0.5S}
+      # Upper bound on simultaneous upstream connections. Requests beyond it wait up to the pool wait, then get
+      # 503. The number is a fixed starting value, not a measured result; it is above the Week 3 test load.
+      max-connections: 200
 
 management:
   endpoints:

@@ -82,6 +82,16 @@ services:
   admission:
     build: { context: ., args: { SERVICE: admission } }
     ports: ["8080:8080"]
+    environment:
+      # Same Postgres server; admission uses its own "admission" schema (set in its config).
+      DB_URL: jdbc:postgresql://postgres:5432/peakload
+      # The order service, inside the compose network.
+      ORDER_URL: http://order:8081
+    depends_on:
+      postgres:
+        condition: service_healthy
+      order:
+        condition: service_healthy
 
   order:
     build: { context: ., args: { SERVICE: order } }
@@ -91,6 +101,13 @@ services:
       DB_URL: jdbc:postgresql://postgres:5432/peakload
       # Inside the compose network the broker is redpanda:9092 (19092 is the host-side listener).
       KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
+    # Healthy when the actuator answers UP. Bash is used because the JRE image has no curl.
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/8081 && printf \"GET /actuator/health HTTP/1.0\\r\\nHost: x\\r\\n\\r\\n\" >&3 && grep -q UP <&3'"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
     depends_on:
       postgres:
         condition: service_healthy

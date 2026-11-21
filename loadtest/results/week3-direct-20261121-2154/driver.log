@@ -1,0 +1,19 @@
+[21:54:25] output: loadtest/results/week3-direct-20261121-2154 (list)
+[21:54:25] target http://order:8081, rates: 200 800 1600
+[21:54:25] === warmup-r20: RATE=20 DURATION=30s
+[21:54:26] outbox drained before reset after 1s
+[21:54:26] tables truncated
+[21:54:58] warmup-r20: verdict=PASS k6_exit=0 drain_seconds=1
+[21:54:58] === r0200: RATE=200 DURATION=30s
+[21:54:58] outbox drained before reset after 0s
+[21:54:59] tables truncated
+[21:55:31] r0200: verdict=PASS k6_exit=0 drain_seconds=0
+[21:55:31] === r0800: RATE=800 DURATION=30s
+[21:55:31] outbox drained before reset after 0s
+[21:55:31] tables truncated
+[21:56:04] r0800: verdict=PASS k6_exit=0 drain_seconds=0
+[21:56:04] === r1600: RATE=1600 DURATION=30s
+[21:56:04] outbox drained before reset after 0s
+[21:56:04] tables truncated
+[21:56:37] r1600: verdict=PASS k6_exit=0 drain_seconds=1
+[21:56:37] done. Results: loadtest/results/week3-direct-20261121-2154

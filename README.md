@@ -286,3 +286,63 @@ The request-side knee and the relay's drain are separate. Up to about 4400 req/s
 - The sampler records about every 4–5 s, so short spikes between samples are not visible, and the outbox age is a sampled value.
 - Hikari pool size, indexes and the relay were not changed in this step. The numbers above are the baseline before any tuning.
 - Each knee-area rate was run twice. Other rates were run once, so their variation is unknown.
+
+### Week 3: admission baseline (no limiting)
+
+Admission now sits in front of the order service: `POST /orders` goes through it, with no rate limiting or shedding yet. The question is what the extra hop costs, not how the stack behaves under overload.
+
+**Machine and VM:** the same as the Week 1 runs: Apple M5 (10 cores), 16 GiB RAM, Docker Desktop, Linux VM with 6 vCPUs and about 7.75 GiB RAM. Order and admission are containers in that VM, next to Postgres, Redpanda, Redis and k6, which share the same 6 vCPUs.
+
+**Admission configuration (not tuned):** blocking `RestClient` on virtual threads, over an Apache HttpClient 5 pool of at most 200 connections. Connect timeout 500 ms, read timeout 2 s, pool wait 500 ms, no retries. Pass-through: `Idempotency-Key`, `X-Client-Id`, `If-Match` and `Content-Type` go upstream; status, body, `Idempotent-Replay`, `Location` and `ETag` come back.
+
+**Commands:** the same procedure as Week 1 (warm-up at 20 req/s discarded, outbox drained and tables truncated before each run, one 30 s run per rate):
+
+```bash
+# direct to the order service (in-network)
+OUT=loadtest/results/week3-direct2-<stamp> TARGET_URL=http://order:8081 RATES="200 800 1600" \
+  bash loadtest/run-order-create.sh list
+
+# through admission (in-network)
+OUT=loadtest/results/week3-admission-<stamp> TARGET_URL=http://admission:8080 RATES="200 800 1600" \
+  bash loadtest/run-order-create.sh list
+```
+
+k6 version v2.4.0, `loadtest/order-create.js`, thresholds unchanged. The order body includes pickup coordinates, as since Week 2. Percentiles come from k6's JSON summary; CPU from `docker stats` every ~4–5 s during each run.
+
+**Results** (the warm direct campaign was run after the admission campaign, once the order JVM had warmed up; see the cold-start note below):
+
+| Path | Target req/s | Achieved req/s | Dropped iter. | p50 ms | p95 ms | p99 ms | Errors | Order CPU % mean / peak | Admission CPU % mean / peak |
+|---|---|---|---|---|---|---|---|---|---|
+| Direct to order (warm) | 200 | 200.0 | 0 | 1.06 | 2.30 | 2.74 | 0.00% | 15.2 / 18.5 | n/a |
+| Direct to order (warm) | 800 | 800.0 | 0 | 0.63 | 1.06 | 1.67 | 0.00% | 26.8 / 33.9 | n/a |
+| Direct to order (warm) | 1600 | 1600.0 | 0 | 0.56 | 0.97 | 1.82 | 0.00% | 53.8 / 62.5 | n/a |
+| Through admission | 200 | 200.0 | 0 | 1.09 | 2.47 | 4.41 | 0.00% | 11.4 / 18.4 | 23.4 / 43.0 |
+| Through admission | 800 | 800.0 | 0 | 0.70 | 1.20 | 2.36 | 0.00% | 27.9 / 34.5 | 22.4 / 35.8 |
+| Through admission | 1600 | 1599.9 | 0 | 0.69 | 1.58 | 5.10 | 0.00% | 52.2 / 63.6 | 28.9 / 39.4 |
+
+**Added latency of the hop** (warm direct against admission, same rate; one run each):
+
+| Target req/s | p50 added by admission (ms) | p99 difference (ms, one run each) |
+|---|---|---|
+| 200 | +0.03 | +1.67 |
+| 800 | +0.08 | +0.69 |
+| 1600 | +0.13 | +3.28 |
+
+**First direct campaign, cold order JVM.** This campaign ran before the others, right after the order container was rebuilt, so its order CPU includes JIT compilation. It is kept for transparency and should not be used for the comparison:
+
+| Path | Target req/s | Achieved req/s | Dropped iter. | p50 ms | p95 ms | p99 ms | Errors | Order CPU % mean / peak | Admission CPU % mean / peak |
+|---|---|---|---|---|---|---|---|---|---|
+| Direct to order (first run, cold JVM) | 200 | 200.0 | 0 | 0.83 | 2.24 | 4.23 | 0.00% | 31.0 / 41.2 | n/a |
+| Direct to order (first run, cold JVM) | 800 | 800.0 | 0 | 0.62 | 1.16 | 3.78 | 0.00% | 36.3 / 54.8 | n/a |
+| Direct to order (first run, cold JVM) | 1600 | 1600.0 | 0 | 0.58 | 1.27 | 6.21 | 0.00% | 56.3 / 65.6 | n/a |
+
+**What this shows.**
+- At 200, 800 and 1600 req/s, admission added about 0.03–0.13 ms at the median. No request was dropped and no request failed in any run.
+- The p99 differences (+0.7 to +3.3 ms) come from single runs and do not show a consistent trend. The same direct rate varied a lot between campaigns: 1600 req/s gave a p99 of 1.82 ms in the warm campaign and 6.21 ms in the cold one. So this baseline cannot establish an added p99 cost.
+- Admission used about 22–29% of one core on average and up to 43% at its peak, at 200–1600 req/s. Order CPU was about the same through admission as direct, so the hop costs admission CPU rather than order CPU.
+
+**What this does not show.**
+- Nothing about saturation. The rates stopped at 1600 req/s, which is well below the direct knee measured in Week 1 (between 5200 and 5600 req/s). Admission's own ceiling was not measured.
+- Single runs per rate for the admission and warm direct campaigns, apart from the knee-area runs in Week 1. The p99 values carry real noise; the order of these numbers should not be read as a ranking.
+- One machine and one local VM. k6, both services and the databases share 6 vCPUs, so every number reflects that shared load.
+- No limiting, shedding or retries. Those behaviours will change the picture under overload and are not part of this measurement.

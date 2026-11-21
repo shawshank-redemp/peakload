@@ -13,7 +13,9 @@
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
-MODE=${1:-full}                    # full | smoke | extend (continue the ladder in OUT)
+MODE=${1:-full}                    # full | smoke | extend (continue the ladder in OUT) | list (RATES, fixed)
+TARGET_URL=${TARGET_URL:-http://order:8081}   # where k6 sends POST /orders: order directly, or admission
+RATES=${RATES:-}
 OUT=${OUT:-loadtest/results/order-create/$(date +%Y%m%d-%H%M%S)}
 CAP=${CAP:-4000}                  # highest rate tried if the threshold never fails
 DRAIN_CAP=${DRAIN_CAP:-900}       # seconds to wait for the outbox to drain before giving up
@@ -66,7 +68,7 @@ run_one() {
   local k6_start k6_end k6_rc drain
   k6_start=$(now)
   docker compose --profile loadtest run --rm --no-deps \
-    -e RATE="$rate" -e DURATION="$dur" -e BASE_URL=http://order:8081 \
+    -e RATE="$rate" -e DURATION="$dur" -e BASE_URL="$TARGET_URL" \
     -v "$PWD/$dir":/out \
     k6 run --summary-export /out/k6-summary.json /loadtest/order-create.js > "$dir/k6-stdout.log" 2>&1
   k6_rc=$?
@@ -107,6 +109,14 @@ run_rate() {
 }
 
 FIXED=(50 100 200 400 800)
+if [ "$MODE" = "list" ]; then
+  # Fixed rates against TARGET_URL: warm-up (discarded), then one 30 s run per rate, data reset before each.
+  log "target $TARGET_URL, rates: $RATES"
+  run_one warmup-r20 20 30s > /dev/null
+  for r in $RATES; do run_rate "$r" "$(printf 'r%04d' "$r")"; done
+  log "done. Results: $OUT"
+  exit 0
+fi
 if [ "$MODE" = "extend" ]; then
   # Continue an existing run directory: keep its verdicts, and extend from the highest rate run so far.
   next=$(( $(awk '{print $1}' "$VERDICTS" | sort -n | tail -1) + 400 ))

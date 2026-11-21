@@ -91,6 +91,9 @@ def run_report(run_dir):
     def order_cpu(s):
         return cpu("peakload-order-1")(s)
 
+    def admission_cpu(s):
+        return cpu("peakload-admission-1")(s)
+
     def outbox(s, key):
         return (s.get("outbox") or {}).get(key)
 
@@ -119,6 +122,8 @@ def run_report(run_dir):
         "pg_cpu_peak_pct": peak(during, cpu("peakload-postgres-1")),
         "order_cpu_mean_pct": mean(during, order_cpu),
         "order_cpu_peak_pct": peak(during, order_cpu),
+        "admission_cpu_mean_pct": mean(during, admission_cpu),
+        "admission_cpu_peak_pct": peak(during, admission_cpu),
         "k6_cpu_peak_pct": peak(during, k6_cpu),
         "pg_active_peak": peak(during, lambda s: (s.get("postgres") or {}).get("active")),
         "pg_lock_waiters_peak": peak(during, lambda s: (s.get("postgres") or {}).get("lock_waiters")),
