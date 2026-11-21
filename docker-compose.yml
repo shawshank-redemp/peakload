@@ -100,6 +100,20 @@ services:
   dispatch:
     build: { context: ., args: { SERVICE: dispatch } }
     ports: ["8082:8082"]
+    environment:
+      # Same Postgres server as the order service, in the "dispatch" schema (set by the service's config).
+      DB_URL: jdbc:postgresql://postgres:5432/peakload
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      # Not used by consumers until step 2; set now so the service can reach the broker from its first start.
+      KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      redpanda:
+        condition: service_healthy
 
   tracking:
     build: { context: ., args: { SERVICE: tracking } }

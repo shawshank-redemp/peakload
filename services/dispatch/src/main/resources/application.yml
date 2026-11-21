@@ -5,6 +5,44 @@ spring:
   application:
     name: dispatch
 
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:15432/peakload}
+    username: ${DB_USER:peakload}
+    password: ${DB_PASSWORD:peakload}
+    hikari:
+      # Every JDBC statement runs in the "dispatch" schema (Hikari sets the connection's search_path).
+      # The order service uses the default "public" schema on the same database, so the two services
+      # never share table names.
+      schema: dispatch
+      # Fixed-size pool, as in the order service: min-idle equals max, so connections are opened once and
+      # never reopened under load. 10 is a starting guess, not a measured result.
+      maximum-pool-size: 10
+      minimum-idle: 10
+      # Fail a request after 2 s if no connection is free, rather than queueing indefinitely.
+      connection-timeout: 2000
+
+  flyway:
+    enabled: true
+    # Flyway manages only the "dispatch" schema. It creates the schema if missing, and keeps its own
+    # history table there (dispatch.flyway_schema_history). The order service's history is in public,
+    # so the two histories cannot clash.
+    schemas: dispatch
+    create-schemas: true
+    locations: classpath:db/migration
+
+  data:
+    redis:
+      # Redis is a hint store only (GEO positions and last-seen keys). It never holds assignment truth.
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+peakload:
+  dispatch:
+    location:
+      # How long a location ping keeps a rider "fresh". The seen key expires after this time; the GEO
+      # entry does not expire by itself. Step 2 must filter candidates by the seen key.
+      last-seen-ttl: ${LAST_SEEN_TTL:PT30S}
+
 management:
   endpoints:
     web:
