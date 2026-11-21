@@ -23,6 +23,17 @@ spring:
     enabled: true
     locations: classpath:db/migration
 
+peakload:
+  idempotency:
+    # How long a key is remembered. After this time the same key counts as unseen and a
+    # retry creates a new order. Measured in ISO-8601 (PT24H = 24 hours).
+    ttl: ${IDEMPOTENCY_TTL:PT24H}
+    cleanup:
+      # Pause between cleanup runs.
+      interval: ${IDEMPOTENCY_CLEANUP_INTERVAL:PT1M}
+      # Rows deleted per statement. Small batches keep each delete short.
+      batch-size: 500
+
 management:
   endpoints:
     web:
