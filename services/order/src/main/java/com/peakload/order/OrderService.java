@@ -31,6 +31,7 @@ public class OrderService {
     private final JdbcTemplate jdbc;
     private final RequestHasher hasher;
     private final ObjectMapper mapper;
+    private final OutboxWriter outbox;
     private final long ttlSeconds;
     private final Counter ordersCreated;
     private final Counter idempotentReplays;
@@ -39,11 +40,13 @@ public class OrderService {
             JdbcTemplate jdbc,
             RequestHasher hasher,
             ObjectMapper mapper,
+            OutboxWriter outbox,
             IdempotencyProperties properties,
             MeterRegistry registry) {
         this.jdbc = jdbc;
         this.hasher = hasher;
         this.mapper = mapper;
+        this.outbox = outbox;
         this.ttlSeconds = properties.ttl().toSeconds();
         // Micrometer's Prometheus naming drops a trailing "_created" from counter names, so the
         // name "orders.created" exports as orders_total. This name exports as orders_created_count_total.
@@ -135,6 +138,8 @@ public class OrderService {
                 INSERT INTO orders (id, client_id, status, version, payload)
                 VALUES (?, ?, 'CREATED', 0, ?::jsonb)
                 """, orderId, clientId, hasher.canonicalJson(input));
+        // Same transaction as the order row: the event exists if and only if the order was created.
+        outbox.append(OutboxWriter.ORDER_CREATED, orderId, "CREATED", 0, input.city());
 
         Map<String, Object> view = new LinkedHashMap<>();
         view.put("orderId", orderId.toString());

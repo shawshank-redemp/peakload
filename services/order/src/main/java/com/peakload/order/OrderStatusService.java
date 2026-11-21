@@ -21,10 +21,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderStatusService {
 
     private final JdbcTemplate jdbc;
+    private final OutboxWriter outbox;
     private final MeterRegistry registry;
 
-    OrderStatusService(JdbcTemplate jdbc, MeterRegistry registry) {
+    OrderStatusService(JdbcTemplate jdbc, OutboxWriter outbox, MeterRegistry registry) {
         this.jdbc = jdbc;
+        this.outbox = outbox;
         this.registry = registry;
     }
 
@@ -67,6 +69,12 @@ public class OrderStatusService {
                     "version_conflict", "the order was changed by another request; re-read it and retry");
         }
 
+        // Read the row we just wrote (same transaction) so the event carries the new version and city.
+        OrderView updatedView = findView(id).orElseThrow(() -> orderNotFound(id));
+        // Same transaction as the UPDATE: the event exists if and only if the status change committed.
+        outbox.append(OutboxWriter.ORDER_STATUS_CHANGED, id,
+                updatedView.status(), updatedView.version(), updatedView.city());
+
         Counter.builder("orders.status.transitions")
                 .description("Successful order status changes")
                 .tag("from", current.status().name())
@@ -74,7 +82,7 @@ public class OrderStatusService {
                 .register(registry)
                 .increment();
 
-        return findView(id).orElseThrow(() -> orderNotFound(id));
+        return updatedView;
     }
 
     private Optional<Snapshot> readSnapshot(UUID id) {

@@ -89,8 +89,12 @@ services:
     environment:
       # Inside the compose network the database is reachable as postgres:5432, not localhost.
       DB_URL: jdbc:postgresql://postgres:5432/peakload
+      # Inside the compose network the broker is redpanda:9092 (19092 is the host-side listener).
+      KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
     depends_on:
       postgres:
+        condition: service_healthy
+      redpanda:
         condition: service_healthy
 
   dispatch:

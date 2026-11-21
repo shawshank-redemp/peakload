@@ -23,7 +23,26 @@ spring:
     enabled: true
     locations: classpath:db/migration
 
+  kafka:
+    # Inside compose this is redpanda:9092 (set by docker-compose.yml). From the host it is localhost:19092.
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:19092}
+    producer:
+      # acks=all: the broker acknowledges only after all in-sync replicas have the message.
+      acks: all
+      properties:
+        # Idempotent producer: a retried send does not create a duplicate in the partition.
+        # This does not make the whole pipeline exactly-once; consumers still deduplicate.
+        enable.idempotence: true
+    consumer:
+      # A new consumer group starts from the oldest message, so no events are skipped on first start.
+      auto-offset-reset: earliest
+
 peakload:
+  outbox:
+    relay:
+      # Pause between relay runs, and rows per batch. Each row is sent and acknowledged one at a time.
+      interval: ${OUTBOX_RELAY_INTERVAL:PT1S}
+      batch-size: 100
   idempotency:
     # How long a key is remembered. After this time the same key counts as unseen and a
     # retry creates a new order. Measured in ISO-8601 (PT24H = 24 hours).
