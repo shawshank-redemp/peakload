@@ -21,7 +21,7 @@ import org.springframework.test.context.DynamicPropertySource;
  * the local menu. The stub is in-process; Postgres is a container.
  */
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-class AdmissionIT extends AbstractAdmissionIT {
+class AdmissionIT extends AbstractRedisAdmissionIT {
 
     static final StubOrderService STUB = new StubOrderService();
 

@@ -1,5 +1,7 @@
 package com.peakload.admission;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.Optional;
@@ -27,11 +29,16 @@ class AdmissionController {
     private final ProxyService proxy;
     private final MenuService menus;
     private final AdmissionMetrics metrics;
+    private final ObjectMapper mapper;
+    private final RateLimiter limiter;
 
-    AdmissionController(ProxyService proxy, MenuService menus, AdmissionMetrics metrics) {
+    AdmissionController(ProxyService proxy, MenuService menus, AdmissionMetrics metrics, ObjectMapper mapper,
+                        RateLimiter limiter) {
         this.proxy = proxy;
         this.menus = menus;
         this.metrics = metrics;
+        this.mapper = mapper;
+        this.limiter = limiter;
     }
 
     @RequestMapping(value = "/**", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PATCH})
@@ -49,6 +56,13 @@ class AdmissionController {
         String requestClass = route.requestClass().name();
         metrics.enter(route.requestClass());
         try {
+            // Runs after routing and classification, before any upstream call or menu read.
+            RateLimiter.Decision decision = limiter.check(clientId(request), route.requestClass());
+            if (!decision.allowed()) {
+                metrics.rateLimited(route.requestClass());
+                metrics.requestFinished(requestClass, "rate_limited");
+                return rateLimited(decision.retryAfterMillis());
+            }
             if (route.target() == RouteTable.Target.LOCAL_MENU) {
                 return browse(path, requestClass);
             }
@@ -56,6 +70,25 @@ class AdmissionController {
         } finally {
             metrics.exit(route.requestClass());
         }
+    }
+
+    /** The X-Client-Id header if present, otherwise the caller's address. X-Forwarded-For is not trusted. */
+    private static String clientId(HttpServletRequest request) {
+        String header = request.getHeader("X-Client-Id");
+        if (header != null && !header.isBlank()) {
+            return header.trim();
+        }
+        return "ip:" + request.getRemoteAddr();
+    }
+
+    /** 429 with Retry-After in whole seconds, rounded up, never less than 1. */
+    private ResponseEntity<byte[]> rateLimited(long retryAfterMillis) {
+        long seconds = Math.max(1, (retryAfterMillis + 999) / 1000);
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+                .header("Retry-After", String.valueOf(seconds))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(bytes(Map.of("error", "rate_limited",
+                        "message", "too many requests; retry after " + seconds + " s")));
     }
 
     private ResponseEntity<byte[]> forward(HttpServletRequest request, HttpMethod method, byte[] body,
@@ -101,15 +134,18 @@ class AdmissionController {
         return "success";
     }
 
-    private static ResponseEntity<byte[]> error(HttpStatus status, String code, String message) {
+    private ResponseEntity<byte[]> error(HttpStatus status, String code, String message) {
         return json(status, Map.of("error", code, "message", message));
     }
 
-    private static ResponseEntity<byte[]> json(HttpStatus status, Object body) {
+    private ResponseEntity<byte[]> json(HttpStatus status, Object body) {
+        return ResponseEntity.status(status).contentType(MediaType.APPLICATION_JSON).body(bytes(body));
+    }
+
+    private byte[] bytes(Object body) {
         try {
-            byte[] bytes = new com.fasterxml.jackson.databind.ObjectMapper().writeValueAsBytes(body);
-            return ResponseEntity.status(status).contentType(MediaType.APPLICATION_JSON).body(bytes);
-        } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+            return mapper.writeValueAsBytes(body);
+        } catch (JsonProcessingException e) {
             throw new IllegalStateException(e);
         }
     }

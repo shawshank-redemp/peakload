@@ -15,7 +15,7 @@ import org.springframework.test.context.DynamicPropertySource;
  * The upstream URL points at a port nothing listens on.
  */
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-class AdmissionDownIT extends AbstractAdmissionIT {
+class AdmissionDownIT extends AbstractRedisAdmissionIT {
 
     static final String DEAD_UPSTREAM = "http://127.0.0.1:" + freePort();
 

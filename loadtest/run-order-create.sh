@@ -64,6 +64,8 @@ run_one() {
 
   "$PY" loadtest/sample.py --out "$dir/samples.jsonl" --interval 5 &
   local sampler=$!
+  # Optional: a Prometheus snapshot of the target before and after the run (for histogram differences).
+  if [ -n "${SNAPSHOT_URL:-}" ]; then curl -s "$SNAPSHOT_URL" > "$dir/prom-before.txt"; fi
 
   local k6_start k6_end k6_rc drain
   k6_start=$(now)
@@ -73,6 +75,7 @@ run_one() {
     k6 run --summary-export /out/k6-summary.json /loadtest/order-create.js > "$dir/k6-stdout.log" 2>&1
   k6_rc=$?
   k6_end=$(now)
+  if [ -n "${SNAPSHOT_URL:-}" ]; then curl -s "$SNAPSHOT_URL" > "$dir/prom-after.txt"; fi
 
   # The sampler keeps running while the relay drains, so the backlog curve after the run is recorded.
   drain=$(wait_drain) || true

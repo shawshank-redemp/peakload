@@ -1,0 +1,2 @@
+{"label": "warmup-r20", "rate": 20, "duration": "30s", "k6_start": "2026-11-21T16:44:09.230+00:00", "k6_end": "2026-11-21T16:44:40.027+00:00",
+ "k6_exit": 0, "drain_seconds": 0}

@@ -346,3 +346,59 @@ k6 version v2.4.0, `loadtest/order-create.js`, thresholds unchanged. The order b
 - Single runs per rate for the admission and warm direct campaigns, apart from the knee-area runs in Week 1. The p99 values carry real noise; the order of these numbers should not be read as a ranking.
 - One machine and one local VM. k6, both services and the databases share 6 vCPUs, so every number reflects that shared load.
 - No limiting, shedding or retries. Those behaviours will change the picture under overload and are not part of this measurement.
+
+### Week 3: rate limiter
+
+Admission now limits requests per client and per class, using a token bucket in Redis. A request over its limit gets HTTP 429 and never reaches the order service. Limiter overhead and one noisy-neighbour scenario are measured below. Everything here is a single local VM with a simulated abusive client; nothing is a capacity claim.
+
+**Limits used for the tests (chosen for the test, not recommended):**
+- The defaults in `application.yml` are placeholders: CRITICAL 200 burst / 100 per second, STANDARD 200 / 100, LOW 100 / 50. They were picked so the code runs, not measured.
+- Overhead campaign, limiter on: CRITICAL 10,000,000 burst and refill, so nothing is rejected. The rejected-request counter stayed at 0 in every run.
+- Noisy neighbour, limiter on: CRITICAL 100 burst / 50 per second. A normal client at 20 req/s is never limited; the abusive client at 1200 req/s is.
+
+**How the limiter works.** One Lua script does refill, check and take in a single atomic Redis call. Time comes from `redis.call('TIME')`, not from the application. The key `rl:{clientId}:{class}` holds tokens and a timestamp, and expires after about twice the time to refill from empty. The client is the `X-Client-Id` header, or the remote address if that is missing. `X-Forwarded-For` is not trusted. A Redis error or a 50 ms timeout allows the request (fail open) and is counted in `admission_limiter_errors_total`.
+
+**Tests.** The script tests run against a Testcontainers Redis 7: the burst allows exactly the capacity; refill returns after the right interval; the retry-after value matches the next token; keys and classes are independent; the key has an expiry; and 200 threads against one bucket with capacity 50 let exactly 50 through. Integration tests cover the 429 with `Retry-After` and no upstream call, a second client that is unaffected, a rejected order that creates nothing, and a retry with the same key that succeeds, plus fail-open with Redis on a closed port.
+
+#### Overhead of the limiter (same procedure as Week 3 step 1; limiter off and on in the same session)
+
+Admission was restarted between the two campaigns, with the same warm-up (discarded) and tables reset before each 30 s run.
+
+| Rate req/s | Limiter | Achieved req/s | Dropped iter. | p50 ms | p95 ms | p99 ms | Errors | Admission CPU % mean / peak | Limiter round trip p50 / p95 / p99 ms |
+|---|---|---|---|---|---|---|---|---|---|
+| 200 | off | 200.0 | 0 | 1.13 | 2.69 | 6.18 | 0.00% | 19.7 / 40.6 | n/a |
+| 200 | on | 200.0 | 0 | 1.21 | 2.37 | 4.04 | 0.00% | 25.2 / 44.7 | 0.50 / 0.95 / 0.99 |
+| 800 | off | 800.0 | 0 | 0.72 | 1.55 | 4.85 | 0.00% | 26.5 / 43.1 | n/a |
+| 800 | on | 800.0 | 0 | 0.81 | 2.41 | 35.12 | 0.00% | 34.8 / 52.5 | 0.51 / 0.97 / 4.27 |
+| 1600 | off | 1599.7 | 8 | 0.70 | 2.69 | 30.02 | 0.00% | 34.7 / 56.6 | n/a |
+| 1600 | on | 1600.0 | 0 | 0.84 | 2.80 | 16.93 | 0.00% | 40.9 / 49.0 | 0.51 / 0.96 / 1.57 |
+
+The limiter's own round trip (`admission_limiter_seconds`) had a median of about 0.5 ms and a p95 of about 1.0 ms at every rate. Its sample count equalled the number of requests. Admission CPU was about 5–6 points higher on average with the limiter on. The median latency rose by about 0.1 ms at 200 and 800 req/s and by 0.14 ms at 1600 req/s.
+
+**What this shows and does not show.**
+- The median cost is small and consistent: about 0.5 ms for the Redis round trip, and about 0.1 ms more at the median for the whole request.
+- The p99 values move in both directions with no consistent pattern (for example at 800 req/s: 4.85 ms off, 35.12 ms on; at 1600 req/s: 30.02 ms off, 16.93 ms on, with 8 dropped iterations in the off run). One run per rate cannot show a p99 difference of this size. The overhead at the tail is not established.
+- k6, admission, the order service and Redis share six vCPUs on one VM, so every number includes that shared load.
+
+#### Noisy neighbour (one run each; limiter on, then off)
+
+Five normal clients (`normal-1` to `normal-5`) each send 20 req/s of `POST /orders` with their own `X-Client-Id`. One abusive client (`abuser`) sends 1200 req/s, with the same 30 s duration. Limits are the test values above. Results are split by group from k6's per-request points. "Accepted" means HTTP 201.
+
+| Group | Limiter | Clients | Achieved req/s | Accepted (201) | Share 429 | p99 accepted ms | Errors | Dropped iter. (k6, whole run) |
+|---|---|---|---|---|---|---|---|---|
+| normal | on | 5 at 20 req/s each | 100.1 | 3004 of 3004 | 0.0% | 120.35 | 0 | 73 |
+| abusive | on | 1 at 1200 req/s | 1197.6 | 1588 | 95.6% | 362.09 | 0 | 73 |
+| normal | off | 5 at 20 req/s each | 100.2 | 3005 of 3005 | 0.0% | 245.60 | 0 | 61 |
+| abusive | off | 1 at 1200 req/s | 1198.0 | 35940 | 0.0% | 210.35 | 0 | 61 |
+
+**Reading.**
+- With the limiter on, the abusive client was limited as the model predicts: a burst of 100 plus 50 per second for 30 s allows about 1,600 requests, and 1,588 were accepted.
+- The normal clients were never limited (0 of 3,004 requests got 429), and their accepted-request p99 was 120 ms with the limiter on and 246 ms with it off, in this single pair of runs.
+- The normal clients' p50 was higher with the limiter on (1.87 ms vs 1.12 ms), which is the limiter's round trip showing up on every request.
+- A first pair of noisy runs, before the per-group points output was added, gave the same picture in its totals (34,374 requests got 429 with the limiter on; none with it off). Its per-group split was not captured, so it is not in the table.
+
+**What this does not show.**
+- The normal-client p99 difference (120 ms vs 246 ms) comes from one run per condition. The overhead campaign showed p99 varying by tens of milliseconds between runs at the same rate, so this comparison is not established.
+- Part of the difference could come from load: with the limiter off, all 1200 abusive requests per second reach admission and the order service. With it on, most are answered with 429 before any upstream call. The limit is not the only thing that changed.
+- k6 generates the abusive load on the same six vCPUs, and k6 dropped iterations in both runs (73 and 61). A dropped iteration means k6 started fewer requests than scheduled; I did not isolate whether k6 or the stack caused it. The achieved abusive rate was 1198 req/s in both runs.
+- One client identity per group, one VM, no real network, and limits chosen for this test.

@@ -23,6 +23,13 @@ spring:
       minimum-idle: 10
       connection-timeout: 2000
 
+  data:
+    redis:
+      # The rate limiter's buckets. Commands time out after 50 ms; the limiter then fails open.
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 50ms
+
   flyway:
     enabled: true
     schemas: admission
@@ -31,6 +38,20 @@ spring:
 
 peakload:
   admission:
+    rate-limit:
+      # PLACEHOLDERS, NOT RECOMMENDATIONS. Chosen only so the code runs. Not measured.
+      # capacity = burst size in requests; refill-per-second = sustained rate per client, per class.
+      enabled: ${RATE_LIMIT_ENABLED:true}
+      classes:
+        CRITICAL:
+          capacity: ${RATE_LIMIT_CRITICAL_CAPACITY:200}
+          refill-per-second: ${RATE_LIMIT_CRITICAL_REFILL:100}
+        STANDARD:
+          capacity: ${RATE_LIMIT_STANDARD_CAPACITY:200}
+          refill-per-second: ${RATE_LIMIT_STANDARD_REFILL:100}
+        LOW:
+          capacity: ${RATE_LIMIT_LOW_CAPACITY:100}
+          refill-per-second: ${RATE_LIMIT_LOW_REFILL:50}
     upstream:
       # Where POST /orders and the other order routes are sent.
       order-url: ${ORDER_URL:http://localhost:8081}

@@ -87,8 +87,21 @@ services:
       DB_URL: jdbc:postgresql://postgres:5432/peakload
       # The order service, inside the compose network.
       ORDER_URL: http://order:8081
+      # Rate-limit buckets live in Redis.
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      # Rate-limit settings, from the shell that runs compose (defaults are the placeholders in application.yml).
+      RATE_LIMIT_ENABLED: ${RATE_LIMIT_ENABLED:-true}
+      RATE_LIMIT_CRITICAL_CAPACITY: ${RATE_LIMIT_CRITICAL_CAPACITY:-200}
+      RATE_LIMIT_CRITICAL_REFILL: ${RATE_LIMIT_CRITICAL_REFILL:-100}
+      RATE_LIMIT_STANDARD_CAPACITY: ${RATE_LIMIT_STANDARD_CAPACITY:-200}
+      RATE_LIMIT_STANDARD_REFILL: ${RATE_LIMIT_STANDARD_REFILL:-100}
+      RATE_LIMIT_LOW_CAPACITY: ${RATE_LIMIT_LOW_CAPACITY:-100}
+      RATE_LIMIT_LOW_REFILL: ${RATE_LIMIT_LOW_REFILL:-50}
     depends_on:
       postgres:
+        condition: service_healthy
+      redis:
         condition: service_healthy
       order:
         condition: service_healthy

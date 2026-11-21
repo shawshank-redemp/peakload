@@ -16,6 +16,7 @@ class AdmissionMetrics {
     private final MeterRegistry registry;
     private final Map<RequestClass, AtomicInteger> inFlight = new EnumMap<>(RequestClass.class);
     private final Map<RequestClass, Timer> upstream = new EnumMap<>(RequestClass.class);
+    private final Map<RequestClass, Counter> rateLimited = new EnumMap<>(RequestClass.class);
 
     AdmissionMetrics(MeterRegistry registry) {
         this.registry = registry;
@@ -26,6 +27,10 @@ class AdmissionMetrics {
                     .description("Requests currently being handled, by class")
                     .tag("class", requestClass.name())
                     .register(registry);
+            rateLimited.put(requestClass, Counter.builder("admission.rate.limited")
+                    .description("Requests rejected by the rate limiter, by class")
+                    .tag("class", requestClass.name())
+                    .register(registry));
             upstream.put(requestClass, Timer.builder("admission.upstream")
                     .description("Time spent waiting for the upstream, by class")
                     .tag("class", requestClass.name())
@@ -42,7 +47,10 @@ class AdmissionMetrics {
         inFlight.get(requestClass).decrementAndGet();
     }
 
-    /** Counts a finished request. Outcome is one of: success, client_error, server_error, upstream_error, not_found. */
+    /**
+     * Counts a finished request. Outcome is one of: success, client_error, server_error, upstream_error,
+     * not_found, rate_limited.
+     */
     void requestFinished(String requestClass, String outcome) {
         Counter.builder("admission.requests")
                 .description("Requests handled, by class and outcome")
@@ -54,6 +62,10 @@ class AdmissionMetrics {
 
     Timer upstreamTimer(RequestClass requestClass) {
         return upstream.get(requestClass);
+    }
+
+    void rateLimited(RequestClass requestClass) {
+        rateLimited.get(requestClass).increment();
     }
 
     void upstreamError(UpstreamException.Type type) {
