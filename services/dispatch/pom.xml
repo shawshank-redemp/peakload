@@ -52,6 +52,11 @@
       <groupId>org.flywaydb</groupId>
       <artifactId>flyway-database-postgresql</artifactId>
     </dependency>
+    <!-- Consumes order-events and publishes dispatch-events. Version managed by Spring Boot. -->
+    <dependency>
+      <groupId>org.springframework.kafka</groupId>
+      <artifactId>spring-kafka</artifactId>
+    </dependency>
     <!-- UUIDv7 ids for riders. Not managed by the Spring Boot parent. -->
     <dependency>
       <groupId>com.github.f4b6a3</groupId>
@@ -71,6 +76,11 @@
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>postgresql</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>redpanda</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

@@ -32,16 +32,51 @@ spring:
 
   data:
     redis:
-      # Redis is a hint store only (GEO positions and last-seen keys). It never holds assignment truth.
+      # Redis is a hint store only (GEO positions, last-seen keys, the rider city cache). It never holds
+      # assignment truth. A bounded timeout means a stuck Redis fails a request instead of hanging it.
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
+      timeout: 2s
+
+  kafka:
+    # Inside compose this is redpanda:9092 (set by docker-compose.yml). From the host it is localhost:19092.
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:19092}
+    producer:
+      # Same producer settings and timeout invariant as the order service (see its application.yml):
+      #   max.block.ms <= delivery.timeout.ms <= peakload.dispatch.relay.send-wait
+      acks: all
+      properties:
+        enable.idempotence: true
+        linger.ms: 0
+        request.timeout.ms: 5000
+        delivery.timeout.ms: 10000
+        max.block.ms: 10000
+    consumer:
+      # A new consumer group starts at the newest event, so dispatch does not replay every historical
+      # OrderCreated when it first starts. Committed offsets survive restarts.
+      auto-offset-reset: latest
 
 peakload:
   dispatch:
     location:
       # How long a location ping keeps a rider "fresh". The seen key expires after this time; the GEO
-      # entry does not expire by itself. Step 2 must filter candidates by the seen key.
+      # entry does not expire by itself. Candidates are filtered by the seen key.
       last-seen-ttl: ${LAST_SEEN_TTL:PT30S}
+    assignment:
+      # Search radius around the pickup point, and how many fresh candidates to try (nearest first).
+      radius-km: ${ASSIGNMENT_RADIUS_KM:3}
+      max-candidates: ${ASSIGNMENT_MAX_CANDIDATES:10}
+    pending:
+      # Pause between retry runs; how long an order may wait before it is given up; orders per run.
+      retry-interval: ${PENDING_RETRY_INTERVAL:PT5S}
+      max-age: ${PENDING_MAX_AGE:PT15M}
+      batch-size: 50
+    relay:
+      # Outbox rows per batch, and the longest wait for one broker ack. send-wait must exceed the producer's
+      # delivery.timeout.ms (10 s above).
+      interval: ${DISPATCH_RELAY_INTERVAL:PT1S}
+      batch-size: 100
+      send-wait: PT15S
 
 management:
   endpoints:

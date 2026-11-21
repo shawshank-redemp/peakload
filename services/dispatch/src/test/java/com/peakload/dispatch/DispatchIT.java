@@ -5,63 +5,23 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import io.micrometer.core.instrument.MeterRegistry;
 import java.time.Duration;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.data.geo.Point;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.utility.DockerImageName;
 
 /**
- * Integration test against real Postgres 16 and Redis 7, started on random host ports. The last-seen
- * TTL is set to two seconds so the expiry can be seen within a test.
+ * Rider registration, location pings, the GEO set, the last-seen TTL, and the city cache. Uses a two-second
+ * last-seen TTL so the expiry can be observed within a test.
  */
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = "peakload.dispatch.location.last-seen-ttl=PT2S")
-class DispatchIT {
-
-    static final PostgreSQLContainer<?> POSTGRES = new PostgreSQLContainer<>(DockerImageName.parse("postgres:16"));
-    static final GenericContainer<?> REDIS =
-            new GenericContainer<>(DockerImageName.parse("redis:7")).withExposedPorts(6379);
-
-    static {
-        POSTGRES.start();
-        REDIS.start();
-    }
-
-    @DynamicPropertySource
-    static void containerProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", POSTGRES::getJdbcUrl);
-        registry.add("spring.datasource.username", POSTGRES::getUsername);
-        registry.add("spring.datasource.password", POSTGRES::getPassword);
-        registry.add("spring.data.redis.host", REDIS::getHost);
-        registry.add("spring.data.redis.port", () -> REDIS.getMappedPort(6379));
-    }
-
-    @Autowired
-    private TestRestTemplate rest;
-
-    @Autowired
-    private StringRedisTemplate redis;
-
-    @Autowired
-    private MeterRegistry metrics;
-
-    private double lookups(String source) {
-        return metrics.counter("location.lookups", "source", source).count();
-    }
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
+class DispatchIT extends AbstractDispatchIT {
 
     @Test
     void registerPingThenRiderIsInGeoSetAndLastSeenKeyExpires() throws Exception {
@@ -69,12 +29,9 @@ class DispatchIT {
         double redisLookupsBefore = lookups("redis");
 
         String id = registerRider("Asha", "Pune");
+        ping(id, 18.52, 73.85);
 
-        ResponseEntity<Void> ping = rest.postForEntity("/riders/" + id + "/location",
-                Map.of("lat", 18.52, "lon", 73.85), Void.class);
-        assertEquals(204, ping.getStatusCode().value());
-
-        // Fails if the ping had to read Postgres: the city must come from the Redis cache written at registration.
+        // Fails if a ping had to read Postgres: the city must come from the Redis cache written at registration.
         assertEquals(postgresLookupsBefore, lookups("postgres"), "a ping must not query Postgres");
         assertEquals(redisLookupsBefore + 1, lookups("redis"), "the ping's city must be served from Redis");
 
@@ -108,10 +65,8 @@ class DispatchIT {
         redis.delete("rider:" + id);
         double postgresLookupsBefore = lookups("postgres");
 
-        ResponseEntity<Void> ping = rest.postForEntity("/riders/" + id + "/location",
-                Map.of("lat", 18.52, "lon", 73.85), Void.class);
+        ping(id, 18.52, 73.85);
 
-        assertEquals(204, ping.getStatusCode().value());
         // Fails if the fallback did not run, or ran more than once.
         assertEquals(postgresLookupsBefore + 1, lookups("postgres"));
         // Fails if the fallback did not write the city back to Redis.
@@ -141,9 +96,7 @@ class DispatchIT {
         assertEquals("invalid_latitude", response.getBody().get("error"));
     }
 
-    private String registerRider(String name, String city) {
-        ResponseEntity<Map> response = rest.postForEntity("/riders", Map.of("name", name, "city", city), Map.class);
-        assertEquals(201, response.getStatusCode().value());
-        return (String) response.getBody().get("id");
+    private double lookups(String source) {
+        return metrics.counter("location.lookups", "source", source).count();
     }
 }
