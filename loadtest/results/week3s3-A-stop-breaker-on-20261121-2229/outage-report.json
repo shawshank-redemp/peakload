@@ -1,0 +1,88 @@
+{
+  "rows": [
+    {
+      "phase": "Redis up",
+      "group": "normal",
+      "requests": 2985,
+      "accepted_201": 2985,
+      "limited_429": 0,
+      "share_429_pct": 0.0,
+      "errors": 0,
+      "p99_accepted_ms": 245.07,
+      "p50_accepted_ms": 2.13
+    },
+    {
+      "phase": "Redis up",
+      "group": "abusive",
+      "requests": 35712,
+      "accepted_201": 1578,
+      "limited_429": 34134,
+      "share_429_pct": 95.58,
+      "errors": 0,
+      "p99_accepted_ms": 503.6,
+      "p50_accepted_ms": 1.54
+    },
+    {
+      "phase": "Redis down",
+      "group": "normal",
+      "requests": 3035,
+      "accepted_201": 3035,
+      "limited_429": 0,
+      "share_429_pct": 0.0,
+      "errors": 0,
+      "p99_accepted_ms": 9.08,
+      "p50_accepted_ms": 1.81
+    },
+    {
+      "phase": "Redis down",
+      "group": "abusive",
+      "requests": 36423,
+      "accepted_201": 1616,
+      "limited_429": 34807,
+      "share_429_pct": 95.56,
+      "errors": 0,
+      "p99_accepted_ms": 20.92,
+      "p50_accepted_ms": 1.4
+    },
+    {
+      "phase": "After recovery",
+      "group": "normal",
+      "requests": 2983,
+      "accepted_201": 2983,
+      "limited_429": 0,
+      "share_429_pct": 0.0,
+      "errors": 0,
+      "p99_accepted_ms": 4.73,
+      "p50_accepted_ms": 1.82
+    },
+    {
+      "phase": "After recovery",
+      "group": "abusive",
+      "requests": 35809,
+      "accepted_201": 1592,
+      "limited_429": 34217,
+      "share_429_pct": 95.55,
+      "errors": 0,
+      "p99_accepted_ms": 4.59,
+      "p50_accepted_ms": 1.28
+    }
+  ],
+  "switches": {
+    "to_local_seconds_after_outage_start": 0.51,
+    "back_to_redis_seconds_after_recovery": 5.16,
+    "circuit_opens_this_run": 17.0,
+    "fallback_allowed_this_run": 5326.0,
+    "fallback_limited_this_run": 39982.0,
+    "limiter_errors_this_run": 36.0
+  },
+  "switch_log_lines": [
+    [
+      0.2,
+      "rate limiter: Redis failed (RedisSystemException), switched to local mode for 2000 ms"
+    ],
+    [
+      4.68,
+      "rate limiter: Redis is back, switched to Redis mode"
+    ]
+  ]
+}

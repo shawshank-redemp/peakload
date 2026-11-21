@@ -402,3 +402,77 @@ Five normal clients (`normal-1` to `normal-5`) each send 20 req/s of `POST /orde
 - Part of the difference could come from load: with the limiter off, all 1200 abusive requests per second reach admission and the order service. With it on, most are answered with 429 before any upstream call. The limit is not the only thing that changed.
 - k6 generates the abusive load on the same six vCPUs, and k6 dropped iterations in both runs (73 and 61). A dropped iteration means k6 started fewer requests than scheduled; I did not isolate whether k6 or the stack caused it. The achieved abusive rate was 1198 req/s in both runs.
 - One client identity per group, one VM, no real network, and limits chosen for this test.
+
+### Redis outage behaviour
+
+**Single run per condition, on one local VM, with a simulated abusive client.** The setup is the Step 2 noisy-neighbour scenario (five normal clients at 20 req/s each, one abusive client at 1200 req/s) for 90 s. Limits: CRITICAL 100 burst, 50/s. Redis goes down at +30 s and comes back at +60 s. Local limits equal the Redis limits (factors 1.0). Numbers are from one run each, so differences of tens of milliseconds are not established.
+
+**What the limiter does during an outage.** A Redis error or timeout decides that request from a local in-memory bucket with the same key and limit. It also opens a circuit: for 2 s, requests use the local buckets and Redis is not called. After that, one probe goes to Redis. If the probe succeeds, the limiter returns to Redis. If it fails, the circuit opens for another 2 s. Mode changes are logged once each way.
+
+**Run A: Redis stopped (`docker compose stop`), breaker on.** Stopping gives an immediate connection refusal.
+
+**Run B: Redis paused (`docker compose pause`), breaker on.** Paused Redis accepts no commands, so every call waits for the 50 ms command timeout until the circuit opens.
+
+**Run C: Redis paused, breaker off (`RATE_LIMIT_BREAKER_ENABLED=false`).** Every request calls Redis and waits for the timeout; a failure only affects that request.
+
+Each run is split by phase. The outage phase is measured from the times the driver recorded. Switch times come from the limiter's mode gauge (sampled every 0.5 s) and from the admission log, which agree within a second.
+
+#### Run A: Redis stopped, breaker on
+
+| Phase | Group | Requests | Accepted (201) | 429 | Share 429 % | Errors | p50 accepted ms | p99 accepted ms |
+|---|---|---|---|---|---|---|---|---|
+| Redis up | normal | 2985 | 2985 | 0 | 0.00 | 0 | 2.13 | 245.07 |
+| Redis up | abusive | 35712 | 1578 | 34134 | 95.58 | 0 | 1.54 | 503.60 |
+| Redis down | normal | 3035 | 3035 | 0 | 0.00 | 0 | 1.81 | 9.08 |
+| Redis down | abusive | 36423 | 1616 | 34807 | 95.56 | 0 | 1.40 | 20.92 |
+| After recovery | normal | 2983 | 2983 | 0 | 0.00 | 0 | 1.82 | 4.73 |
+| After recovery | abusive | 35809 | 1592 | 34217 | 95.55 | 0 | 1.28 | 4.59 |
+
+k6 dropped iterations (whole run): 57. Mode switch to local: 0.51 s after the outage (sampler); back to Redis: 5.16 s after recovery (sampler). Circuit opens this run: 17; limiter errors this run: 36; fallback decisions this run: allowed 5326, limited 39982.
+
+#### Run B: Redis paused, breaker on
+
+| Phase | Group | Requests | Accepted (201) | 429 | Share 429 % | Errors | p50 accepted ms | p99 accepted ms |
+|---|---|---|---|---|---|---|---|---|
+| Redis up | normal | 2985 | 2985 | 0 | 0.00 | 0 | 1.77 | 16.95 |
+| Redis up | abusive | 35794 | 1785 | 34009 | 95.01 | 0 | 1.22 | 30.05 |
+| Redis down | normal | 3015 | 3015 | 0 | 0.00 | 0 | 1.91 | 8.99 |
+| Redis down | abusive | 36161 | 1604 | 34557 | 95.56 | 0 | 1.34 | 52.33 |
+| After recovery | normal | 3003 | 3003 | 0 | 0.00 | 0 | 1.73 | 4.55 |
+| After recovery | abusive | 36047 | 1557 | 34490 | 95.68 | 0 | 1.16 | 3.59 |
+
+k6 dropped iterations (whole run): 0. Mode switch to local: 0.23 s after the outage (sampler); back to Redis: 0.93 s after recovery (sampler). Circuit opens this run: 16; limiter errors this run: 91; fallback decisions this run: allowed 5131, limited 37665.
+
+#### Run C: Redis paused, breaker off
+
+| Phase | Group | Requests | Accepted (201) | 429 | Share 429 % | Errors | p50 accepted ms | p99 accepted ms |
+|---|---|---|---|---|---|---|---|---|
+| Redis up | normal | 2980 | 2980 | 0 | 0.00 | 0 | 1.78 | 217.52 |
+| Redis up | abusive | 35652 | 1579 | 34073 | 95.57 | 0 | 1.30 | 475.09 |
+| Redis down | normal | 3010 | 3010 | 0 | 0.00 | 0 | 52.27 | 54.70 |
+| Redis down | abusive | 36093 | 1604 | 34489 | 95.56 | 0 | 52.01 | 55.95 |
+| After recovery | normal | 3014 | 3009 | 5 | 0.17 | 0 | 1.63 | 6.08 |
+| After recovery | abusive | 36151 | 1504 | 34647 | 95.84 | 0 | 1.16 | 5.43 |
+
+k6 dropped iterations (whole run): 105. Mode switch to local: n/a s after the outage (sampler); back to Redis: 0.51 s after recovery (sampler). Circuit opens this run: 0; limiter errors this run: 39279; fallback decisions this run: allowed 4633, limited 34646.
+
+
+**Summary of the switches.**
+- **Run A (stop):** the limiter switched to local 0.51 s after Redis stopped (log: 0.20 s) and back to Redis 5.16 s after it returned (log: 4.68 s). The return took longer than the 2 s cool-down because Lettuce needed to reconnect after the container started, and each probe until then failed.
+- **Run B (pause):** switched to local 0.23 s after the pause (log: 0.12 s) and back 0.93 s after the unpause (log: 0.72 s).
+- **Run C (pause, breaker off):** no circuit, so no switch. Every request in the outage waited for the timeout.
+
+**What the numbers show.**
+- **Limits hold during the outage.** The abusive client was still limited to about 95.6% 429s in every outage phase, and it was accepted about 1,600 times per 30 s phase, the same as with Redis up. This is one instance, so the local limit equals the Redis one.
+- **Normal clients are not refused during the outage.** The normal clients had no 429s in the outage phase in any run. Their accepted p99 in that phase was 9 ms (run A), 9 ms (run B) and 55 ms (run C, breaker off). Their 429s after recovery in run C are discussed below.
+- **The breaker removes the latency cost.** With Redis paused and the breaker off, the median accepted request in the outage was 52 ms and the p99 was 55 ms. With the breaker on, the same outage gave a median of 1.9 ms and a p99 of 9 ms (run B). The timeout is paid once per cool-down, not on every request.
+- **Errors are counted, not hidden.** The limiter recorded 36 errors in run A, 91 in run B and 39,279 in run C. Those are Redis calls that failed, each answered locally. No request got a 5xx.
+
+**Things I did not explain or did not isolate.**
+- **Warm-up in the first phase.** The "Redis up" phase p99 was high in runs A and C (217–503 ms), while the later phases of the same runs were 4–9 ms. The admission JVM was freshly started for these runs, so I attribute the high p99 to warm-up. Run B reused run A's JVM and its "Redis up" p99 was 17–30 ms, which supports that reading. It is not proven by these runs.
+- **Transient timeouts in run B.** Two calls to Redis timed out about 22 s into run B, before the pause. Each switched to local and back within about 2 s. Those are counted in its "Redis up" phase.
+- **Five normal 429s in run C after recovery.** Five of 3,014 normal requests were limited in the first 30 s after Redis returned, and none in the other runs. Normal traffic is 20 req/s against a 50/s refill and 100 burst, so these should not happen. I did not investigate this one.
+- **k6 dropped iterations.** 57 (run A), 0 (run B) and 105 (run C). The drop counts are for the whole run, and I did not isolate whether k6 or the stack caused them.
+- **Shared JVM.** Runs A and B reused one admission process, because Compose did not recreate the container when its settings were unchanged. Run C started a new process. The counters in the tables are per-run deltas.
+
+**Limits of this setup.** One instance, so the "up to N times the configured limit" effect is not measured. The local buckets are per process, so a second instance would have its own. The cap on local buckets (50,000 keys by default) and eviction were not exercised by this load.

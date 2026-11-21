@@ -1,0 +1,5 @@
+[22:30:49] admission up; breaker=true outage=pause
+[22:31:19] Redis pause at 1795280479.398
+[22:31:49] Redis back at 1795280509.532
+[22:32:20] k6 exit=0
+[22:32:25] done

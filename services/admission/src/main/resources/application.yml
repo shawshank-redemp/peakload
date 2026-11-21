@@ -52,6 +52,19 @@ peakload:
         LOW:
           capacity: ${RATE_LIMIT_LOW_CAPACITY:100}
           refill-per-second: ${RATE_LIMIT_LOW_REFILL:50}
+      circuit-breaker:
+        # When Redis fails, requests use the local buckets; Redis is not called until the cool-down ends,
+        # then one probe is sent. Disable to call Redis for every request (measurement only).
+        enabled: ${RATE_LIMIT_BREAKER_ENABLED:true}
+        cool-down: ${RATE_LIMIT_BREAKER_COOLDOWN:PT2S}
+      local:
+        # Local limits relate to the Redis ones by these factors. 1.0 = same capacity and rate as Redis.
+        # With N admission instances, the effective limit during an outage can be up to N times the configured one.
+        capacity-factor: ${RATE_LIMIT_LOCAL_CAPACITY_FACTOR:1.0}
+        refill-factor: ${RATE_LIMIT_LOCAL_REFILL_FACTOR:1.0}
+        # Bounded memory: most buckets kept at once; the least recently used one is evicted beyond this.
+        max-keys: ${RATE_LIMIT_LOCAL_MAX_KEYS:50000}
+        idle-expiry: PT5M
     upstream:
       # Where POST /orders and the other order routes are sent.
       order-url: ${ORDER_URL:http://localhost:8081}

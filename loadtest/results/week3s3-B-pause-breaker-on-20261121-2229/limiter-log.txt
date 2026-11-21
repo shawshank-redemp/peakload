@@ -1,0 +1,6 @@
+admission-1  | 2026-11-21T16:59:41.666177594Z 2026-11-21T16:59:41.664Z  WARN 1 --- [admission] [t-handler-39044] com.peakload.admission.LimiterCircuit    : rate limiter: Redis failed (RedisSystemException), switched to local mode for 2000 ms
+admission-1  | 2026-11-21T17:00:16.503678555Z 2026-11-21T17:00:16.503Z  INFO 1 --- [admission] [t-handler-84480] com.peakload.admission.LimiterCircuit    : rate limiter: Redis is back, switched to Redis mode
+admission-1  | 2026-11-21T17:01:11.227346177Z 2026-11-21T17:01:11.221Z  WARN 1 --- [admission] [-handler-145724] com.peakload.admission.LimiterCircuit    : rate limiter: Redis failed (QueryTimeoutException), switched to local mode for 2000 ms
+admission-1  | 2026-11-21T17:01:13.223841136Z 2026-11-21T17:01:13.223Z  INFO 1 --- [admission] [-handler-148596] com.peakload.admission.LimiterCircuit    : rate limiter: Redis is back, switched to Redis mode
+admission-1  | 2026-11-21T17:01:19.518188458Z 2026-11-21T17:01:19.517Z  WARN 1 --- [admission] [-handler-156734] com.peakload.admission.LimiterCircuit    : rate limiter: Redis failed (QueryTimeoutException), switched to local mode for 2000 ms
+admission-1  | 2026-11-21T17:01:50.250981542Z 2026-11-21T17:01:50.250Z  INFO 1 --- [admission] [-handler-196871] com.peakload.admission.LimiterCircuit    : rate limiter: Redis is back, switched to Redis mode

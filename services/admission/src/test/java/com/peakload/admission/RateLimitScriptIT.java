@@ -113,7 +113,7 @@ class RateLimitScriptIT {
                 RequestClass.CRITICAL, new RateLimitProperties.Bucket(2, 0.001),
                 RequestClass.STANDARD, new RateLimitProperties.Bucket(2, 0.001),
                 RequestClass.LOW, new RateLimitProperties.Bucket(2, 0.001)));
-        RateLimiter limiter = new RateLimiter(redis, properties, new io.micrometer.core.instrument.simple.SimpleMeterRegistry());
+        RateLimiter limiter = limiterFor(redis, properties, new io.micrometer.core.instrument.simple.SimpleMeterRegistry());
 
         limiter.check(client, RequestClass.CRITICAL);
         limiter.check(client, RequestClass.CRITICAL);
@@ -175,7 +175,7 @@ class RateLimitScriptIT {
                 RequestClass.CRITICAL, new RateLimitProperties.Bucket(1, 1),
                 RequestClass.STANDARD, new RateLimitProperties.Bucket(1, 1),
                 RequestClass.LOW, new RateLimitProperties.Bucket(1, 1)));
-        RateLimiter limiter = new RateLimiter(deadRedis, properties, registry);
+        RateLimiter limiter = limiterFor(deadRedis, properties, registry);
         try {
             assertTrue(limiter.check("c", RequestClass.CRITICAL).allowed(), "fail open: the request must be allowed");
             // Fails if the error is not counted.
@@ -183,6 +183,14 @@ class RateLimitScriptIT {
         } finally {
             dead.destroy();
         }
+    }
+
+    /** The limiter wired the way Spring wires it, around the given Redis template. */
+    static RateLimiter limiterFor(StringRedisTemplate template, RateLimitProperties properties,
+                                  io.micrometer.core.instrument.MeterRegistry registry) {
+        LimiterCircuit circuit = new LimiterCircuit(properties, registry);
+        return new RateLimiter(new StringRedisBuckets(template), new LocalTokenBuckets(properties, registry),
+                circuit, properties, registry);
     }
 
     private static int closedPort() {

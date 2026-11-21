@@ -1,0 +1,2 @@
+admission-1  | 2026-11-21T16:59:41.666177594Z 2026-11-21T16:59:41.664Z  WARN 1 --- [admission] [t-handler-39044] com.peakload.admission.LimiterCircuit    : rate limiter: Redis failed (RedisSystemException), switched to local mode for 2000 ms
+admission-1  | 2026-11-21T17:00:16.503678555Z 2026-11-21T17:00:16.503Z  INFO 1 --- [admission] [t-handler-84480] com.peakload.admission.LimiterCircuit    : rate limiter: Redis is back, switched to Redis mode

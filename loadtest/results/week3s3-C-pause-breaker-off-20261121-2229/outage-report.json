@@ -1,0 +1,79 @@
+{
+  "rows": [
+    {
+      "phase": "Redis up",
+      "group": "normal",
+      "requests": 2980,
+      "accepted_201": 2980,
+      "limited_429": 0,
+      "share_429_pct": 0.0,
+      "errors": 0,
+      "p99_accepted_ms": 217.52,
+      "p50_accepted_ms": 1.78
+    },
+    {
+      "phase": "Redis up",
+      "group": "abusive",
+      "requests": 35652,
+      "accepted_201": 1579,
+      "limited_429": 34073,
+      "share_429_pct": 95.57,
+      "errors": 0,
+      "p99_accepted_ms": 475.09,
+      "p50_accepted_ms": 1.3
+    },
+    {
+      "phase": "Redis down",
+      "group": "normal",
+      "requests": 3010,
+      "accepted_201": 3010,
+      "limited_429": 0,
+      "share_429_pct": 0.0,
+      "errors": 0,
+      "p99_accepted_ms": 54.7,
+      "p50_accepted_ms": 52.27
+    },
+    {
+      "phase": "Redis down",
+      "group": "abusive",
+      "requests": 36093,
+      "accepted_201": 1604,
+      "limited_429": 34489,
+      "share_429_pct": 95.56,
+      "errors": 0,
+      "p99_accepted_ms": 55.95,
+      "p50_accepted_ms": 52.01
+    },
+    {
+      "phase": "After recovery",
+      "group": "normal",
+      "requests": 3014,
+      "accepted_201": 3009,
+      "limited_429": 5,
+      "share_429_pct": 0.17,
+      "errors": 0,
+      "p99_accepted_ms": 6.08,
+      "p50_accepted_ms": 1.63
+    },
+    {
+      "phase": "After recovery",
+      "group": "abusive",
+      "requests": 36151,
+      "accepted_201": 1504,
+      "limited_429": 34647,
+      "share_429_pct": 95.84,
+      "errors": 0,
+      "p99_accepted_ms": 5.43,
+      "p50_accepted_ms": 1.16
+    }
+  ],
+  "switches": {
+    "to_local_seconds_after_outage_start": null,
+    "back_to_redis_seconds_after_recovery": 0.51,
+    "circuit_opens_this_run": 0.0,
+    "fallback_allowed_this_run": 4633.0,
+    "fallback_limited_this_run": 34646.0,
+    "limiter_errors_this_run": 39279.0
+  },
+  "switch_log_lines": []
+}
