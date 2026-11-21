@@ -1,0 +1,1525 @@
+# HELP application_ready_time_seconds Time taken for the application to be ready to service requests
+# TYPE application_ready_time_seconds gauge
+application_ready_time_seconds{application="order",main_application_class="com.peakload.order.OrderApplication"} 1.144
+# HELP application_started_time_seconds Time taken to start the application
+# TYPE application_started_time_seconds gauge
+application_started_time_seconds{application="order",main_application_class="com.peakload.order.OrderApplication"} 1.14
+# HELP disk_free_bytes Usable space for path
+# TYPE disk_free_bytes gauge
+disk_free_bytes{application="order",path="/."} 3.94472620032E11
+# HELP disk_total_bytes Total space for path
+# TYPE disk_total_bytes gauge
+disk_total_bytes{application="order",path="/."} 4.85421555712E11
+# HELP events_consumed_total Messages received from order-events
+# TYPE events_consumed_total counter
+events_consumed_total{application="order"} 1247670.0
+# HELP events_duplicates_ignored_total Messages whose event id was already processed
+# TYPE events_duplicates_ignored_total counter
+events_duplicates_ignored_total{application="order"} 0.0
+# HELP executor_active_threads The approximate number of threads that are actively executing tasks
+# TYPE executor_active_threads gauge
+executor_active_threads{application="order",name="applicationTaskExecutor"} 0.0
+executor_active_threads{application="order",name="taskScheduler"} 0.0
+# HELP executor_completed_tasks_total The approximate total number of tasks that have completed execution
+# TYPE executor_completed_tasks_total counter
+executor_completed_tasks_total{application="order",name="applicationTaskExecutor"} 0.0
+executor_completed_tasks_total{application="order",name="taskScheduler"} 4326.0
+# HELP executor_pool_core_threads The core number of threads for the pool
+# TYPE executor_pool_core_threads gauge
+executor_pool_core_threads{application="order",name="applicationTaskExecutor"} 8.0
+executor_pool_core_threads{application="order",name="taskScheduler"} 1.0
+# HELP executor_pool_max_threads The maximum allowed number of threads in the pool
+# TYPE executor_pool_max_threads gauge
+executor_pool_max_threads{application="order",name="applicationTaskExecutor"} 2.147483647E9
+executor_pool_max_threads{application="order",name="taskScheduler"} 2.147483647E9
+# HELP executor_pool_size_threads The current number of threads in the pool
+# TYPE executor_pool_size_threads gauge
+executor_pool_size_threads{application="order",name="applicationTaskExecutor"} 0.0
+executor_pool_size_threads{application="order",name="taskScheduler"} 1.0
+# HELP executor_queue_remaining_tasks The number of additional elements that this queue can ideally accept without blocking
+# TYPE executor_queue_remaining_tasks gauge
+executor_queue_remaining_tasks{application="order",name="applicationTaskExecutor"} 2.147483647E9
+executor_queue_remaining_tasks{application="order",name="taskScheduler"} 2.147483647E9
+# HELP executor_queued_tasks The approximate number of tasks that are queued for execution
+# TYPE executor_queued_tasks gauge
+executor_queued_tasks{application="order",name="applicationTaskExecutor"} 0.0
+executor_queued_tasks{application="order",name="taskScheduler"} 2.0
+# HELP hikaricp_connections Total connections
+# TYPE hikaricp_connections gauge
+hikaricp_connections{application="order",pool="HikariPool-1"} 10.0
+# HELP hikaricp_connections_acquire_seconds Connection acquire time
+# TYPE hikaricp_connections_acquire_seconds summary
+hikaricp_connections_acquire_seconds_count{application="order",pool="HikariPool-1"} 2587195
+hikaricp_connections_acquire_seconds_sum{application="order",pool="HikariPool-1"} 1750.019484861
+# HELP hikaricp_connections_acquire_seconds_max Connection acquire time
+# TYPE hikaricp_connections_acquire_seconds_max gauge
+hikaricp_connections_acquire_seconds_max{application="order",pool="HikariPool-1"} 0.484396334
+# HELP hikaricp_connections_active Active connections
+# TYPE hikaricp_connections_active gauge
+hikaricp_connections_active{application="order",pool="HikariPool-1"} 0.0
+# HELP hikaricp_connections_creation_seconds Connection creation time
+# TYPE hikaricp_connections_creation_seconds summary
+hikaricp_connections_creation_seconds_count{application="order",pool="HikariPool-1"} 24
+hikaricp_connections_creation_seconds_sum{application="order",pool="HikariPool-1"} 0.405
+# HELP hikaricp_connections_creation_seconds_max Connection creation time
+# TYPE hikaricp_connections_creation_seconds_max gauge
+hikaricp_connections_creation_seconds_max{application="order",pool="HikariPool-1"} 0.0
+# HELP hikaricp_connections_idle Idle connections
+# TYPE hikaricp_connections_idle gauge
+hikaricp_connections_idle{application="order",pool="HikariPool-1"} 10.0
+# HELP hikaricp_connections_max Max connections
+# TYPE hikaricp_connections_max gauge
+hikaricp_connections_max{application="order",pool="HikariPool-1"} 10.0
+# HELP hikaricp_connections_min Min connections
+# TYPE hikaricp_connections_min gauge
+hikaricp_connections_min{application="order",pool="HikariPool-1"} 10.0
+# HELP hikaricp_connections_pending Pending threads
+# TYPE hikaricp_connections_pending gauge
+hikaricp_connections_pending{application="order",pool="HikariPool-1"} 0.0
+# HELP hikaricp_connections_timeout_total Connection timeout total count
+# TYPE hikaricp_connections_timeout_total counter
+hikaricp_connections_timeout_total{application="order",pool="HikariPool-1"} 0.0
+# HELP hikaricp_connections_usage_seconds Connection usage time
+# TYPE hikaricp_connections_usage_seconds summary
+hikaricp_connections_usage_seconds_count{application="order",pool="HikariPool-1"} 2587194
+hikaricp_connections_usage_seconds_sum{application="order",pool="HikariPool-1"} 1261.83
+# HELP hikaricp_connections_usage_seconds_max Connection usage time
+# TYPE hikaricp_connections_usage_seconds_max gauge
+hikaricp_connections_usage_seconds_max{application="order",pool="HikariPool-1"} 0.268
+# HELP http_server_requests_active_seconds  
+# TYPE http_server_requests_active_seconds histogram
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="120.0"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="137.438953471"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="160.345445716"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="183.251937961"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="206.158430206"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="229.064922451"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="251.971414696"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="274.877906944"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="366.503875925"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="458.129844906"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="549.755813887"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="641.381782868"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="733.007751849"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="824.63372083"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="916.259689811"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1007.885658792"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1099.511627776"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1466.015503701"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1832.519379626"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2199.023255551"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2565.527131476"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2932.031007401"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="3298.534883326"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="3665.038759251"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="4031.542635176"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="4398.046511104"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="5864.062014805"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="7200.0"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="+Inf"} 1
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="120.0"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="137.438953471"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="160.345445716"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="183.251937961"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="206.158430206"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="229.064922451"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="251.971414696"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="274.877906944"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="366.503875925"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="458.129844906"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="549.755813887"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="641.381782868"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="733.007751849"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="824.63372083"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="916.259689811"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1007.885658792"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1099.511627776"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1466.015503701"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1832.519379626"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2199.023255551"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2565.527131476"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2932.031007401"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="3298.534883326"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="3665.038759251"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="4031.542635176"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="4398.046511104"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="5864.062014805"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="7200.0"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="+Inf"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="120.0"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="137.438953471"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="160.345445716"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="183.251937961"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="206.158430206"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="229.064922451"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="251.971414696"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="274.877906944"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="366.503875925"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="458.129844906"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="549.755813887"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="641.381782868"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="733.007751849"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="824.63372083"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="916.259689811"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1007.885658792"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1099.511627776"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1466.015503701"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1832.519379626"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2199.023255551"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2565.527131476"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2932.031007401"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="3298.534883326"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="3665.038759251"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="4031.542635176"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="4398.046511104"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="5864.062014805"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="7200.0"} 0
+http_server_requests_active_seconds_bucket{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="+Inf"} 0
+# HELP http_server_requests_active_seconds_gcount  
+# TYPE http_server_requests_active_seconds_gcount gauge
+http_server_requests_active_seconds_gcount{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN"} 1
+http_server_requests_active_seconds_gcount{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN"} 0
+http_server_requests_active_seconds_gcount{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN"} 0
+# HELP http_server_requests_active_seconds_gsum  
+# TYPE http_server_requests_active_seconds_gsum gauge
+http_server_requests_active_seconds_gsum{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN"} 0.004104875
+http_server_requests_active_seconds_gsum{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN"} 0.0
+http_server_requests_active_seconds_gsum{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN"} 0.0
+# HELP http_server_requests_active_seconds_max  
+# TYPE http_server_requests_active_seconds_max gauge
+http_server_requests_active_seconds_max{application="order",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN"} 0.00410575
+http_server_requests_active_seconds_max{application="order",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN"} 0.0
+http_server_requests_active_seconds_max{application="order",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN"} 0.0
+# HELP http_server_requests_seconds  
+# TYPE http_server_requests_seconds histogram
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.001"} 359
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.001048576"} 371
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.001398101"} 503
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.001747626"} 614
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.002097151"} 683
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.002446676"} 723
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.002796201"} 752
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.003145726"} 775
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.003495251"} 791
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.003844776"} 811
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.004194304"} 821
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.005592405"} 857
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.006990506"} 877
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.008388607"} 889
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.009786708"} 894
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.011184809"} 897
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.01258291"} 898
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.013981011"} 902
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.015379112"} 904
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.016777216"} 906
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.022369621"} 909
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.027962026"} 911
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.033554431"} 911
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.039146836"} 913
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.044739241"} 913
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.050331646"} 913
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.055924051"} 914
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.061516456"} 915
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.067108864"} 915
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.089478485"} 917
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.111848106"} 917
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.134217727"} 918
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.156587348"} 918
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.178956969"} 919
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.20132659"} 919
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.223696211"} 919
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.246065832"} 919
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.268435456"} 919
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.357913941"} 919
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.447392426"} 919
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.536870911"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.626349396"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.715827881"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.805306366"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.894784851"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="0.984263336"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="1.073741824"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="1.431655765"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="1.789569706"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="2.147483647"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="2.505397588"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="2.863311529"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="3.22122547"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="3.579139411"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="3.937053352"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="4.294967296"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="5.726623061"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="7.158278826"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="8.589934591"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="10.021590356"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="11.453246121"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="12.884901886"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="14.316557651"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="15.748213416"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="17.179869184"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="22.906492245"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="28.633115306"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="30.0"} 920
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health",le="+Inf"} 920
+http_server_requests_seconds_count{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health"} 920
+http_server_requests_seconds_sum{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health"} 2.905085274
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.001"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.001048576"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.001398101"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.001747626"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.002097151"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.002446676"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.002796201"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.003145726"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.003495251"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.003844776"} 4
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.004194304"} 7
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.005592405"} 65
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.006990506"} 125
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.008388607"} 175
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.009786708"} 204
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.011184809"} 237
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.01258291"} 260
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.013981011"} 277
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.015379112"} 296
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.016777216"} 310
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.022369621"} 341
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.027962026"} 354
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.033554431"} 361
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.039146836"} 365
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.044739241"} 370
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.050331646"} 375
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.055924051"} 379
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.061516456"} 381
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.067108864"} 385
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.089478485"} 397
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.111848106"} 399
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.134217727"} 401
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.156587348"} 402
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.178956969"} 403
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.20132659"} 403
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.223696211"} 403
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.246065832"} 404
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.268435456"} 404
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.357913941"} 405
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.447392426"} 405
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.536870911"} 405
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.626349396"} 405
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.715827881"} 405
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.805306366"} 405
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.894784851"} 405
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.984263336"} 405
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="1.073741824"} 405
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="1.431655765"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="1.789569706"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="2.147483647"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="2.505397588"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="2.863311529"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="3.22122547"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="3.579139411"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="3.937053352"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="4.294967296"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="5.726623061"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="7.158278826"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="8.589934591"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="10.021590356"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="11.453246121"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="12.884901886"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="14.316557651"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="15.748213416"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="17.179869184"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="22.906492245"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="28.633115306"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="30.0"} 406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="+Inf"} 406
+http_server_requests_seconds_count{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus"} 406
+http_server_requests_seconds_sum{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus"} 8.526765708
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.001"} 64924
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.001048576"} 65266
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.001398101"} 66860
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.001747626"} 67807
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.002097151"} 68434
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.002446676"} 68902
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.002796201"} 69262
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.003145726"} 69511
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.003495251"} 69745
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.003844776"} 69908
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.004194304"} 70042
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.005592405"} 70505
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.006990506"} 70780
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.008388607"} 70994
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.009786708"} 71164
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.011184809"} 71283
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.01258291"} 71399
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.013981011"} 71477
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.015379112"} 71553
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.016777216"} 71623
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.022369621"} 71846
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.027962026"} 72039
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.033554431"} 72203
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.039146836"} 72316
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.044739241"} 72406
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.050331646"} 72507
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.055924051"} 72602
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.061516456"} 72655
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.067108864"} 72716
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.089478485"} 72865
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.111848106"} 72978
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.134217727"} 73044
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.156587348"} 73081
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.178956969"} 73102
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.20132659"} 73147
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.223696211"} 73164
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.246065832"} 73168
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.268435456"} 73180
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.357913941"} 73196
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.447392426"} 73206
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.536870911"} 73209
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.626349396"} 73211
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.715827881"} 73212
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.805306366"} 73215
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.894784851"} 73216
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="0.984263336"} 73217
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="1.073741824"} 73218
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="1.431655765"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="1.789569706"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="2.147483647"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="2.505397588"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="2.863311529"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="3.22122547"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="3.579139411"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="3.937053352"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="4.294967296"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="5.726623061"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="7.158278826"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="8.589934591"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="10.021590356"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="11.453246121"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="12.884901886"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="14.316557651"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="15.748213416"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="17.179869184"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="22.906492245"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="28.633115306"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="30.0"} 73219
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}",le="+Inf"} 73219
+http_server_requests_seconds_count{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}"} 73219
+http_server_requests_seconds_sum{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}"} 156.386195339
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.001"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.001048576"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.001398101"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.001747626"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.002097151"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.002446676"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.002796201"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.003145726"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.003495251"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.003844776"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.004194304"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.005592405"} 0
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.006990506"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.008388607"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.009786708"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.011184809"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.01258291"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.013981011"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.015379112"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.016777216"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.022369621"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.027962026"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.033554431"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.039146836"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.044739241"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.050331646"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.055924051"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.061516456"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.067108864"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.089478485"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.111848106"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.134217727"} 1
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.156587348"} 2
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.178956969"} 2
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.20132659"} 2
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.223696211"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.246065832"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.268435456"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.357913941"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.447392426"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.536870911"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.626349396"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.715827881"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.805306366"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.894784851"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="0.984263336"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="1.073741824"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="1.431655765"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="1.789569706"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="2.147483647"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="2.505397588"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="2.863311529"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="3.22122547"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="3.579139411"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="3.937053352"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="4.294967296"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="5.726623061"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="7.158278826"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="8.589934591"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="10.021590356"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="11.453246121"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="12.884901886"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="14.316557651"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="15.748213416"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="17.179869184"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="22.906492245"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="28.633115306"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="30.0"} 3
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status",le="+Inf"} 3
+http_server_requests_seconds_count{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status"} 3
+http_server_requests_seconds_sum{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status"} 0.375322459
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.001"} 735
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.001048576"} 802
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.001398101"} 1154
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.001747626"} 1364
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.002097151"} 1498
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.002446676"} 1574
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.002796201"} 1632
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.003145726"} 1670
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.003495251"} 1703
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.003844776"} 1729
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.004194304"} 1746
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.005592405"} 1797
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.006990506"} 1832
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.008388607"} 1851
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.009786708"} 1866
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.011184809"} 1877
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.01258291"} 1888
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.013981011"} 1893
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.015379112"} 1901
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.016777216"} 1904
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.022369621"} 1923
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.027962026"} 1931
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.033554431"} 1937
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.039146836"} 1938
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.044739241"} 1944
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.050331646"} 1945
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.055924051"} 1951
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.061516456"} 1952
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.067108864"} 1957
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.089478485"} 1968
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.111848106"} 1973
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.134217727"} 1975
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.156587348"} 1976
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.178956969"} 1976
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.20132659"} 1979
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.223696211"} 1979
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.246065832"} 1979
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.268435456"} 1979
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.357913941"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.447392426"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.536870911"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.626349396"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.715827881"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.805306366"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.894784851"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="0.984263336"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="1.073741824"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="1.431655765"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="1.789569706"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="2.147483647"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="2.505397588"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="2.863311529"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="3.22122547"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="3.579139411"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="3.937053352"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="4.294967296"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="5.726623061"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="7.158278826"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="8.589934591"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="10.021590356"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="11.453246121"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="12.884901886"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="14.316557651"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="15.748213416"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="17.179869184"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="22.906492245"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="28.633115306"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="30.0"} 1980
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status",le="+Inf"} 1980
+http_server_requests_seconds_count{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status"} 1980
+http_server_requests_seconds_sum{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status"} 7.932787334
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.001"} 894955
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.001048576"} 917202
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.001398101"} 1026791
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.001747626"} 1080606
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.002097151"} 1109265
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.002446676"} 1127264
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.002796201"} 1140413
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.003145726"} 1150441
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.003495251"} 1158229
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.003844776"} 1164589
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.004194304"} 1170076
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.005592405"} 1185812
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.006990506"} 1195248
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.008388607"} 1202033
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.009786708"} 1206907
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.011184809"} 1210613
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.01258291"} 1213431
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.013981011"} 1215730
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.015379112"} 1217657
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.016777216"} 1219260
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.022369621"} 1224139
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.027962026"} 1227477
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.033554431"} 1229882
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.039146836"} 1231841
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.044739241"} 1233328
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.050331646"} 1234690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.055924051"} 1236062
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.061516456"} 1237113
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.067108864"} 1237974
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.089478485"} 1240328
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.111848106"} 1242016
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.134217727"} 1243103
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.156587348"} 1243745
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.178956969"} 1243993
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.20132659"} 1244448
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.223696211"} 1244745
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.246065832"} 1244881
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.268435456"} 1245046
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.357913941"} 1245335
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.447392426"} 1245474
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.536870911"} 1245512
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.626349396"} 1245548
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.715827881"} 1245610
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.805306366"} 1245623
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.894784851"} 1245638
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="0.984263336"} 1245646
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="1.073741824"} 1245660
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="1.431655765"} 1245689
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="1.789569706"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="2.147483647"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="2.505397588"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="2.863311529"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="3.22122547"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="3.579139411"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="3.937053352"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="4.294967296"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="5.726623061"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="7.158278826"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="8.589934591"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="10.021590356"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="11.453246121"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="12.884901886"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="14.316557651"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="15.748213416"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="17.179869184"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="22.906492245"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="28.633115306"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="30.0"} 1245690
+http_server_requests_seconds_bucket{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders",le="+Inf"} 1245690
+http_server_requests_seconds_count{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders"} 1245690
+http_server_requests_seconds_sum{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders"} 3163.460051852
+# HELP http_server_requests_seconds_max  
+# TYPE http_server_requests_seconds_max gauge
+http_server_requests_seconds_max{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/health"} 0.017579625
+http_server_requests_seconds_max{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus"} 0.280998667
+http_server_requests_seconds_max{application="order",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/orders/{id}"} 0.365905292
+http_server_requests_seconds_max{application="order",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/orders/{id}/status"} 0.219490667
+http_server_requests_seconds_max{application="order",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/orders/{id}/status"} 0.296460875
+http_server_requests_seconds_max{application="order",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/orders"} 0.130275542
+# HELP idempotent_replays_total Requests answered from a stored idempotency response
+# TYPE idempotent_replays_total counter
+idempotent_replays_total{application="order"} 0.0
+# HELP jdbc_connections_active Current number of active connections that have been allocated from the data source.
+# TYPE jdbc_connections_active gauge
+jdbc_connections_active{application="order",name="dataSource"} 0.0
+# HELP jdbc_connections_idle Number of established but idle connections.
+# TYPE jdbc_connections_idle gauge
+jdbc_connections_idle{application="order",name="dataSource"} 10.0
+# HELP jdbc_connections_max Maximum number of active connections that can be allocated at the same time.
+# TYPE jdbc_connections_max gauge
+jdbc_connections_max{application="order",name="dataSource"} 10.0
+# HELP jdbc_connections_min Minimum number of idle connections in the pool.
+# TYPE jdbc_connections_min gauge
+jdbc_connections_min{application="order",name="dataSource"} 10.0
+# HELP jvm_info JVM version info
+# TYPE jvm_info gauge
+jvm_info{application="order",runtime="OpenJDK Runtime Environment",vendor="Eclipse Adoptium",version="21.0.13+9-LTS"} 1
+# HELP jvm_buffer_count_buffers An estimate of the number of buffers in the pool
+# TYPE jvm_buffer_count_buffers gauge
+jvm_buffer_count_buffers{application="order",id="direct"} 206.0
+jvm_buffer_count_buffers{application="order",id="mapped"} 0.0
+jvm_buffer_count_buffers{application="order",id="mapped - 'non-volatile memory'"} 0.0
+# HELP jvm_buffer_memory_used_bytes An estimate of the memory that the Java virtual machine is using for this buffer pool
+# TYPE jvm_buffer_memory_used_bytes gauge
+jvm_buffer_memory_used_bytes{application="order",id="direct"} 2761004.0
+jvm_buffer_memory_used_bytes{application="order",id="mapped"} 0.0
+jvm_buffer_memory_used_bytes{application="order",id="mapped - 'non-volatile memory'"} 0.0
+# HELP jvm_buffer_total_capacity_bytes An estimate of the total capacity of the buffers in this pool
+# TYPE jvm_buffer_total_capacity_bytes gauge
+jvm_buffer_total_capacity_bytes{application="order",id="direct"} 2761004.0
+jvm_buffer_total_capacity_bytes{application="order",id="mapped"} 0.0
+jvm_buffer_total_capacity_bytes{application="order",id="mapped - 'non-volatile memory'"} 0.0
+# HELP jvm_classes_loaded_classes The number of classes that are currently loaded in the Java virtual machine
+# TYPE jvm_classes_loaded_classes gauge
+jvm_classes_loaded_classes{application="order"} 12436.0
+# HELP jvm_classes_unloaded_classes_total The total number of classes unloaded since the Java virtual machine has started execution
+# TYPE jvm_classes_unloaded_classes_total counter
+jvm_classes_unloaded_classes_total{application="order"} 254.0
+# HELP jvm_compilation_time_ms_total The approximate accumulated elapsed time spent in compilation
+# TYPE jvm_compilation_time_ms_total counter
+jvm_compilation_time_ms_total{application="order",compiler="HotSpot 64-Bit Tiered Compilers"} 35551.0
+# HELP jvm_gc_concurrent_phase_time_seconds Time spent in concurrent phase
+# TYPE jvm_gc_concurrent_phase_time_seconds summary
+jvm_gc_concurrent_phase_time_seconds_count{action="end of concurrent GC pause",application="order",cause="No GC",gc="G1 Concurrent GC"} 382
+jvm_gc_concurrent_phase_time_seconds_sum{action="end of concurrent GC pause",application="order",cause="No GC",gc="G1 Concurrent GC"} 0.832
+# HELP jvm_gc_concurrent_phase_time_seconds_max Time spent in concurrent phase
+# TYPE jvm_gc_concurrent_phase_time_seconds_max gauge
+jvm_gc_concurrent_phase_time_seconds_max{action="end of concurrent GC pause",application="order",cause="No GC",gc="G1 Concurrent GC"} 0.0
+# HELP jvm_gc_live_data_size_bytes Size of long-lived heap memory pool after reclamation
+# TYPE jvm_gc_live_data_size_bytes gauge
+jvm_gc_live_data_size_bytes{application="order"} 5.84404E7
+# HELP jvm_gc_max_data_size_bytes Max size of long-lived heap memory pool
+# TYPE jvm_gc_max_data_size_bytes gauge
+jvm_gc_max_data_size_bytes{application="order"} 2.082471936E9
+# HELP jvm_gc_memory_allocated_bytes_total Incremented for an increase in the size of the (young) heap memory pool after one GC to before the next
+# TYPE jvm_gc_memory_allocated_bytes_total counter
+jvm_gc_memory_allocated_bytes_total{application="order"} 8.4669365728E10
+# HELP jvm_gc_memory_promoted_bytes_total Count of positive increases in the size of the old generation memory pool before GC to after GC
+# TYPE jvm_gc_memory_promoted_bytes_total counter
+jvm_gc_memory_promoted_bytes_total{application="order"} 7.6909416E7
+# HELP jvm_gc_overhead An approximation of the percent of CPU time used by GC activities over the last lookback period or since monitoring began, whichever is shorter, in the range [0..1]
+# TYPE jvm_gc_overhead gauge
+jvm_gc_overhead{application="order"} 0.002853333333333333
+# HELP jvm_gc_pause_seconds Time spent in GC pause
+# TYPE jvm_gc_pause_seconds summary
+jvm_gc_pause_seconds_count{action="end of minor GC",application="order",cause="G1 Evacuation Pause",gc="G1 Young Generation"} 1001
+jvm_gc_pause_seconds_sum{action="end of minor GC",application="order",cause="G1 Evacuation Pause",gc="G1 Young Generation"} 4.05
+jvm_gc_pause_seconds_count{action="end of minor GC",application="order",cause="G1 Humongous Allocation",gc="G1 Young Generation"} 1
+jvm_gc_pause_seconds_sum{action="end of minor GC",application="order",cause="G1 Humongous Allocation",gc="G1 Young Generation"} 0.031
+jvm_gc_pause_seconds_count{action="end of minor GC",application="order",cause="Metadata GC Threshold",gc="G1 Young Generation"} 1
+jvm_gc_pause_seconds_sum{action="end of minor GC",application="order",cause="Metadata GC Threshold",gc="G1 Young Generation"} 0.008
+# HELP jvm_gc_pause_seconds_max Time spent in GC pause
+# TYPE jvm_gc_pause_seconds_max gauge
+jvm_gc_pause_seconds_max{action="end of minor GC",application="order",cause="G1 Evacuation Pause",gc="G1 Young Generation"} 0.067
+jvm_gc_pause_seconds_max{action="end of minor GC",application="order",cause="G1 Humongous Allocation",gc="G1 Young Generation"} 0.031
+jvm_gc_pause_seconds_max{action="end of minor GC",application="order",cause="Metadata GC Threshold",gc="G1 Young Generation"} 0.0
+# HELP jvm_memory_committed_bytes The amount of memory in bytes that is committed for the Java virtual machine to use
+# TYPE jvm_memory_committed_bytes gauge
+jvm_memory_committed_bytes{application="order",area="heap",id="G1 Eden Space"} 1.44703488E8
+jvm_memory_committed_bytes{application="order",area="heap",id="G1 Old Gen"} 8.4934656E7
+jvm_memory_committed_bytes{application="order",area="heap",id="G1 Survivor Space"} 1048576.0
+jvm_memory_committed_bytes{application="order",area="nonheap",id="CodeHeap 'non-nmethods'"} 2555904.0
+jvm_memory_committed_bytes{application="order",area="nonheap",id="CodeHeap 'non-profiled nmethods'"} 1.4221312E7
+jvm_memory_committed_bytes{application="order",area="nonheap",id="CodeHeap 'profiled nmethods'"} 2.4444928E7
+jvm_memory_committed_bytes{application="order",area="nonheap",id="Compressed Class Space"} 8060928.0
+jvm_memory_committed_bytes{application="order",area="nonheap",id="Metaspace"} 6.6781184E7
+# HELP jvm_memory_max_bytes The maximum amount of memory in bytes that can be used for memory management
+# TYPE jvm_memory_max_bytes gauge
+jvm_memory_max_bytes{application="order",area="heap",id="G1 Eden Space"} -1.0
+jvm_memory_max_bytes{application="order",area="heap",id="G1 Old Gen"} 2.082471936E9
+jvm_memory_max_bytes{application="order",area="heap",id="G1 Survivor Space"} -1.0
+jvm_memory_max_bytes{application="order",area="nonheap",id="CodeHeap 'non-nmethods'"} 5836800.0
+jvm_memory_max_bytes{application="order",area="nonheap",id="CodeHeap 'non-profiled nmethods'"} 1.22912768E8
+jvm_memory_max_bytes{application="order",area="nonheap",id="CodeHeap 'profiled nmethods'"} 1.22908672E8
+jvm_memory_max_bytes{application="order",area="nonheap",id="Compressed Class Space"} 1.073741824E9
+jvm_memory_max_bytes{application="order",area="nonheap",id="Metaspace"} -1.0
+# HELP jvm_memory_usage_after_gc The percentage of long-lived heap pool used after the last GC event, in the range [0..1]
+# TYPE jvm_memory_usage_after_gc gauge
+jvm_memory_usage_after_gc{application="order",area="heap",pool="long-lived"} 0.029453316003774467
+# HELP jvm_memory_used_bytes The amount of used memory
+# TYPE jvm_memory_used_bytes gauge
+jvm_memory_used_bytes{application="order",area="heap",id="G1 Eden Space"} 7.340032E7
+jvm_memory_used_bytes{application="order",area="heap",id="G1 Old Gen"} 6.1335704E7
+jvm_memory_used_bytes{application="order",area="heap",id="G1 Survivor Space"} 391896.0
+jvm_memory_used_bytes{application="order",area="nonheap",id="CodeHeap 'non-nmethods'"} 1648896.0
+jvm_memory_used_bytes{application="order",area="nonheap",id="CodeHeap 'non-profiled nmethods'"} 1.4209024E7
+jvm_memory_used_bytes{application="order",area="nonheap",id="CodeHeap 'profiled nmethods'"} 8696704.0
+jvm_memory_used_bytes{application="order",area="nonheap",id="Compressed Class Space"} 7565176.0
+jvm_memory_used_bytes{application="order",area="nonheap",id="Metaspace"} 6.5780064E7
+# HELP jvm_threads_daemon_threads The current number of live daemon threads
+# TYPE jvm_threads_daemon_threads gauge
+jvm_threads_daemon_threads{application="order"} 214.0
+# HELP jvm_threads_live_threads The current number of live threads including both daemon and non-daemon threads
+# TYPE jvm_threads_live_threads gauge
+jvm_threads_live_threads{application="order"} 221.0
+# HELP jvm_threads_peak_threads The peak live thread count since the Java virtual machine started or peak was reset
+# TYPE jvm_threads_peak_threads gauge
+jvm_threads_peak_threads{application="order"} 223.0
+# HELP jvm_threads_started_threads_total The total number of application threads started in the JVM
+# TYPE jvm_threads_started_threads_total counter
+jvm_threads_started_threads_total{application="order"} 891.0
+# HELP jvm_threads_states_threads The current number of threads
+# TYPE jvm_threads_states_threads gauge
+jvm_threads_states_threads{application="order",state="blocked"} 0.0
+jvm_threads_states_threads{application="order",state="new"} 0.0
+jvm_threads_states_threads{application="order",state="runnable"} 9.0
+jvm_threads_states_threads{application="order",state="terminated"} 0.0
+jvm_threads_states_threads{application="order",state="timed-waiting"} 209.0
+jvm_threads_states_threads{application="order",state="waiting"} 3.0
+# HELP kafka_app_info_start_time_ms Metric indicating start-time-ms
+# TYPE kafka_app_info_start_time_ms gauge
+kafka_app_info_start_time_ms{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 1.795280340133E12
+kafka_app_info_start_time_ms{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 1.795280352265E12
+# HELP kafka_consumer_commit_sync_time_ns_total The total time the consumer has spent in commitSync in nanoseconds
+# TYPE kafka_consumer_commit_sync_time_ns_total counter
+kafka_consumer_commit_sync_time_ns_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 1.2463609506E10
+# HELP kafka_consumer_committed_time_ns_total The total time the consumer has spent in committed in nanoseconds
+# TYPE kafka_consumer_committed_time_ns_total counter
+kafka_consumer_committed_time_ns_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_connection_close_total The total number of connections closed
+# TYPE kafka_consumer_connection_close_total counter
+kafka_consumer_connection_close_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 1.0
+# HELP kafka_consumer_connection_close_rate The number of connections closed per second
+# TYPE kafka_consumer_connection_close_rate gauge
+kafka_consumer_connection_close_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_connection_count The current number of active connections.
+# TYPE kafka_consumer_connection_count gauge
+kafka_consumer_connection_count{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 2.0
+# HELP kafka_consumer_connection_creation_total The total number of new connections established
+# TYPE kafka_consumer_connection_creation_total counter
+kafka_consumer_connection_creation_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 3.0
+# HELP kafka_consumer_connection_creation_rate The number of new connections established per second
+# TYPE kafka_consumer_connection_creation_rate gauge
+kafka_consumer_connection_creation_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_coordinator_assigned_partitions The number of partitions currently assigned to this consumer
+# TYPE kafka_consumer_coordinator_assigned_partitions gauge
+kafka_consumer_coordinator_assigned_partitions{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 3.0
+# HELP kafka_consumer_coordinator_commit_total The total number of commit calls
+# TYPE kafka_consumer_coordinator_commit_total counter
+kafka_consumer_coordinator_commit_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 31099.0
+# HELP kafka_consumer_coordinator_commit_latency_avg The average time taken for a commit request
+# TYPE kafka_consumer_coordinator_commit_latency_avg gauge
+kafka_consumer_coordinator_commit_latency_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.38872832369942195
+# HELP kafka_consumer_coordinator_commit_latency_max The max time taken for a commit request
+# TYPE kafka_consumer_coordinator_commit_latency_max gauge
+kafka_consumer_coordinator_commit_latency_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 10.0
+# HELP kafka_consumer_coordinator_commit_rate The number of commit calls per second
+# TYPE kafka_consumer_coordinator_commit_rate gauge
+kafka_consumer_coordinator_commit_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 14.595153228017633
+# HELP kafka_consumer_coordinator_failed_rebalance_total The total number of failed rebalance events
+# TYPE kafka_consumer_coordinator_failed_rebalance_total counter
+kafka_consumer_coordinator_failed_rebalance_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 1.0
+# HELP kafka_consumer_coordinator_failed_rebalance_rate_per_hour The number of failed rebalance events per hour
+# TYPE kafka_consumer_coordinator_failed_rebalance_rate_per_hour gauge
+kafka_consumer_coordinator_failed_rebalance_rate_per_hour{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_coordinator_heartbeat_total The total number of heartbeats
+# TYPE kafka_consumer_coordinator_heartbeat_total counter
+kafka_consumer_coordinator_heartbeat_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 1545.0
+# HELP kafka_consumer_coordinator_heartbeat_rate The number of heartbeats per second
+# TYPE kafka_consumer_coordinator_heartbeat_rate gauge
+kafka_consumer_coordinator_heartbeat_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.3561741417573084
+# HELP kafka_consumer_coordinator_heartbeat_response_time_max The max time taken to receive a response to a heartbeat request
+# TYPE kafka_consumer_coordinator_heartbeat_response_time_max gauge
+kafka_consumer_coordinator_heartbeat_response_time_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 1.0
+# HELP kafka_consumer_coordinator_join_total The total number of group joins
+# TYPE kafka_consumer_coordinator_join_total counter
+kafka_consumer_coordinator_join_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 1.0
+# HELP kafka_consumer_coordinator_join_rate The number of group joins per second
+# TYPE kafka_consumer_coordinator_join_rate gauge
+kafka_consumer_coordinator_join_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_coordinator_join_time_avg The average time taken for a group rejoin
+# TYPE kafka_consumer_coordinator_join_time_avg gauge
+kafka_consumer_coordinator_join_time_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+# HELP kafka_consumer_coordinator_join_time_max The max time taken for a group rejoin
+# TYPE kafka_consumer_coordinator_join_time_max gauge
+kafka_consumer_coordinator_join_time_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+# HELP kafka_consumer_coordinator_last_heartbeat_seconds_ago The number of seconds since the last coordinator heartbeat was sent
+# TYPE kafka_consumer_coordinator_last_heartbeat_seconds_ago gauge
+kafka_consumer_coordinator_last_heartbeat_seconds_ago{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_coordinator_last_rebalance_seconds_ago The number of seconds since the last successful rebalance event
+# TYPE kafka_consumer_coordinator_last_rebalance_seconds_ago gauge
+kafka_consumer_coordinator_last_rebalance_seconds_ago{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 4641.0
+# HELP kafka_consumer_coordinator_partition_assigned_latency_avg The average time taken for a partition-assigned rebalance listener callback
+# TYPE kafka_consumer_coordinator_partition_assigned_latency_avg gauge
+kafka_consumer_coordinator_partition_assigned_latency_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+# HELP kafka_consumer_coordinator_partition_assigned_latency_max The max time taken for a partition-assigned rebalance listener callback
+# TYPE kafka_consumer_coordinator_partition_assigned_latency_max gauge
+kafka_consumer_coordinator_partition_assigned_latency_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+# HELP kafka_consumer_coordinator_partition_lost_latency_avg The average time taken for a partition-lost rebalance listener callback
+# TYPE kafka_consumer_coordinator_partition_lost_latency_avg gauge
+kafka_consumer_coordinator_partition_lost_latency_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+# HELP kafka_consumer_coordinator_partition_lost_latency_max The max time taken for a partition-lost rebalance listener callback
+# TYPE kafka_consumer_coordinator_partition_lost_latency_max gauge
+kafka_consumer_coordinator_partition_lost_latency_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+# HELP kafka_consumer_coordinator_partition_revoked_latency_avg The average time taken for a partition-revoked rebalance listener callback
+# TYPE kafka_consumer_coordinator_partition_revoked_latency_avg gauge
+kafka_consumer_coordinator_partition_revoked_latency_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+# HELP kafka_consumer_coordinator_partition_revoked_latency_max The max time taken for a partition-revoked rebalance listener callback
+# TYPE kafka_consumer_coordinator_partition_revoked_latency_max gauge
+kafka_consumer_coordinator_partition_revoked_latency_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+# HELP kafka_consumer_coordinator_rebalance_total The total number of successful rebalance events, each event is composed of several failed re-trials until it succeeded
+# TYPE kafka_consumer_coordinator_rebalance_total counter
+kafka_consumer_coordinator_rebalance_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 1.0
+# HELP kafka_consumer_coordinator_rebalance_latency_total The total number of milliseconds this consumer has spent in successful rebalances since creation
+# TYPE kafka_consumer_coordinator_rebalance_latency_total counter
+kafka_consumer_coordinator_rebalance_latency_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 8.0
+# HELP kafka_consumer_coordinator_rebalance_latency_avg The average time taken for a group to complete a successful rebalance, which may be composed of several failed re-trials until it succeeded
+# TYPE kafka_consumer_coordinator_rebalance_latency_avg gauge
+kafka_consumer_coordinator_rebalance_latency_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+# HELP kafka_consumer_coordinator_rebalance_latency_max The max time taken for a group to complete a successful rebalance, which may be composed of several failed re-trials until it succeeded
+# TYPE kafka_consumer_coordinator_rebalance_latency_max gauge
+kafka_consumer_coordinator_rebalance_latency_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+# HELP kafka_consumer_coordinator_rebalance_rate_per_hour The number of successful rebalance events per hour, each event is composed of several failed re-trials until it succeeded
+# TYPE kafka_consumer_coordinator_rebalance_rate_per_hour gauge
+kafka_consumer_coordinator_rebalance_rate_per_hour{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_coordinator_sync_total The total number of group syncs
+# TYPE kafka_consumer_coordinator_sync_total counter
+kafka_consumer_coordinator_sync_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 1.0
+# HELP kafka_consumer_coordinator_sync_rate The number of group syncs per second
+# TYPE kafka_consumer_coordinator_sync_rate gauge
+kafka_consumer_coordinator_sync_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_coordinator_sync_time_avg The average time taken for a group sync
+# TYPE kafka_consumer_coordinator_sync_time_avg gauge
+kafka_consumer_coordinator_sync_time_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+# HELP kafka_consumer_coordinator_sync_time_max The max time taken for a group sync
+# TYPE kafka_consumer_coordinator_sync_time_max gauge
+kafka_consumer_coordinator_sync_time_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+# HELP kafka_consumer_failed_authentication_total The total number of connections with failed authentication
+# TYPE kafka_consumer_failed_authentication_total counter
+kafka_consumer_failed_authentication_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_failed_authentication_rate The number of connections with failed authentication per second
+# TYPE kafka_consumer_failed_authentication_rate gauge
+kafka_consumer_failed_authentication_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_failed_reauthentication_total The total number of failed re-authentication of connections
+# TYPE kafka_consumer_failed_reauthentication_total counter
+kafka_consumer_failed_reauthentication_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_failed_reauthentication_rate The number of failed re-authentication of connections per second
+# TYPE kafka_consumer_failed_reauthentication_rate gauge
+kafka_consumer_failed_reauthentication_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_fetch_manager_bytes_consumed_total The total number of bytes consumed for a topic
+# TYPE kafka_consumer_fetch_manager_bytes_consumed_total counter
+kafka_consumer_fetch_manager_bytes_consumed_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 4.13142805E8
+# HELP kafka_consumer_fetch_manager_bytes_consumed_rate The average number of bytes consumed per second for a topic
+# TYPE kafka_consumer_fetch_manager_bytes_consumed_rate gauge
+kafka_consumer_fetch_manager_bytes_consumed_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 61464.263871607225
+# HELP kafka_consumer_fetch_manager_fetch_total The total number of fetch requests.
+# TYPE kafka_consumer_fetch_manager_fetch_total counter
+kafka_consumer_fetch_manager_fetch_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 37809.0
+# HELP kafka_consumer_fetch_manager_fetch_latency_avg The average time taken for a fetch request.
+# TYPE kafka_consumer_fetch_manager_fetch_latency_avg gauge
+kafka_consumer_fetch_manager_fetch_latency_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 62.43050847457627
+# HELP kafka_consumer_fetch_manager_fetch_latency_max The max time taken for any fetch request.
+# TYPE kafka_consumer_fetch_manager_fetch_latency_max gauge
+kafka_consumer_fetch_manager_fetch_latency_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 503.0
+# HELP kafka_consumer_fetch_manager_fetch_rate The number of fetch requests per second.
+# TYPE kafka_consumer_fetch_manager_fetch_rate gauge
+kafka_consumer_fetch_manager_fetch_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 15.80639399892838
+# HELP kafka_consumer_fetch_manager_fetch_size_avg The average number of bytes fetched per request for a topic
+# TYPE kafka_consumer_fetch_manager_fetch_size_avg gauge
+kafka_consumer_fetch_manager_fetch_size_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 4211.634393063584
+# HELP kafka_consumer_fetch_manager_fetch_size_max The maximum number of bytes fetched per request for a topic
+# TYPE kafka_consumer_fetch_manager_fetch_size_max gauge
+kafka_consumer_fetch_manager_fetch_size_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 46709.0
+# HELP kafka_consumer_fetch_manager_fetch_throttle_time_avg The average throttle time in ms
+# TYPE kafka_consumer_fetch_manager_fetch_throttle_time_avg gauge
+kafka_consumer_fetch_manager_fetch_throttle_time_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_fetch_manager_fetch_throttle_time_max The maximum throttle time in ms
+# TYPE kafka_consumer_fetch_manager_fetch_throttle_time_max gauge
+kafka_consumer_fetch_manager_fetch_throttle_time_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_fetch_manager_preferred_read_replica The current read replica for the partition, or -1 if reading from leader
+# TYPE kafka_consumer_fetch_manager_preferred_read_replica gauge
+kafka_consumer_fetch_manager_preferred_read_replica{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} -1.0
+kafka_consumer_fetch_manager_preferred_read_replica{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} -1.0
+kafka_consumer_fetch_manager_preferred_read_replica{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="2",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} -1.0
+# HELP kafka_consumer_fetch_manager_records_consumed_total The total number of records consumed for a topic
+# TYPE kafka_consumer_fetch_manager_records_consumed_total counter
+kafka_consumer_fetch_manager_records_consumed_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 1247670.0
+# HELP kafka_consumer_fetch_manager_records_consumed_rate The average number of records consumed per second for a topic
+# TYPE kafka_consumer_fetch_manager_records_consumed_rate gauge
+kafka_consumer_fetch_manager_records_consumed_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 185.69289495328678
+# HELP kafka_consumer_fetch_manager_records_lag The latest lag of the partition
+# TYPE kafka_consumer_fetch_manager_records_lag gauge
+kafka_consumer_fetch_manager_records_lag{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 0.0
+kafka_consumer_fetch_manager_records_lag{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 0.0
+kafka_consumer_fetch_manager_records_lag{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="2",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 0.0
+# HELP kafka_consumer_fetch_manager_records_lag_avg The average lag of the partition
+# TYPE kafka_consumer_fetch_manager_records_lag_avg gauge
+kafka_consumer_fetch_manager_records_lag_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 0.0
+kafka_consumer_fetch_manager_records_lag_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 0.0
+kafka_consumer_fetch_manager_records_lag_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="2",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 0.0
+# HELP kafka_consumer_fetch_manager_records_lag_max The max lag of the partition
+# TYPE kafka_consumer_fetch_manager_records_lag_max gauge
+kafka_consumer_fetch_manager_records_lag_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 0.0
+kafka_consumer_fetch_manager_records_lag_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 0.0
+kafka_consumer_fetch_manager_records_lag_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="2",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 0.0
+# HELP kafka_consumer_fetch_manager_records_lead The latest lead of the partition
+# TYPE kafka_consumer_fetch_manager_records_lead gauge
+kafka_consumer_fetch_manager_records_lead{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 1224842.0
+kafka_consumer_fetch_manager_records_lead{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 1223904.0
+kafka_consumer_fetch_manager_records_lead{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="2",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 1221484.0
+# HELP kafka_consumer_fetch_manager_records_lead_avg The average lead of the partition
+# TYPE kafka_consumer_fetch_manager_records_lead_avg gauge
+kafka_consumer_fetch_manager_records_lead_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 1223399.760948905
+kafka_consumer_fetch_manager_records_lead_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 1222489.3485113836
+kafka_consumer_fetch_manager_records_lead_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="2",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 1220108.5755919854
+# HELP kafka_consumer_fetch_manager_records_lead_min The min lead of the partition
+# TYPE kafka_consumer_fetch_manager_records_lead_min gauge
+kafka_consumer_fetch_manager_records_lead_min{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 1221996.0
+kafka_consumer_fetch_manager_records_lead_min{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 1221024.0
+kafka_consumer_fetch_manager_records_lead_min{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",partition="2",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 1218682.0
+# HELP kafka_consumer_fetch_manager_records_per_request_avg The average number of records in each request for a topic
+# TYPE kafka_consumer_fetch_manager_records_per_request_avg gauge
+kafka_consumer_fetch_manager_records_per_request_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1",topic="order-events"} 12.723988439306359
+# HELP kafka_consumer_incoming_byte_total The total number of bytes read off all sockets
+# TYPE kafka_consumer_incoming_byte_total counter
+kafka_consumer_incoming_byte_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 4.95530803E8
+# HELP kafka_consumer_incoming_byte_rate The number of bytes read off all sockets per second
+# TYPE kafka_consumer_incoming_byte_rate gauge
+kafka_consumer_incoming_byte_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 74967.16483516483
+# HELP kafka_consumer_io_ratio *Deprecated* The fraction of time the I/O thread spent doing I/O
+# TYPE kafka_consumer_io_ratio gauge
+kafka_consumer_io_ratio{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0010246252294379861
+# HELP kafka_consumer_io_time_ns_total The total time the I/O thread spent doing I/O
+# TYPE kafka_consumer_io_time_ns_total counter
+kafka_consumer_io_time_ns_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 3.250206629E9
+# HELP kafka_consumer_io_time_ns_avg The average length of time for I/O per select call in nanoseconds.
+# TYPE kafka_consumer_io_time_ns_avg gauge
+kafka_consumer_io_time_ns_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 15938.459891230455
+# HELP kafka_consumer_io_wait_ratio *Deprecated* The fraction of time the I/O thread spent waiting
+# TYPE kafka_consumer_io_wait_ratio gauge
+kafka_consumer_io_wait_ratio{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.9059210775718906
+# HELP kafka_consumer_io_wait_time_ns_total The total time the I/O thread spent waiting
+# TYPE kafka_consumer_io_wait_time_ns_total counter
+kafka_consumer_io_wait_time_ns_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 4.064363497602E12
+# HELP kafka_consumer_io_wait_time_ns_avg The average length of time the I/O thread spent waiting for a socket ready for reads or writes in nanoseconds.
+# TYPE kafka_consumer_io_wait_time_ns_avg gauge
+kafka_consumer_io_wait_time_ns_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 1.4091968794697484E7
+# HELP kafka_consumer_io_waittime_total *Deprecated* The total time the I/O thread spent waiting
+# TYPE kafka_consumer_io_waittime_total counter
+kafka_consumer_io_waittime_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 4.064363497602E12
+# HELP kafka_consumer_iotime_total *Deprecated* The total time the I/O thread spent doing I/O
+# TYPE kafka_consumer_iotime_total counter
+kafka_consumer_iotime_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 3.250206629E9
+# HELP kafka_consumer_last_poll_seconds_ago The number of seconds since the last poll() invocation.
+# TYPE kafka_consumer_last_poll_seconds_ago gauge
+kafka_consumer_last_poll_seconds_ago{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 3.0
+# HELP kafka_consumer_network_io_total The total number of network operations (reads or writes) on all connections
+# TYPE kafka_consumer_network_io_total counter
+kafka_consumer_network_io_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 141218.0
+# HELP kafka_consumer_network_io_rate The number of network operations (reads or writes) on all connections per second
+# TYPE kafka_consumer_network_io_rate gauge
+kafka_consumer_network_io_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 60.43823212676645
+# HELP kafka_consumer_node_incoming_byte_total The total number of incoming bytes
+# TYPE kafka_consumer_node_incoming_byte_total counter
+kafka_consumer_node_incoming_byte_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 566.0
+kafka_consumer_node_incoming_byte_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 4.94010335E8
+kafka_consumer_node_incoming_byte_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-2147483647",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 1519902.0
+# HELP kafka_consumer_node_incoming_byte_rate The number of incoming bytes per second
+# TYPE kafka_consumer_node_incoming_byte_rate gauge
+kafka_consumer_node_incoming_byte_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+kafka_consumer_node_incoming_byte_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 75891.28804114874
+kafka_consumer_node_incoming_byte_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-2147483647",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 690.3213045580413
+# HELP kafka_consumer_node_outgoing_byte_total The total number of outgoing bytes
+# TYPE kafka_consumer_node_outgoing_byte_total counter
+kafka_consumer_node_outgoing_byte_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 210.0
+kafka_consumer_node_outgoing_byte_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 5868269.0
+kafka_consumer_node_outgoing_byte_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-2147483647",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 6675408.0
+# HELP kafka_consumer_node_outgoing_byte_rate The number of outgoing bytes per second
+# TYPE kafka_consumer_node_outgoing_byte_rate gauge
+kafka_consumer_node_outgoing_byte_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+kafka_consumer_node_outgoing_byte_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 2579.2434633519074
+kafka_consumer_node_outgoing_byte_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-2147483647",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 3022.4385741286096
+# HELP kafka_consumer_node_request_total The total number of requests sent
+# TYPE kafka_consumer_node_request_total counter
+kafka_consumer_node_request_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 3.0
+kafka_consumer_node_request_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 37826.0
+kafka_consumer_node_request_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-2147483647",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 32649.0
+# TYPE kafka_consumer_node_request_latency_avg gauge
+kafka_consumer_node_request_latency_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+kafka_consumer_node_request_latency_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+kafka_consumer_node_request_latency_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-2147483647",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+# TYPE kafka_consumer_node_request_latency_max gauge
+kafka_consumer_node_request_latency_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+kafka_consumer_node_request_latency_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+kafka_consumer_node_request_latency_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-2147483647",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+# HELP kafka_consumer_node_request_rate The number of requests sent per second
+# TYPE kafka_consumer_node_request_rate gauge
+kafka_consumer_node_request_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+kafka_consumer_node_request_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 15.805829404200601
+kafka_consumer_node_request_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-2147483647",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 14.79055865676234
+# HELP kafka_consumer_node_request_size_avg The average size of requests sent.
+# TYPE kafka_consumer_node_request_size_avg gauge
+kafka_consumer_node_request_size_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+kafka_consumer_node_request_size_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 163.18305084745762
+kafka_consumer_node_request_size_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-2147483647",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 204.34918276374444
+# HELP kafka_consumer_node_request_size_max The maximum size of any request sent.
+# TYPE kafka_consumer_node_request_size_max gauge
+kafka_consumer_node_request_size_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+kafka_consumer_node_request_size_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 183.0
+kafka_consumer_node_request_size_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-2147483647",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 215.0
+# HELP kafka_consumer_node_response_total The total number of responses received
+# TYPE kafka_consumer_node_response_total counter
+kafka_consumer_node_response_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 3.0
+kafka_consumer_node_response_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 37825.0
+kafka_consumer_node_response_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-2147483647",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 32649.0
+# HELP kafka_consumer_node_response_rate The number of responses received per second
+# TYPE kafka_consumer_node_response_rate gauge
+kafka_consumer_node_response_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+kafka_consumer_node_response_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 15.805829404200601
+kafka_consumer_node_response_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",node_id="node-2147483647",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 14.79055865676234
+# HELP kafka_consumer_outgoing_byte_total The total number of outgoing bytes sent to all servers
+# TYPE kafka_consumer_outgoing_byte_total counter
+kafka_consumer_outgoing_byte_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 1.2543887E7
+# HELP kafka_consumer_outgoing_byte_rate The number of outgoing bytes sent to all servers per second
+# TYPE kafka_consumer_outgoing_byte_rate gauge
+kafka_consumer_outgoing_byte_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 5538.351648351649
+# HELP kafka_consumer_poll_idle_ratio_avg The average fraction of time the consumer's poll() is idle as opposed to waiting for the user code to process records.
+# TYPE kafka_consumer_poll_idle_ratio_avg gauge
+kafka_consumer_poll_idle_ratio_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+# HELP kafka_consumer_reauthentication_latency_avg The average latency observed due to re-authentication
+# TYPE kafka_consumer_reauthentication_latency_avg gauge
+kafka_consumer_reauthentication_latency_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+# HELP kafka_consumer_reauthentication_latency_max The max latency observed due to re-authentication
+# TYPE kafka_consumer_reauthentication_latency_max gauge
+kafka_consumer_reauthentication_latency_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} NaN
+# HELP kafka_consumer_request_total The total number of requests sent
+# TYPE kafka_consumer_request_total counter
+kafka_consumer_request_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 70478.0
+# HELP kafka_consumer_request_rate The number of requests sent per second
+# TYPE kafka_consumer_request_rate gauge
+kafka_consumer_request_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 30.21978021978022
+# HELP kafka_consumer_request_size_avg The average size of requests sent.
+# TYPE kafka_consumer_request_size_avg gauge
+kafka_consumer_request_size_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 183.26909090909092
+# HELP kafka_consumer_request_size_max The maximum size of any request sent.
+# TYPE kafka_consumer_request_size_max gauge
+kafka_consumer_request_size_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 215.0
+# HELP kafka_consumer_response_total The total number of responses received
+# TYPE kafka_consumer_response_total counter
+kafka_consumer_response_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 70477.0
+# HELP kafka_consumer_response_rate The number of responses received per second
+# TYPE kafka_consumer_response_rate gauge
+kafka_consumer_response_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 30.21978021978022
+# HELP kafka_consumer_select_total The total number of times the I/O layer checked for new I/O to perform
+# TYPE kafka_consumer_select_total counter
+kafka_consumer_select_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 162995.0
+# HELP kafka_consumer_select_rate The number of times the I/O layer checked for new I/O to perform per second
+# TYPE kafka_consumer_select_rate gauge
+kafka_consumer_select_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 64.28493390145307
+# HELP kafka_consumer_successful_authentication_total The total number of connections with successful authentication
+# TYPE kafka_consumer_successful_authentication_total counter
+kafka_consumer_successful_authentication_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_successful_authentication_no_reauth_total The total number of connections with successful authentication where the client does not support re-authentication
+# TYPE kafka_consumer_successful_authentication_no_reauth_total counter
+kafka_consumer_successful_authentication_no_reauth_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_successful_authentication_rate The number of connections with successful authentication per second
+# TYPE kafka_consumer_successful_authentication_rate gauge
+kafka_consumer_successful_authentication_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_successful_reauthentication_total The total number of successful re-authentication of connections
+# TYPE kafka_consumer_successful_reauthentication_total counter
+kafka_consumer_successful_reauthentication_total{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_successful_reauthentication_rate The number of successful re-authentication of connections per second
+# TYPE kafka_consumer_successful_reauthentication_rate gauge
+kafka_consumer_successful_reauthentication_rate{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 0.0
+# HELP kafka_consumer_time_between_poll_avg The average delay between invocations of poll() in milliseconds.
+# TYPE kafka_consumer_time_between_poll_avg gauge
+kafka_consumer_time_between_poll_avg{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 63.87437185929648
+# HELP kafka_consumer_time_between_poll_max The max delay between invocations of poll() in milliseconds.
+# TYPE kafka_consumer_time_between_poll_max gauge
+kafka_consumer_time_between_poll_max{application="order",client_id="consumer-order-events-consumer-1",kafka_version="3.7.1",spring_id="kafkaConsumerFactory.consumer-order-events-consumer-1"} 1002.0
+# HELP kafka_producer_batch_size_avg The average number of bytes sent per partition per-request.
+# TYPE kafka_producer_batch_size_avg gauge
+kafka_producer_batch_size_avg{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 391.99954571266323
+# HELP kafka_producer_batch_size_max The max number of bytes sent per partition per-request.
+# TYPE kafka_producer_batch_size_max gauge
+kafka_producer_batch_size_max{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 394.0
+# HELP kafka_producer_batch_split_total The total number of batch splits
+# TYPE kafka_producer_batch_split_total counter
+kafka_producer_batch_split_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_batch_split_rate The average number of batch splits per second
+# TYPE kafka_producer_batch_split_rate gauge
+kafka_producer_batch_split_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_buffer_available_bytes The total amount of buffer memory that is not being used (either unallocated or in the free list).
+# TYPE kafka_producer_buffer_available_bytes gauge
+kafka_producer_buffer_available_bytes{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 3.3554432E7
+# HELP kafka_producer_buffer_exhausted_total The total number of record sends that are dropped due to buffer exhaustion
+# TYPE kafka_producer_buffer_exhausted_total counter
+kafka_producer_buffer_exhausted_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_buffer_exhausted_rate The average per-second number of record sends that are dropped due to buffer exhaustion
+# TYPE kafka_producer_buffer_exhausted_rate gauge
+kafka_producer_buffer_exhausted_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_buffer_total_bytes The maximum amount of buffer memory the client can use (whether or not it is currently used).
+# TYPE kafka_producer_buffer_total_bytes gauge
+kafka_producer_buffer_total_bytes{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 3.3554432E7
+# HELP kafka_producer_bufferpool_wait_ratio The fraction of time an appender waits for space allocation.
+# TYPE kafka_producer_bufferpool_wait_ratio gauge
+kafka_producer_bufferpool_wait_ratio{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_bufferpool_wait_time_total *Deprecated* The total time an appender waits for space allocation.
+# TYPE kafka_producer_bufferpool_wait_time_total counter
+kafka_producer_bufferpool_wait_time_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_bufferpool_wait_time_ns_total The total time in nanoseconds an appender waits for space allocation.
+# TYPE kafka_producer_bufferpool_wait_time_ns_total counter
+kafka_producer_bufferpool_wait_time_ns_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_compression_rate_avg The average compression rate of record batches, defined as the average ratio of the compressed batch size over the uncompressed size.
+# TYPE kafka_producer_compression_rate_avg gauge
+kafka_producer_compression_rate_avg{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 1.0
+# HELP kafka_producer_connection_close_total The total number of connections closed
+# TYPE kafka_producer_connection_close_total counter
+kafka_producer_connection_close_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 1.0
+# HELP kafka_producer_connection_close_rate The number of connections closed per second
+# TYPE kafka_producer_connection_close_rate gauge
+kafka_producer_connection_close_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_connection_count The current number of active connections.
+# TYPE kafka_producer_connection_count gauge
+kafka_producer_connection_count{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 1.0
+# HELP kafka_producer_connection_creation_total The total number of new connections established
+# TYPE kafka_producer_connection_creation_total counter
+kafka_producer_connection_creation_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 2.0
+# HELP kafka_producer_connection_creation_rate The number of new connections established per second
+# TYPE kafka_producer_connection_creation_rate gauge
+kafka_producer_connection_creation_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_failed_authentication_total The total number of connections with failed authentication
+# TYPE kafka_producer_failed_authentication_total counter
+kafka_producer_failed_authentication_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_failed_authentication_rate The number of connections with failed authentication per second
+# TYPE kafka_producer_failed_authentication_rate gauge
+kafka_producer_failed_authentication_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_failed_reauthentication_total The total number of failed re-authentication of connections
+# TYPE kafka_producer_failed_reauthentication_total counter
+kafka_producer_failed_reauthentication_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_failed_reauthentication_rate The number of failed re-authentication of connections per second
+# TYPE kafka_producer_failed_reauthentication_rate gauge
+kafka_producer_failed_reauthentication_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_flush_time_ns_total Total time producer has spent in flush in nanoseconds.
+# TYPE kafka_producer_flush_time_ns_total counter
+kafka_producer_flush_time_ns_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_incoming_byte_total The total number of bytes read off all sockets
+# TYPE kafka_producer_incoming_byte_total counter
+kafka_producer_incoming_byte_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 7.9855617E7
+# HELP kafka_producer_incoming_byte_rate The number of bytes read off all sockets per second
+# TYPE kafka_producer_incoming_byte_rate gauge
+kafka_producer_incoming_byte_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 11884.595916990047
+# HELP kafka_producer_io_ratio *Deprecated* The fraction of time the I/O thread spent doing I/O
+# TYPE kafka_producer_io_ratio gauge
+kafka_producer_io_ratio{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.005656626169422017
+# HELP kafka_producer_io_time_ns_total The total time the I/O thread spent doing I/O
+# TYPE kafka_producer_io_time_ns_total counter
+kafka_producer_io_time_ns_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 3.8671843235E10
+# HELP kafka_producer_io_time_ns_avg The average length of time for I/O per select call in nanoseconds.
+# TYPE kafka_producer_io_time_ns_avg gauge
+kafka_producer_io_time_ns_avg{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 10618.549106874361
+# HELP kafka_producer_io_wait_ratio *Deprecated* The fraction of time the I/O thread spent waiting
+# TYPE kafka_producer_io_wait_ratio gauge
+kafka_producer_io_wait_ratio{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.8915187739578995
+# HELP kafka_producer_io_wait_time_ns_total The total time the I/O thread spent waiting
+# TYPE kafka_producer_io_wait_time_ns_total counter
+kafka_producer_io_wait_time_ns_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 4.548374280344E12
+# HELP kafka_producer_io_wait_time_ns_avg The average length of time the I/O thread spent waiting for a socket ready for reads or writes in nanoseconds.
+# TYPE kafka_producer_io_wait_time_ns_avg gauge
+kafka_producer_io_wait_time_ns_avg{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 1673494.4640644735
+# HELP kafka_producer_io_waittime_total *Deprecated* The total time the I/O thread spent waiting
+# TYPE kafka_producer_io_waittime_total counter
+kafka_producer_io_waittime_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 4.548374280344E12
+# HELP kafka_producer_iotime_total *Deprecated* The total time the I/O thread spent doing I/O
+# TYPE kafka_producer_iotime_total counter
+kafka_producer_iotime_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 3.8671843235E10
+# HELP kafka_producer_metadata_age The age in seconds of the current producer metadata being used.
+# TYPE kafka_producer_metadata_age gauge
+kafka_producer_metadata_age{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 189.12
+# HELP kafka_producer_metadata_wait_time_ns_total Total time producer has spent waiting on topic metadata in nanoseconds.
+# TYPE kafka_producer_metadata_wait_time_ns_total counter
+kafka_producer_metadata_wait_time_ns_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 5817959.0
+# HELP kafka_producer_network_io_total The total number of network operations (reads or writes) on all connections
+# TYPE kafka_producer_network_io_total counter
+kafka_producer_network_io_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 2495384.0
+# HELP kafka_producer_network_io_rate The number of network operations (reads or writes) on all connections per second
+# TYPE kafka_producer_network_io_rate gauge
+kafka_producer_network_io_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 371.38578990657356
+# HELP kafka_producer_node_incoming_byte_total The total number of incoming bytes
+# TYPE kafka_producer_node_incoming_byte_total counter
+kafka_producer_node_incoming_byte_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaProducerFactory.order-producer-1"} 431.0
+kafka_producer_node_incoming_byte_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaProducerFactory.order-producer-1"} 7.9855186E7
+# HELP kafka_producer_node_incoming_byte_rate The number of incoming bytes per second
+# TYPE kafka_producer_node_incoming_byte_rate gauge
+kafka_producer_node_incoming_byte_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+kafka_producer_node_incoming_byte_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaProducerFactory.order-producer-1"} 11884.345277010354
+# HELP kafka_producer_node_outgoing_byte_total The total number of outgoing bytes
+# TYPE kafka_producer_node_outgoing_byte_total counter
+kafka_producer_node_outgoing_byte_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaProducerFactory.order-producer-1"} 140.0
+kafka_producer_node_outgoing_byte_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaProducerFactory.order-producer-1"} 5.74093209E8
+# HELP kafka_producer_node_outgoing_byte_rate The number of outgoing bytes per second
+# TYPE kafka_producer_node_outgoing_byte_rate gauge
+kafka_producer_node_outgoing_byte_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+kafka_producer_node_outgoing_byte_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaProducerFactory.order-producer-1"} 85420.44879365615
+# HELP kafka_producer_node_request_total The total number of requests sent
+# TYPE kafka_producer_node_request_total counter
+kafka_producer_node_request_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaProducerFactory.order-producer-1"} 3.0
+kafka_producer_node_request_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaProducerFactory.order-producer-1"} 1247689.0
+# TYPE kafka_producer_node_request_latency_avg gauge
+kafka_producer_node_request_latency_avg{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaProducerFactory.order-producer-1"} NaN
+kafka_producer_node_request_latency_avg{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaProducerFactory.order-producer-1"} 0.166496308915389
+# TYPE kafka_producer_node_request_latency_max gauge
+kafka_producer_node_request_latency_max{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaProducerFactory.order-producer-1"} NaN
+kafka_producer_node_request_latency_max{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaProducerFactory.order-producer-1"} 11.0
+# HELP kafka_producer_node_request_rate The number of requests sent per second
+# TYPE kafka_producer_node_request_rate gauge
+kafka_producer_node_request_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+kafka_producer_node_request_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaProducerFactory.order-producer-1"} 185.69289495328678
+# HELP kafka_producer_node_request_size_avg The average size of requests sent.
+# TYPE kafka_producer_node_request_size_avg gauge
+kafka_producer_node_request_size_avg{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaProducerFactory.order-producer-1"} NaN
+kafka_producer_node_request_size_avg{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaProducerFactory.order-producer-1"} 459.99954571266323
+# HELP kafka_producer_node_request_size_max The maximum size of any request sent.
+# TYPE kafka_producer_node_request_size_max gauge
+kafka_producer_node_request_size_max{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaProducerFactory.order-producer-1"} NaN
+kafka_producer_node_request_size_max{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaProducerFactory.order-producer-1"} 462.0
+# HELP kafka_producer_node_response_total The total number of responses received
+# TYPE kafka_producer_node_response_total counter
+kafka_producer_node_response_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaProducerFactory.order-producer-1"} 3.0
+kafka_producer_node_response_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaProducerFactory.order-producer-1"} 1247689.0
+# HELP kafka_producer_node_response_rate The number of responses received per second
+# TYPE kafka_producer_node_response_rate gauge
+kafka_producer_node_response_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node--1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+kafka_producer_node_response_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",node_id="node-0",spring_id="kafkaProducerFactory.order-producer-1"} 185.69681120296949
+# HELP kafka_producer_outgoing_byte_total The total number of outgoing bytes sent to all servers
+# TYPE kafka_producer_outgoing_byte_total counter
+kafka_producer_outgoing_byte_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 5.74093349E8
+# HELP kafka_producer_outgoing_byte_rate The number of outgoing bytes sent to all servers per second
+# TYPE kafka_producer_outgoing_byte_rate gauge
+kafka_producer_outgoing_byte_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 85420.44879365615
+# HELP kafka_producer_produce_throttle_time_avg The average time in ms a request was throttled by a broker
+# TYPE kafka_producer_produce_throttle_time_avg gauge
+kafka_producer_produce_throttle_time_avg{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_produce_throttle_time_max The maximum time in ms a request was throttled by a broker
+# TYPE kafka_producer_produce_throttle_time_max gauge
+kafka_producer_produce_throttle_time_max{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_reauthentication_latency_avg The average latency observed due to re-authentication
+# TYPE kafka_producer_reauthentication_latency_avg gauge
+kafka_producer_reauthentication_latency_avg{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} NaN
+# HELP kafka_producer_reauthentication_latency_max The max latency observed due to re-authentication
+# TYPE kafka_producer_reauthentication_latency_max gauge
+kafka_producer_reauthentication_latency_max{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} NaN
+# HELP kafka_producer_record_error_total The total number of record sends that resulted in errors
+# TYPE kafka_producer_record_error_total counter
+kafka_producer_record_error_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_record_error_rate The average per-second number of record sends that resulted in errors
+# TYPE kafka_producer_record_error_rate gauge
+kafka_producer_record_error_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_record_queue_time_avg The average time in ms record batches spent in the send buffer.
+# TYPE kafka_producer_record_queue_time_avg gauge
+kafka_producer_record_queue_time_avg{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.03861442362294151
+# HELP kafka_producer_record_queue_time_max The maximum time in ms record batches spent in the send buffer.
+# TYPE kafka_producer_record_queue_time_max gauge
+kafka_producer_record_queue_time_max{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 9.0
+# HELP kafka_producer_record_retry_total The total number of retried record sends
+# TYPE kafka_producer_record_retry_total counter
+kafka_producer_record_retry_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_record_retry_rate The average per-second number of retried record sends
+# TYPE kafka_producer_record_retry_rate gauge
+kafka_producer_record_retry_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_record_send_total The total number of records sent.
+# TYPE kafka_producer_record_send_total counter
+kafka_producer_record_send_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 1247670.0
+# HELP kafka_producer_record_send_rate The average number of records sent per second.
+# TYPE kafka_producer_record_send_rate gauge
+kafka_producer_record_send_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 185.69289495328678
+# HELP kafka_producer_record_size_avg The average record size
+# TYPE kafka_producer_record_size_avg gauge
+kafka_producer_record_size_avg{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 407.99954571266323
+# HELP kafka_producer_record_size_max The maximum record size
+# TYPE kafka_producer_record_size_max gauge
+kafka_producer_record_size_max{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 410.0
+# HELP kafka_producer_records_per_request_avg The average number of records per request.
+# TYPE kafka_producer_records_per_request_avg gauge
+kafka_producer_records_per_request_avg{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 1.0
+# HELP kafka_producer_request_total The total number of requests sent
+# TYPE kafka_producer_request_total counter
+kafka_producer_request_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 1247692.0
+# HELP kafka_producer_request_latency_avg The average request latency in ms
+# TYPE kafka_producer_request_latency_avg gauge
+kafka_producer_request_latency_avg{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.166496308915389
+# HELP kafka_producer_request_latency_max The maximum request latency in ms
+# TYPE kafka_producer_request_latency_max gauge
+kafka_producer_request_latency_max{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 11.0
+# HELP kafka_producer_request_rate The number of requests sent per second
+# TYPE kafka_producer_request_rate gauge
+kafka_producer_request_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 185.69681120296949
+# HELP kafka_producer_request_size_avg The average size of requests sent.
+# TYPE kafka_producer_request_size_avg gauge
+kafka_producer_request_size_avg{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 459.99954571266323
+# HELP kafka_producer_request_size_max The maximum size of any request sent.
+# TYPE kafka_producer_request_size_max gauge
+kafka_producer_request_size_max{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 462.0
+# HELP kafka_producer_requests_in_flight The current number of in-flight requests awaiting a response.
+# TYPE kafka_producer_requests_in_flight gauge
+kafka_producer_requests_in_flight{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_response_total The total number of responses received
+# TYPE kafka_producer_response_total counter
+kafka_producer_response_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 1247692.0
+# HELP kafka_producer_response_rate The number of responses received per second
+# TYPE kafka_producer_response_rate gauge
+kafka_producer_response_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 185.69681120296949
+# HELP kafka_producer_select_total The total number of times the I/O layer checked for new I/O to perform
+# TYPE kafka_producer_select_total counter
+kafka_producer_select_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 3736405.0
+# HELP kafka_producer_select_rate The number of times the I/O layer checked for new I/O to perform per second
+# TYPE kafka_producer_select_rate gauge
+kafka_producer_select_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 532.7117775214662
+# HELP kafka_producer_successful_authentication_total The total number of connections with successful authentication
+# TYPE kafka_producer_successful_authentication_total counter
+kafka_producer_successful_authentication_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_successful_authentication_no_reauth_total The total number of connections with successful authentication where the client does not support re-authentication
+# TYPE kafka_producer_successful_authentication_no_reauth_total counter
+kafka_producer_successful_authentication_no_reauth_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_successful_authentication_rate The number of connections with successful authentication per second
+# TYPE kafka_producer_successful_authentication_rate gauge
+kafka_producer_successful_authentication_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_successful_reauthentication_total The total number of successful re-authentication of connections
+# TYPE kafka_producer_successful_reauthentication_total counter
+kafka_producer_successful_reauthentication_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_successful_reauthentication_rate The number of successful re-authentication of connections per second
+# TYPE kafka_producer_successful_reauthentication_rate gauge
+kafka_producer_successful_reauthentication_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_topic_byte_total The total number of bytes sent for a topic.
+# TYPE kafka_producer_topic_byte_total counter
+kafka_producer_topic_byte_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1",topic="order-events"} 4.89250675E8
+# HELP kafka_producer_topic_byte_rate The average number of bytes sent per second for a topic.
+# TYPE kafka_producer_topic_byte_rate gauge
+kafka_producer_topic_byte_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1",topic="order-events"} 72791.53046375772
+# HELP kafka_producer_topic_compression_rate The average compression rate of record batches for a topic, defined as the average ratio of the compressed batch size over the uncompressed size.
+# TYPE kafka_producer_topic_compression_rate gauge
+kafka_producer_topic_compression_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1",topic="order-events"} 1.0
+# HELP kafka_producer_topic_record_error_total The total number of record sends that resulted in errors for a topic
+# TYPE kafka_producer_topic_record_error_total counter
+kafka_producer_topic_record_error_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1",topic="order-events"} 0.0
+# HELP kafka_producer_topic_record_error_rate The average per-second number of record sends that resulted in errors for a topic
+# TYPE kafka_producer_topic_record_error_rate gauge
+kafka_producer_topic_record_error_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1",topic="order-events"} 0.0
+# HELP kafka_producer_topic_record_retry_total The total number of retried record sends for a topic
+# TYPE kafka_producer_topic_record_retry_total counter
+kafka_producer_topic_record_retry_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1",topic="order-events"} 0.0
+# HELP kafka_producer_topic_record_retry_rate The average per-second number of retried record sends for a topic
+# TYPE kafka_producer_topic_record_retry_rate gauge
+kafka_producer_topic_record_retry_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1",topic="order-events"} 0.0
+# HELP kafka_producer_topic_record_send_total The total number of records sent for a topic.
+# TYPE kafka_producer_topic_record_send_total counter
+kafka_producer_topic_record_send_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1",topic="order-events"} 1247670.0
+# HELP kafka_producer_topic_record_send_rate The average number of records sent per second for a topic.
+# TYPE kafka_producer_topic_record_send_rate gauge
+kafka_producer_topic_record_send_rate{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1",topic="order-events"} 185.69289495328678
+# HELP kafka_producer_txn_abort_time_ns_total Total time producer has spent in abortTransaction in nanoseconds.
+# TYPE kafka_producer_txn_abort_time_ns_total counter
+kafka_producer_txn_abort_time_ns_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_txn_begin_time_ns_total Total time producer has spent in beginTransaction in nanoseconds.
+# TYPE kafka_producer_txn_begin_time_ns_total counter
+kafka_producer_txn_begin_time_ns_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_txn_commit_time_ns_total Total time producer has spent in commitTransaction in nanoseconds.
+# TYPE kafka_producer_txn_commit_time_ns_total counter
+kafka_producer_txn_commit_time_ns_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_txn_init_time_ns_total Total time producer has spent in initTransactions in nanoseconds.
+# TYPE kafka_producer_txn_init_time_ns_total counter
+kafka_producer_txn_init_time_ns_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_txn_send_offsets_time_ns_total Total time producer has spent in sendOffsetsToTransaction in nanoseconds.
+# TYPE kafka_producer_txn_send_offsets_time_ns_total counter
+kafka_producer_txn_send_offsets_time_ns_total{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP kafka_producer_waiting_threads The number of user threads blocked waiting for buffer memory to enqueue their records
+# TYPE kafka_producer_waiting_threads gauge
+kafka_producer_waiting_threads{application="order",client_id="order-producer-1",kafka_version="3.7.1",spring_id="kafkaProducerFactory.order-producer-1"} 0.0
+# HELP logback_events_total Number of log events that were enabled by the effective log level
+# TYPE logback_events_total counter
+logback_events_total{application="order",level="debug"} 0.0
+logback_events_total{application="order",level="error"} 0.0
+logback_events_total{application="order",level="info"} 1247705.0
+logback_events_total{application="order",level="trace"} 0.0
+logback_events_total{application="order",level="warn"} 0.0
+# HELP orders_created_count_total Orders created by POST /orders (first request for an idempotency key)
+# TYPE orders_created_count_total counter
+orders_created_count_total{application="order"} 1245690.0
+# HELP orders_status_transitions_total Successful order status changes
+# TYPE orders_status_transitions_total counter
+orders_status_transitions_total{application="order",from="CONFIRMED",to="PREPARING"} 412.0
+orders_status_transitions_total{application="order",from="CREATED",to="CONFIRMED"} 498.0
+orders_status_transitions_total{application="order",from="PICKED_UP",to="DELIVERED"} 326.0
+orders_status_transitions_total{application="order",from="PREPARING",to="READY"} 387.0
+orders_status_transitions_total{application="order",from="READY",to="PICKED_UP"} 357.0
+# HELP outbox_backlog Outbox rows not yet published
+# TYPE outbox_backlog gauge
+outbox_backlog{application="order"} 0.0
+# HELP outbox_events_published_total Outbox events acknowledged by the broker
+# TYPE outbox_events_published_total counter
+outbox_events_published_total{application="order"} 1247670.0
+# HELP outbox_oldest_unpublished_age_seconds Age in seconds of the oldest unpublished outbox row (0 when none)
+# TYPE outbox_oldest_unpublished_age_seconds gauge
+outbox_oldest_unpublished_age_seconds{application="order"} 0.0
+# HELP outbox_publish_failures_total Outbox publish attempts that failed; the row is retried
+# TYPE outbox_publish_failures_total counter
+outbox_publish_failures_total{application="order"} 0.0
+# HELP process_cpu_time_ns_total The "cpu time" used by the Java Virtual Machine process
+# TYPE process_cpu_time_ns_total counter
+process_cpu_time_ns_total{application="order"} 6.1839E11
+# HELP process_cpu_usage The "recent cpu usage" for the Java Virtual Machine process
+# TYPE process_cpu_usage gauge
+process_cpu_usage{application="order"} 0.0
+# HELP process_files_max_files The maximum file descriptor count
+# TYPE process_files_max_files gauge
+process_files_max_files{application="order"} 1048576.0
+# HELP process_files_open_files The open file descriptor count
+# TYPE process_files_open_files gauge
+process_files_open_files{application="order"} 32.0
+# HELP process_start_time_seconds Start time of the process since unix epoch.
+# TYPE process_start_time_seconds gauge
+process_start_time_seconds{application="order"} 1.795280338865E9
+# HELP process_uptime_seconds The uptime of the Java virtual machine
+# TYPE process_uptime_seconds gauge
+process_uptime_seconds{application="order"} 4642.771
+# HELP spring_kafka_listener_seconds Kafka Listener Timer
+# TYPE spring_kafka_listener_seconds summary
+spring_kafka_listener_seconds_count{application="order",exception="none",name="org.springframework.kafka.KafkaListenerEndpointContainer#0-0",result="success"} 1247670
+spring_kafka_listener_seconds_sum{application="order",exception="none",name="org.springframework.kafka.KafkaListenerEndpointContainer#0-0",result="success"} 563.976483273
+# HELP spring_kafka_listener_seconds_max Kafka Listener Timer
+# TYPE spring_kafka_listener_seconds_max gauge
+spring_kafka_listener_seconds_max{application="order",exception="none",name="org.springframework.kafka.KafkaListenerEndpointContainer#0-0",result="success"} 0.129717334
+# HELP spring_kafka_template_seconds KafkaTemplate Timer
+# TYPE spring_kafka_template_seconds summary
+spring_kafka_template_seconds_count{application="order",exception="none",name="kafkaTemplate",result="success"} 1247670
+spring_kafka_template_seconds_sum{application="order",exception="none",name="kafkaTemplate",result="success"} 210.34302695
+# HELP spring_kafka_template_seconds_max KafkaTemplate Timer
+# TYPE spring_kafka_template_seconds_max gauge
+spring_kafka_template_seconds_max{application="order",exception="none",name="kafkaTemplate",result="success"} 0.023666708
+# HELP system_cpu_count The number of processors available to the Java virtual machine
+# TYPE system_cpu_count gauge
+system_cpu_count{application="order"} 6.0
+# HELP system_cpu_usage The "recent cpu usage" of the system the application is running in
+# TYPE system_cpu_usage gauge
+system_cpu_usage{application="order"} 0.02770703591599114
+# HELP system_load_average_1m The sum of the number of runnable entities queued to available processors and the number of runnable entities running on the available processors averaged over a period of time
+# TYPE system_load_average_1m gauge
+system_load_average_1m{application="order"} 6.42431640625
+# HELP tasks_scheduled_execution_active_seconds  
+# TYPE tasks_scheduled_execution_active_seconds summary
+tasks_scheduled_execution_active_seconds_count{application="order",code_function="deleteExpiredKeys",code_namespace="com.peakload.order.IdempotencyCleanupJob",exception="none",outcome="UNKNOWN"} 0
+tasks_scheduled_execution_active_seconds_sum{application="order",code_function="deleteExpiredKeys",code_namespace="com.peakload.order.IdempotencyCleanupJob",exception="none",outcome="UNKNOWN"} 0.0
+tasks_scheduled_execution_active_seconds_count{application="order",code_function="relay",code_namespace="com.peakload.order.OutboxRelay",exception="none",outcome="UNKNOWN"} 0
+tasks_scheduled_execution_active_seconds_sum{application="order",code_function="relay",code_namespace="com.peakload.order.OutboxRelay",exception="none",outcome="UNKNOWN"} 0.0
+# HELP tasks_scheduled_execution_active_seconds_max  
+# TYPE tasks_scheduled_execution_active_seconds_max gauge
+tasks_scheduled_execution_active_seconds_max{application="order",code_function="deleteExpiredKeys",code_namespace="com.peakload.order.IdempotencyCleanupJob",exception="none",outcome="UNKNOWN"} 0.0
+tasks_scheduled_execution_active_seconds_max{application="order",code_function="relay",code_namespace="com.peakload.order.OutboxRelay",exception="none",outcome="UNKNOWN"} 0.0
+# HELP tasks_scheduled_execution_seconds  
+# TYPE tasks_scheduled_execution_seconds summary
+tasks_scheduled_execution_seconds_count{application="order",code_function="deleteExpiredKeys",code_namespace="com.peakload.order.IdempotencyCleanupJob",error="none",exception="none",outcome="SUCCESS"} 78
+tasks_scheduled_execution_seconds_sum{application="order",code_function="deleteExpiredKeys",code_namespace="com.peakload.order.IdempotencyCleanupJob",error="none",exception="none",outcome="SUCCESS"} 0.265613868
+tasks_scheduled_execution_seconds_count{application="order",code_function="relay",code_namespace="com.peakload.order.OutboxRelay",error="none",exception="none",outcome="SUCCESS"} 4249
+tasks_scheduled_execution_seconds_sum{application="order",code_function="relay",code_namespace="com.peakload.order.OutboxRelay",error="none",exception="none",outcome="SUCCESS"} 389.074053678
+# HELP tasks_scheduled_execution_seconds_max  
+# TYPE tasks_scheduled_execution_seconds_max gauge
+tasks_scheduled_execution_seconds_max{application="order",code_function="deleteExpiredKeys",code_namespace="com.peakload.order.IdempotencyCleanupJob",error="none",exception="none",outcome="SUCCESS"} 0.154318
+tasks_scheduled_execution_seconds_max{application="order",code_function="relay",code_namespace="com.peakload.order.OutboxRelay",error="none",exception="none",outcome="SUCCESS"} 2.896205126
+# HELP tomcat_sessions_active_current_sessions  
+# TYPE tomcat_sessions_active_current_sessions gauge
+tomcat_sessions_active_current_sessions{application="order"} 0.0
+# HELP tomcat_sessions_active_max_sessions  
+# TYPE tomcat_sessions_active_max_sessions gauge
+tomcat_sessions_active_max_sessions{application="order"} 0.0
+# HELP tomcat_sessions_alive_max_seconds  
+# TYPE tomcat_sessions_alive_max_seconds gauge
+tomcat_sessions_alive_max_seconds{application="order"} 0.0
+# HELP tomcat_sessions_created_sessions_total  
+# TYPE tomcat_sessions_created_sessions_total counter
+tomcat_sessions_created_sessions_total{application="order"} 0.0
+# HELP tomcat_sessions_expired_sessions_total  
+# TYPE tomcat_sessions_expired_sessions_total counter
+tomcat_sessions_expired_sessions_total{application="order"} 0.0
+# HELP tomcat_sessions_rejected_sessions_total  
+# TYPE tomcat_sessions_rejected_sessions_total counter
+tomcat_sessions_rejected_sessions_total{application="order"} 0.0

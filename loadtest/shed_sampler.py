@@ -20,7 +20,8 @@ def on_term(signum, frame):
 
 def read_metrics():
     out = subprocess.run(["curl", "-s", "--max-time", "2", URL], capture_output=True, text=True).stdout
-    v = {"level": "", "in_flight": "", "ewma": "", "CRITICAL": 0.0, "STANDARD": 0.0, "LOW": 0.0}
+    v = {"level": "", "in_flight": "", "ewma": "", "CRITICAL": 0.0, "STANDARD": 0.0, "LOW": 0.0,
+         "limiter_mode": "", "circuit_opens": "", "menu_hikari_pending": ""}
     # Lines look like: name{application="admission",...} value, or name value when there are no labels.
     # Micrometer exports the total in-flight gauge (admission.in.flight.total) as admission_in_flight with no class
     # label; the per-class gauges have a class label. The total is the one without class.
@@ -39,6 +40,12 @@ def read_metrics():
             for cls in ("CRITICAL", "STANDARD", "LOW"):
                 if f'class="{cls}"' in labels:
                     v[cls] = float(value)
+        elif name == "admission_limiter_mode":
+            v["limiter_mode"] = int(float(value))
+        elif name == "admission_limiter_circuit_opens_total":
+            v["circuit_opens"] = float(value)
+        elif name == "hikaricp_connections_pending" and 'pool="HikariPool-1"' in labels:
+            v["menu_hikari_pending"] = float(value)
     return v
 
 
@@ -46,11 +53,13 @@ def main():
     signal.signal(signal.SIGTERM, on_term)
     signal.signal(signal.SIGINT, on_term)
     with open(sys.argv[1], "w", buffering=1) as f:
-        f.write("epoch,level,in_flight_total,upstream_ewma_ms,shed_critical,shed_standard,shed_low\n")
+        f.write("epoch,level,in_flight_total,upstream_ewma_ms,shed_critical,shed_standard,shed_low,"
+                "limiter_mode,circuit_opens,menu_hikari_pending\n")
         while not stop:
             v = read_metrics()
             f.write(f"{time.time():.3f},{v['level']},{v['in_flight']},{v['ewma']},"
-                    f"{v['CRITICAL']},{v['STANDARD']},{v['LOW']}\n")
+                    f"{v['CRITICAL']},{v['STANDARD']},{v['LOW']},"
+                    f"{v['limiter_mode']},{v['circuit_opens']},{v['menu_hikari_pending']}\n")
             time.sleep(0.5)
 
 

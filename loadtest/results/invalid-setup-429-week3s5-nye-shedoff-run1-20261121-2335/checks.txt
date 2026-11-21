@@ -1,0 +1,14 @@
+orders=287
+idempotency_keys=287
+orders_without_key=0
+order_ids_on_two_keys=0
+duplicate_client_key=0
+order_outbox_unpublished_at_end=0
+dispatch_outbox_unpublished_at_end=0
+dispatch_pending_orders_at_end=287
+dispatch_assignments_at_end=0
+inv_order_with_more_than_one_assignment=0
+inv_rider_with_more_than_one_active=0
+inv_busy_rider_without_one_active=0
+inv_active_assignment_rider_not_busy=0
+outbox_drain_s=1

@@ -528,3 +528,59 @@ Phase 3 is LOW at 1200 req/s, phase 4 is LOW at 2400 req/s. "Accepted" means HTT
 - The order module's tests stopped on a JDK change (Java 27 with an older Byte Buddy). They pass with `-DargLine=-Dnet.bytebuddy.experimental=true`. That changes the test JVM only.
 
 **Limits.** One VM, one admission and one order instance. Numbers are for this request mix and these rates, which are assumptions. Three runs per condition is not enough to measure a p99 difference of this size. The shedding thresholds were not tuned. A second admission instance would have its own in-flight count and EWMA.
+
+## Week 3: New Year's Eve curve
+
+A 300 s open-loop curve (`loadtest/nye-curve.js`) run six times, shedding off and on alternating (off, on, off, on, off, on), three of each. Same reset, same 30 s warm-up (discarded), no code or threshold change between runs. Per-phase tables for each run are in `report.md` in its folder under `loadtest/results/week3s5-nye-*`.
+
+**Assumptions (test inputs, not real traffic).**
+- Shape: calm 0–60 s at base rates; ramp in four 15 s steps (60–120 s); peak 30 s (120–150 s); decline in three steps (150–210 s); calm tail 90 s (210–300 s).
+- Rates per class, base → peak: CRITICAL `POST /orders` 200 → 1000 req/s; LOW menu reads 400 → 2400 req/s; STANDARD `GET /orders/{id}` 20 → 100 req/s, 20% of those also advance the order status.
+- Peak chosen from earlier results. Step 4 found CRITICAL at 800 req/s passes alone and degrades with LOW at 2400 req/s. The peak is just above the CRITICAL level that passed. Week 1's direct knee for `POST /orders` was 5200–5600 req/s, so the peak is well below it.
+- Client ids: about 300 per class, rate limiter at its defaults, no abusive client.
+- Dispatch: 9 riders, no rider positions in Redis. Every order was logged `PENDING`, so dispatch made no assignments in any run. The dispatch invariants hold trivially here.
+
+**Per-run summary.** Peak = the 30 s peak phase. "Accepted" is HTTP 200/201. "Shed" is 503 from shedding. Other errors are shown separately.
+
+| Shedding | Run | CRITICAL achieved req/s (target 1000) | CRITICAL accepted % | CRITICAL shed % | CRITICAL p50 / p95 / p99 ms (accepted) | LOW accepted % | Outbox peak backlog | Outbox zero after peak end (s) | k6 dropped iter. | Circuit opens | Created check |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| off | 1 | 963.7 | 99.04 | 0 | 4.1 / 700.96 / 1248.99 | 93.79 | 1019 | 4.2 | 21932 | 9 | match |
+| off | 2 | 405.9 | 89.16 | 0 | 1327.93 / 6466.32 / 7219.19 | 37.83 | 11919 | 250.5 | 225207 | 7 | match |
+| off | 3 | 456.6 | 83.35 | 0 | 1215.68 / 4429.79 / 6354.29 | 34.85 | 3923 | 217.4 | 227086 | 74 | **1 extra row** (see below) |
+| on | 1 | 1000.0 | 96.43 | 7.38 | 7.74 / 57.72 / 116.9 | 86.88 | 1187 | 155.2 | 14781 | 9 | match |
+| on | 2 | 751.3 | 57.57 | 46.42 | 260.77 / 949.59 / 1643.1 | 14.52 | 895 | 26.9 | 83438 | 39 | match |
+| on | 3 | 927.6 | 65.48 | 32.6 | 109.44 / 581.18 / 745.77 | 27.48 | 1278 | 153.8 | 29423 | 17 | match |
+
+**Range across the three runs per condition** (min to max, no averages).
+
+| Metric | Shedding off | Shedding on |
+|---|---|---|
+| CRITICAL peak p99 ms (accepted) | 1,249 to 7,219 | 117 to 1,643 |
+| CRITICAL peak accepted % | 83.4 to 99.0 | 57.6 to 96.4 |
+| CRITICAL peak shed % | 0 | 7.4 to 46.4 |
+| LOW peak accepted % | 34.9 to 93.8 | 14.5 to 86.9 |
+| Outbox peak backlog | 1,019 to 11,919 | 895 to 1,278 |
+| Outbox zero after peak end (s) | 4.2 to 250.5 | 26.9 to 155.2 |
+| k6 dropped iterations | 21,932 to 227,086 | 14,781 to 83,438 |
+| Circuit opens (limiter) | 7 to 74 | 9 to 39 |
+
+**What the runs do and do not show.**
+- **Accepted p99 for CRITICAL at the peak was lower with shedding on in all three pairs** (117 vs 1,249 ms, 1,643 vs 7,219 ms, 746 vs 6,354 ms). Shedding turned away CRITICAL requests at HARD_CAP, and the accepted share was lower in every pair.
+- **The runs disagree a lot.** Within the shedding-off condition alone, the peak CRITICAL p99 ranged from 1.2 s to 7.2 s, and the outbox peak from 1,019 to 11,919 rows. Run 1 with shedding off was much better than runs 2 and 3. With three runs per condition, the direction is consistent in three pairs but the spread is wide. I do not claim a statistically established effect.
+- **Redis timeouts happened in every run.** The limiter switched to local mode and opened its circuit 7 to 74 times per run. The Redis container shares the VM and the load, so this is a confound in both conditions.
+- **Failures at the peak (not shedding).** With shedding off, CRITICAL got 503s at the peak (277, 1,320 and 2,281 in runs 1, 2 and 3), most likely admission's upstream pool timeouts; I did not break these down by type in this series. LOW got 503s on the menu path (3,759 to 8,757). These are the menu-pool 503s from the follow-up fix, which I did not separately confirm in these runs.
+- **Outbox.** The order outbox drained to zero after the peak in every run, in 4 to 250 s. The drain was slowest in the shedding-off runs 2 and 3 (250 and 217 s), where the backlog peaked at 11,919 and 3,923 rows.
+- **Created check.** In every run except shedding-off run 3, the orders in Postgres equal the CRITICAL 201 responses plus the 400 seed orders. Shedding-off run 3 has one extra order in Postgres. The k6 run recorded three CRITICAL requests in the tail phase with status 0, `request timeout`. The most likely explanation is that one of those requests was committed on the server after k6 gave up on it. The key wasn't logged, so I can't tie the row to a specific request.
+- **No duplicates.** Every run has zero orders without a key, zero orders on two keys, and zero duplicate (client, key) pairs. Every run has zero unpublished order outbox rows at the end.
+- **Dispatch.** The invariant checks (the four queries from `Invariants.java`) hold in every run, but they hold trivially: dispatch made no assignments. The logs show every order `PENDING`, and Redis has no rider position keys, so the likely cause is the missing rider positions.
+
+**Limits.**
+- One local VM (6 vCPU, 8 GB) shared by admission, order, dispatch, Postgres, Redis, Redpanda, k6 and the samplers. The load generator competes for the same CPU. Dropped iterations are k6's count; I did not isolate whether k6 or the stack caused them.
+- Simulated traffic with assumed rates and mix. Not measured from real demand.
+- Three runs per condition. The spread within a condition is larger than the difference between conditions for some metrics.
+- Dispatch has 9 riders and no rider positions, so the assignment path was not exercised. A real dispatch load would add Postgres and Redis work that is not in these numbers.
+- Redis co-located on the VM, with timeouts during the peak in every run.
+- Thresholds are the untuned starting values from Step 4. They were not changed for this series.
+- Run-to-run variation at this load on this machine is large. The numbers here describe these six runs only.
+
+**Test harness notes.** The first attempt had all six runs fail at setup: 400 seed orders from one client id hit the rate limit burst. Those runs are kept as `invalid-setup-429-*` and were not used. The seed step now uses one client id per seed.
