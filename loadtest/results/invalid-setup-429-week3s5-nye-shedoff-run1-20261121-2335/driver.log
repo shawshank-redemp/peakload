@@ -1,9 +1,0 @@
-[23:35:59] admission up; SHED_ENABLED=false
-[23:35:59] order outbox drained before reset after 0s
-[23:36:11] order and dispatch state reset
-[23:36:13] warm-up done (discarded), k6 exit=107
-[23:36:14] order outbox drained before reset after 1s
-[23:36:26] order and dispatch state reset
-[23:36:28] curve done, k6 exit=107
-[23:36:30] order outbox drained 1 s after the curve ended
-[23:36:35] done
