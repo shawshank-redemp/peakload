@@ -27,4 +27,34 @@
     <module>services/dispatch</module>
     <module>services/tracking</module>
   </modules>
+
+  <build>
+    <plugins>
+      <plugin>
+        <!-- The build, the tests and the compiled code all target Java 21. A newer JDK on the PATH makes the
+             test mocking library (Byte Buddy) fail, so the build refuses to run on anything but JDK 21.
+             Run it with JAVA_HOME pointing at a JDK 21. The Dockerfile already uses JDK 21. -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions>
+          <execution>
+            <id>require-jdk-21</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <version>[21,22)</version>
+                  <message>This build needs JDK 21. Set JAVA_HOME to a JDK 21 (for example, Homebrew's
+                    /opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home).</message>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>

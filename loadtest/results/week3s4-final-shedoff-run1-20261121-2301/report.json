@@ -1,0 +1,224 @@
+{
+  "rows": [
+    {
+      "phase": "?",
+      "class": "?",
+      "requests": 1,
+      "achieved_per_s": 0.0,
+      "accepted": 1,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 5.51,
+      "p95_ms": 5.51,
+      "p99_ms": 5.51
+    },
+    {
+      "phase": "p1",
+      "class": "CRITICAL",
+      "requests": 24002,
+      "achieved_per_s": 800.1,
+      "accepted": 24002,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 0.82,
+      "p95_ms": 2.26,
+      "p99_ms": 7.09
+    },
+    {
+      "phase": "p1",
+      "class": "STANDARD",
+      "requests": 1501,
+      "achieved_per_s": 50.0,
+      "accepted": 1501,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 0.57,
+      "p95_ms": 1.86,
+      "p99_ms": 5.27
+    },
+    {
+      "phase": "p2",
+      "class": "CRITICAL",
+      "requests": 24000,
+      "achieved_per_s": 800.0,
+      "accepted": 24000,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 0.85,
+      "p95_ms": 2.13,
+      "p99_ms": 5.61
+    },
+    {
+      "phase": "p2",
+      "class": "LOW",
+      "requests": 12001,
+      "achieved_per_s": 400.0,
+      "accepted": 12001,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 0.42,
+      "p95_ms": 1.11,
+      "p99_ms": 3.41
+    },
+    {
+      "phase": "p2",
+      "class": "STANDARD",
+      "requests": 1500,
+      "achieved_per_s": 50.0,
+      "accepted": 1500,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 0.6,
+      "p95_ms": 1.65,
+      "p99_ms": 4.03
+    },
+    {
+      "phase": "p3",
+      "class": "CRITICAL",
+      "requests": 24001,
+      "achieved_per_s": 800.0,
+      "accepted": 24001,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 0.92,
+      "p95_ms": 3.39,
+      "p99_ms": 10.27
+    },
+    {
+      "phase": "p3",
+      "class": "LOW",
+      "requests": 36001,
+      "achieved_per_s": 1200.0,
+      "accepted": 36001,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 0.42,
+      "p95_ms": 1.61,
+      "p99_ms": 5.73
+    },
+    {
+      "phase": "p3",
+      "class": "STANDARD",
+      "requests": 1501,
+      "achieved_per_s": 50.0,
+      "accepted": 1501,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 0.63,
+      "p95_ms": 2.5,
+      "p99_ms": 8.14
+    },
+    {
+      "phase": "p4",
+      "class": "CRITICAL",
+      "requests": 20669,
+      "achieved_per_s": 689.0,
+      "accepted": 19356,
+      "accepted_share_pct": 93.65,
+      "http_503_share_pct": 6.35,
+      "other_errors": 0,
+      "p50_ms": 10.33,
+      "p95_ms": 2245.59,
+      "p99_ms": 3380.45
+    },
+    {
+      "phase": "p4",
+      "class": "LOW",
+      "requests": 50599,
+      "achieved_per_s": 1686.6,
+      "accepted": 44397,
+      "accepted_share_pct": 87.74,
+      "http_503_share_pct": 0.0,
+      "other_errors": 6202,
+      "p50_ms": 2.11,
+      "p95_ms": 1860.82,
+      "p99_ms": 2935.55
+    },
+    {
+      "phase": "p4",
+      "class": "STANDARD",
+      "requests": 1400,
+      "achieved_per_s": 46.7,
+      "accepted": 1297,
+      "accepted_share_pct": 92.64,
+      "http_503_share_pct": 7.36,
+      "other_errors": 0,
+      "p50_ms": 11.35,
+      "p95_ms": 2410.84,
+      "p99_ms": 3286.61
+    }
+  ],
+  "dropped_iterations_by_scenario": {
+    "critical_p4": 3326,
+    "low_p4": 21416,
+    "standard_p4": 100
+  },
+  "dropped_iterations_total": 24842,
+  "shed_counter_delta": {
+    "critical": 0.0,
+    "standard": 0.0,
+    "low": 0.0
+  },
+  "level_changes": [],
+  "stack_by_phase": {
+    "1": {
+      "order_cpu_pct": {
+        "mean": 27.87,
+        "peak": 36.19
+      },
+      "order_hikari_pending": {
+        "mean": 0.0,
+        "peak": 0.0
+      }
+    },
+    "2": {
+      "order_cpu_pct": {
+        "mean": 29.7,
+        "peak": 43.09
+      },
+      "order_hikari_pending": {
+        "mean": 0.0,
+        "peak": 0.0
+      }
+    },
+    "3": {
+      "order_cpu_pct": {
+        "mean": 34.73,
+        "peak": 46.83
+      },
+      "order_hikari_pending": {
+        "mean": 0.0,
+        "peak": 0.0
+      }
+    },
+    "4": {
+      "order_cpu_pct": {
+        "mean": 57.38,
+        "peak": 78.08
+      },
+      "order_hikari_pending": {
+        "mean": 24.0,
+        "peak": 144.0
+      }
+    },
+    "5": {
+      "order_cpu_pct": {
+        "mean": 7.73,
+        "peak": 14.97
+      },
+      "order_hikari_pending": {
+        "mean": 0.0,
+        "peak": 0.0
+      }
+    }
+  }
+}

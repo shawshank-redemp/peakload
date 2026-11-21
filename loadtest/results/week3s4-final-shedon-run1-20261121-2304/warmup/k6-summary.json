@@ -1,0 +1,90 @@
+{
+    "root_group": {
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {},
+        "checks": {},
+        "name": ""
+    },
+    "metrics": {
+        "http_req_duration": {
+            "med": 0.853396,
+            "p(95)": 3.4200246499999984,
+            "p(99)": 33.503764589999946
+        },
+        "http_req_duration{expected_response:true}": {
+            "p(95)": 3.4200246499999984,
+            "p(99)": 33.503764589999946,
+            "med": 0.853396
+        },
+        "http_reqs": {
+            "rate": 844.6244195378789,
+            "count": 25502
+        },
+        "http_req_waiting": {
+            "med": 0.8338955,
+            "p(95)": 3.3734898999999987,
+            "p(99)": 33.38194591999997
+        },
+        "http_req_tls_handshaking": {
+            "med": 0,
+            "p(95)": 0,
+            "p(99)": 0
+        },
+        "http_req_failed": {
+            "passes": 0,
+            "fails": 25502,
+            "value": 0
+        },
+        "http_req_receiving": {
+            "p(99)": 0.13924707999999994,
+            "med": 0.010458,
+            "p(95)": 0.054664899999999954
+        },
+        "iteration_duration": {
+            "p(99)": 33.87225,
+            "med": 0.886042,
+            "p(95)": 3.542667
+        },
+        "iterations": {
+            "count": 25501,
+            "rate": 844.5912996092641
+        },
+        "http_req_blocked": {
+            "med": 0.001042,
+            "p(95)": 0.003708,
+            "p(99)": 0.07166516999999997
+        },
+        "http_req_connecting": {
+            "med": 0,
+            "p(95)": 0,
+            "p(99)": 0.04716699
+        },
+        "data_sent": {
+            "count": 7924008,
+            "rate": 262442.57930411375
+        },
+        "http_req_sending": {
+            "p(95)": 0.018208,
+            "p(99)": 0.0465,
+            "med": 0.005584
+        },
+        "data_received": {
+            "count": 6278351,
+            "rate": 207938.53693945816
+        },
+        "vus": {
+            "value": 0,
+            "min": 0,
+            "max": 4
+        },
+        "vus_max": {
+            "value": 425,
+            "min": 425,
+            "max": 425
+        }
+    },
+    "setup_data": {
+        "orderId": "01a1ff2c-5f7c-7362-a156-1ca3d1cbdedf"
+    }
+}

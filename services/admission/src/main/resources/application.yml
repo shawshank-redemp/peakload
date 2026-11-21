@@ -65,6 +65,34 @@ peakload:
         # Bounded memory: most buckets kept at once; the least recently used one is evicted beyond this.
         max-keys: ${RATE_LIMIT_LOCAL_MAX_KEYS:50000}
         idle-expiry: PT5M
+    shed:
+      # PLACEHOLDERS, NOT RECOMMENDATIONS. Unmeasured starting values. The Week 3 Step 4 measurement is what they
+      # should be checked against; they are not tuned to it. false = no request is shed (for comparison runs).
+      enabled: ${SHED_ENABLED:true}
+      # In-flight is a fraction of the upstream pool (max-connections below). It counts every class, including
+      # local menu reads. Each level is entered at its enter value and left at its lower exit value (hysteresis).
+      # Latency is the smoothed (EWMA) order-service call time in ms; enter and exit work the same way.
+      elevated:   # sheds LOW
+        in-flight-enter: 0.50
+        in-flight-exit: 0.40
+        latency-enter-ms: 250
+        latency-exit-ms: 150
+      high:       # sheds LOW and STANDARD
+        in-flight-enter: 0.75
+        in-flight-exit: 0.60
+        latency-enter-ms: 1000
+        latency-exit-ms: 600
+      hard-cap:   # sheds everything, including CRITICAL, without queueing
+        in-flight-enter: 0.95
+        in-flight-exit: 0.85
+        latency-enter-ms: 2500
+        latency-exit-ms: 1500
+      # Weight of the newest upstream sample in the EWMA (0 < smoothing <= 1).
+      smoothing: 0.2
+      # The smoothed latency halves this often while no upstream calls are made, so recovery is seen without traffic.
+      latency-half-life: PT5S
+      # Sent as Retry-After with a shed (503). Rounded up to whole seconds, at least 1.
+      retry-after: PT1S
     upstream:
       # Where POST /orders and the other order routes are sent.
       order-url: ${ORDER_URL:http://localhost:8081}

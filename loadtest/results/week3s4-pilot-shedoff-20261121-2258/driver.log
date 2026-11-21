@@ -1,0 +1,4 @@
+[22:58:40] admission up; SHED_ENABLED=false crit=800 std=50 low=400,1200,2400 phase=30s
+[22:59:11] warm-up done (discarded), exit=0
+[23:01:12] measured run done, k6 exit=0
+[23:01:16] done

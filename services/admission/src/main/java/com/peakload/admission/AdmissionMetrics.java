@@ -17,9 +17,13 @@ class AdmissionMetrics {
     private final Map<RequestClass, AtomicInteger> inFlight = new EnumMap<>(RequestClass.class);
     private final Map<RequestClass, Timer> upstream = new EnumMap<>(RequestClass.class);
     private final Map<RequestClass, Counter> rateLimited = new EnumMap<>(RequestClass.class);
+    private final Map<RequestClass, Counter> shed = new EnumMap<>(RequestClass.class);
 
     AdmissionMetrics(MeterRegistry registry) {
         this.registry = registry;
+        Gauge.builder("admission.in.flight.total", this, AdmissionMetrics::inFlightTotal)
+                .description("Requests currently being handled, all classes including local menu reads")
+                .register(registry);
         for (RequestClass requestClass : RequestClass.values()) {
             AtomicInteger counter = new AtomicInteger();
             inFlight.put(requestClass, counter);
@@ -27,6 +31,10 @@ class AdmissionMetrics {
                     .description("Requests currently being handled, by class")
                     .tag("class", requestClass.name())
                     .register(registry);
+            shed.put(requestClass, Counter.builder("admission.shed")
+                    .description("Requests rejected by load shedding (503), by class")
+                    .tag("class", requestClass.name())
+                    .register(registry));
             rateLimited.put(requestClass, Counter.builder("admission.rate.limited")
                     .description("Requests rejected by the rate limiter, by class")
                     .tag("class", requestClass.name())
@@ -45,6 +53,19 @@ class AdmissionMetrics {
 
     void exit(RequestClass requestClass) {
         inFlight.get(requestClass).decrementAndGet();
+    }
+
+    /** In-flight requests across all classes, including local menu reads (they use the same Postgres). */
+    int inFlightTotal() {
+        int total = 0;
+        for (AtomicInteger counter : inFlight.values()) {
+            total += counter.get();
+        }
+        return total;
+    }
+
+    void shed(RequestClass requestClass) {
+        shed.get(requestClass).increment();
     }
 
     /**

@@ -476,3 +476,55 @@ k6 dropped iterations (whole run): 105. Mode switch to local: n/a s after the ou
 - **Shared JVM.** Runs A and B reused one admission process, because Compose did not recreate the container when its settings were unchanged. Run C started a new process. The counters in the tables are per-run deltas.
 
 **Limits of this setup.** One instance, so the "up to N times the configured limit" effect is not measured. The local buckets are per process, so a second instance would have its own. The cap on local buckets (50,000 keys by default) and eviction were not exercised by this load.
+
+## Week 3: load shedding
+
+Admission now sheds load by class when the system is busy. Order of shedding: LOW first (ELEVATED), then STANDARD (HIGH), then CRITICAL too at the hard cap (HARD_CAP, rejected at once, not queued). A shed request gets `503` with `Retry-After` and a body with `"error": "shed"`, the class and the level. It is counted in `admission_shed_total{class}` and `admission_requests_total{outcome="shed"}`. It never reaches the order service or the menu table. This is separate from the `429` rate limit, which is per client.
+
+**The thresholds are unmeasured starting values.** They are in `application.yml` under `peakload.admission.shed` and are marked as such there. The measurement below shows what this load did with them; it did not tune them.
+
+- In-flight is counted across all classes, including local menu reads, as a fraction of the upstream pool (200 connections). Enter/exit: ELEVATED 0.50/0.40, HIGH 0.75/0.60, HARD_CAP 0.95/0.85.
+- Smoothed order-service latency (EWMA, weight 0.2), counting timeouts. Enter/exit: ELEVATED 250/150 ms, HIGH 1000/600 ms, HARD_CAP 2500/1500 ms. The value halves every 5 s with no upstream calls, so it can recover while shedding.
+- Each signal has its own level with hysteresis. The overall level is the higher of the two. `SHED_ENABLED=false` turns shedding off. The level is still computed for the gauge.
+
+### Setup
+
+- One VM: Docker Desktop with 6 vCPUs and 8 GB. Shared with k6, Postgres, Redis, Redpanda, Prometheus and Grafana. Single admission and single order instance.
+- **Test assumptions, not real traffic.** CRITICAL `POST /orders` at 800 req/s, STANDARD `GET /orders/{id}` at 50 req/s. LOW `GET` menu at 0 in phase 1 (calm), then 400, 1200 and 2400 req/s in phases 2, 3 and 4. Four 30 s phases, one warm-up of phase 1 (discarded), tables truncated before each run, admission restarted before each run.
+- **Why CRITICAL at 800 req/s.** Week 1 passed direct `POST /orders` up to 5200 req/s. Week 3 Step 1 passed admission at 200, 800 and 1600 req/s with no drops. 800 is inside the range Step 1 passed cleanly, well below the Week 1 knee. A confirm run first: CRITICAL alone at 800 req/s, shedding off, passed (96,004 requests, all accepted, no dropped iterations, p99 2.8–3.5 ms per phase).
+- **LOW ramp.** A pilot (shedding off, one run, not in the table below) ran the ramp to pick the LOW rates. At 1200 req/s of LOW, CRITICAL p99 went from 5.5 ms to 740 ms and k6 dropped 1,113 iterations. The final ramp is the pilot's, unchanged.
+- The rate limiter was on but set to 1,000,000 req/s per class, so it did not limit this load. Its limit was not what was measured.
+- k6 reports only (no thresholds). Dropped iterations are k6's count, and a dropped iteration means k6 started fewer requests than scheduled. I did not isolate whether k6 or the stack caused them.
+
+### Results (per phase; numbers from `loadtest/shed_report.py`)
+
+Phase 3 is LOW at 1200 req/s, phase 4 is LOW at 2400 req/s. "Accepted" means HTTP 200 or 201. In shedding-off runs, every 503 is an upstream pool timeout from admission (shed counter zero). Shedding-off HTTP 500s on LOW were not counted by admission's outcome counters. The cause is now confirmed: the menu's connection pool (10 connections) was full, and a menu read waited 2 s for a connection and then failed (`SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 2008ms`). Spring turned that into a 500. Reproduced with the mixed load and shedding off; LOW alone at 2400 req/s did not fail. Admission's Hikari acquire max was 4.39 s in shedding-off run 2 and 0.10 s in shedding-on run 2. The fix (menu pool timeout answered 503 with `menu_unavailable`, counted as outcome `database_unavailable`) is in the code but was not re-measured.
+
+**Phase 4 (LOW 2400 req/s), all six runs.**
+
+| Shedding | Run | CRITICAL achieved req/s | CRITICAL accepted % | CRITICAL p50 / p95 / p99 ms | LOW accepted % | LOW p99 ms | STANDARD p99 ms | k6 dropped iter. | Shed CRITICAL / STANDARD / LOW |
+|---|---|---|---|---|---|---|---|---|---|
+| off | 1 | 689.0 | 93.65 (503: 6.35) | 10.33 / 2245.59 / 3380.45 | 87.74 (500: 6,202) | 2935.55 | 3286.61 | 24,842 | 0 / 0 / 0 |
+| off | 2 | 655.3 | 93.45 (503: 6.55) | 502.97 / 3057.5 / 4082.75 | 45.48 (500: 19,397) | 6483.56 | 4118.86 | 40,917 | 0 / 0 / 0 |
+| off | 3 | 800.0 | 100.0 | 1.45 / 5.79 / 20.06 | 100.0 | 24.54 | 16.48 | 508 | 0 / 0 / 0 |
+| on | 1 | 763.6 | 95.94 (503: 4.06) | 1.6 / 24.34 / 132.13 | 93.28 (503: 6.72) | 45.23 | 51.93 | 4,707 | 930 / 90 / 4,601 |
+| on | 2 | 800.0 | 100.0 | 1.47 / 11.86 / 52.6 | 98.33 (503: 1.67) | 30.72 | 38.73 | 0 | 0 / 9 / 1,368 |
+| on | 3 | 800.0 | 98.2 (503: 1.8) | 1.39 / 12.9 / 280.29 | 96.35 (503: 3.65) | 37.44 | 65.08 | 0 | 453 / 49 / 3,070 |
+
+**Phase 3 (LOW 1200 req/s), CRITICAL p99 ms:** shedding off 10.27, 131.94, 420.28; shedding on 10.48, 25.37, 77.23. Phase 3 CRITICAL accepted was 100% in every run except shedding-on run 3 (99.92%).
+
+**What this shows.**
+- **Shedding fired in the order it is meant to.** LOW was shed in every shedding-on run, STANDARD in every shedding-on run (9 to 90 requests), and CRITICAL only in runs 1 and 3 (930 and 453 requests, all at HARD_CAP or HIGH bursts). I did not time the shed responses separately.
+- **The effect on CRITICAL is not consistent across runs.** CRITICAL p99 in phase 4 was 3,380 and 4,082 ms with shedding off in runs 1 and 2, and 20 ms in run 3. With shedding on it was 132, 53 and 280 ms. Run 3 with shedding off was the best CRITICAL run of all six, so the direction holds in two of three pairs and reverses in the third. Three runs per condition cannot separate the effect from run-to-run variation.
+- **Shedding-off runs failed requests.** CRITICAL got 503s from admission's upstream pool (`pool_timeout` and `upstream_error`) and LOW got HTTP 500s, in runs 1 and 2 only. Shedding-on runs had fewer failures in phase 4. In shedding-on runs 1 and 3, the CRITICAL 503s are the shed count (930 and 433 in phase 4, plus 20 in phase 3 for run 3, which gives the 453 counted).
+- **The load level changed briefly.** Shedding-on run 3 (sampled every 0.5 s): HIGH at 79.4 s (in-flight 137, EWMA 27 ms), back to NORMAL 0.5 s later, then HARD_CAP at 119.5 s (in-flight 186, EWMA 79 ms), back to NORMAL 0.6 s later. Most short bursts were shorter than the sampling interval, so this timeline is a lower bound. The shed counters are exact. These bursts line up with order-service stalls. Shedding-on runs 1 and 2 have no level timeline: the sampler had a bug, fixed below, and its output for those runs is blank.
+- **Phase 2 in shedding-on run 2 shows a stall.** CRITICAL p99 was 115 ms in phase 2, and 1.2% of LOW was shed (ELEVATED). I did not isolate the cause.
+
+**Things that went wrong during the work, and what I did about them.**
+- The EWMA faded during a slow call's own duration, so back-to-back slow calls decayed their own value. The integration test caught it; it is fixed before any measurement, and the unit test still passes.
+- The shedding-on runs 1 and 2 have no level timeline. The sampler matched metric names without their label set. It was fixed and checked against live admission, and shedding-on run 3 was run again with the fixed sampler. Runs 1 and 2 are kept in `loadtest/results` with their k6 and counter data, which were not affected.
+- Admission's total in-flight gauge exports as `admission_in_flight` with no `class` label, because Micrometer drops the `.total` suffix. The per-class gauges have a `class` label.
+- With shedding off, the level gauge was not updated. Fixed after these runs, and covered by a unit test. The shedding-off runs' k6 data are unaffected.
+- The order module's tests stopped on a JDK change (Java 27 with an older Byte Buddy). They pass with `-DargLine=-Dnet.bytebuddy.experimental=true`. That changes the test JVM only.
+
+**Limits.** One VM, one admission and one order instance. Numbers are for this request mix and these rates, which are assumptions. Three runs per condition is not enough to measure a p99 difference of this size. The shedding thresholds were not tuned. A second admission instance would have its own in-flight count and EWMA.

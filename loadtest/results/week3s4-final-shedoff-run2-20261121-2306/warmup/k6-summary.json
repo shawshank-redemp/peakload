@@ -1,0 +1,90 @@
+{
+    "setup_data": {
+        "orderId": "01a1ff2e-d4d0-75e0-becc-dc1aab6a29fa"
+    },
+    "root_group": {
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {},
+        "checks": {}
+    },
+    "metrics": {
+        "http_req_receiving": {
+            "p(95)": 0.058245899999999955,
+            "p(99)": 0.14170634,
+            "med": 0.01125
+        },
+        "data_sent": {
+            "count": 7924113,
+            "rate": 262316.8994296638
+        },
+        "http_req_connecting": {
+            "med": 0,
+            "p(95)": 0,
+            "p(99)": 0.05132883999999995
+        },
+        "http_req_sending": {
+            "med": 0.005958,
+            "p(95)": 0.016667,
+            "p(99)": 0.04012165999999996
+        },
+        "http_req_duration{expected_response:true}": {
+            "med": 0.907708,
+            "p(95)": 3.3841083,
+            "p(99)": 8.58444218
+        },
+        "http_req_failed": {
+            "passes": 0,
+            "fails": 25503,
+            "value": 0
+        },
+        "iterations": {
+            "count": 25502,
+            "rate": 844.2087548796043
+        },
+        "http_req_blocked": {
+            "med": 0.001125,
+            "p(95)": 0.003584,
+            "p(99)": 0.07141517999999998
+        },
+        "http_req_tls_handshaking": {
+            "med": 0,
+            "p(95)": 0,
+            "p(99)": 0
+        },
+        "http_req_waiting": {
+            "med": 0.887083,
+            "p(95)": 3.3371290999999985,
+            "p(99)": 8.499276979999989
+        },
+        "http_reqs": {
+            "count": 25503,
+            "rate": 844.2418585089227
+        },
+        "data_received": {
+            "count": 6279852,
+            "rate": 207885.89278284812
+        },
+        "http_req_duration": {
+            "med": 0.907708,
+            "p(95)": 3.3841083,
+            "p(99)": 8.58444218
+        },
+        "iteration_duration": {
+            "med": 0.9430205,
+            "p(95)": 3.5183172999999943,
+            "p(99)": 8.823498839999996
+        },
+        "vus": {
+            "min": 0,
+            "max": 3,
+            "value": 1
+        },
+        "vus_max": {
+            "value": 425,
+            "min": 425,
+            "max": 425
+        }
+    }
+}

@@ -1,0 +1,129 @@
+{
+  "rows": [
+    {
+      "phase": "?",
+      "class": "?",
+      "requests": 1,
+      "achieved_per_s": 0.0,
+      "accepted": 1,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 5.87,
+      "p95_ms": 5.87,
+      "p99_ms": 5.87
+    },
+    {
+      "phase": "p1",
+      "class": "CRITICAL",
+      "requests": 24001,
+      "achieved_per_s": 800.0,
+      "accepted": 24001,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 0.8,
+      "p95_ms": 1.41,
+      "p99_ms": 2.83
+    },
+    {
+      "phase": "p2",
+      "class": "CRITICAL",
+      "requests": 24001,
+      "achieved_per_s": 800.0,
+      "accepted": 24001,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 0.82,
+      "p95_ms": 1.39,
+      "p99_ms": 3.29
+    },
+    {
+      "phase": "p3",
+      "class": "CRITICAL",
+      "requests": 24001,
+      "achieved_per_s": 800.0,
+      "accepted": 24001,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 0.82,
+      "p95_ms": 1.37,
+      "p99_ms": 3.48
+    },
+    {
+      "phase": "p4",
+      "class": "CRITICAL",
+      "requests": 24001,
+      "achieved_per_s": 800.0,
+      "accepted": 24001,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 0.83,
+      "p95_ms": 1.31,
+      "p99_ms": 2.8
+    }
+  ],
+  "dropped_iterations_by_scenario": {},
+  "dropped_iterations_total": 0,
+  "shed_counter_delta": {
+    "critical": 0.0,
+    "standard": 0.0,
+    "low": 0.0
+  },
+  "level_changes": [],
+  "stack_by_phase": {
+    "1": {
+      "order_cpu_pct": {
+        "mean": 27.03,
+        "peak": 32.74
+      },
+      "order_hikari_pending": {
+        "mean": 0.0,
+        "peak": 0.0
+      }
+    },
+    "2": {
+      "order_cpu_pct": {
+        "mean": 27.09,
+        "peak": 35.57
+      },
+      "order_hikari_pending": {
+        "mean": 0.0,
+        "peak": 0.0
+      }
+    },
+    "3": {
+      "order_cpu_pct": {
+        "mean": 28.62,
+        "peak": 30.42
+      },
+      "order_hikari_pending": {
+        "mean": 0.0,
+        "peak": 0.0
+      }
+    },
+    "4": {
+      "order_cpu_pct": {
+        "mean": 29.93,
+        "peak": 47.44
+      },
+      "order_hikari_pending": {
+        "mean": 0.0,
+        "peak": 0.0
+      }
+    },
+    "5": {
+      "order_cpu_pct": {
+        "mean": 0.41,
+        "peak": 0.41
+      },
+      "order_hikari_pending": {
+        "mean": 0.0,
+        "peak": 0.0
+      }
+    }
+  }
+}

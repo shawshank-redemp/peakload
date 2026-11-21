@@ -32,10 +32,12 @@ class ProxyService {
 
     private final RestClient upstream;
     private final AdmissionMetrics metrics;
+    private final UpstreamLatency latency;
 
-    ProxyService(RestClient upstreamRestClient, AdmissionMetrics metrics) {
+    ProxyService(RestClient upstreamRestClient, AdmissionMetrics metrics, UpstreamLatency latency) {
         this.upstream = upstreamRestClient;
         this.metrics = metrics;
+        this.latency = latency;
     }
 
     /** The upstream's answer, passed on unchanged. */
@@ -76,7 +78,10 @@ class ProxyService {
             metrics.upstreamError(failure.type());
             throw failure;
         } finally {
-            metrics.upstreamTimer(requestClass).record(System.nanoTime() - started, TimeUnit.NANOSECONDS);
+            long elapsed = System.nanoTime() - started;
+            metrics.upstreamTimer(requestClass).record(elapsed, TimeUnit.NANOSECONDS);
+            // Timeouts and refusals count too: how long the call took is the signal the load policy needs.
+            latency.record(TimeUnit.NANOSECONDS.toMillis(elapsed));
         }
     }
 

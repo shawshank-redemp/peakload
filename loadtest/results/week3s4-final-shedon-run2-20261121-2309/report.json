@@ -1,0 +1,220 @@
+{
+  "rows": [
+    {
+      "phase": "?",
+      "class": "?",
+      "requests": 1,
+      "achieved_per_s": 0.0,
+      "accepted": 1,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 11.1,
+      "p95_ms": 11.1,
+      "p99_ms": 11.1
+    },
+    {
+      "phase": "p1",
+      "class": "CRITICAL",
+      "requests": 24001,
+      "achieved_per_s": 800.0,
+      "accepted": 24001,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 0.84,
+      "p95_ms": 1.58,
+      "p99_ms": 3.35
+    },
+    {
+      "phase": "p1",
+      "class": "STANDARD",
+      "requests": 1501,
+      "achieved_per_s": 50.0,
+      "accepted": 1501,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 0.56,
+      "p95_ms": 1.19,
+      "p99_ms": 2.92
+    },
+    {
+      "phase": "p2",
+      "class": "CRITICAL",
+      "requests": 24001,
+      "achieved_per_s": 800.0,
+      "accepted": 24001,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 1.06,
+      "p95_ms": 12.58,
+      "p99_ms": 114.63
+    },
+    {
+      "phase": "p2",
+      "class": "LOW",
+      "requests": 12001,
+      "achieved_per_s": 400.0,
+      "accepted": 11854,
+      "accepted_share_pct": 98.78,
+      "http_503_share_pct": 1.22,
+      "other_errors": 0,
+      "p50_ms": 0.51,
+      "p95_ms": 3.92,
+      "p99_ms": 63.85
+    },
+    {
+      "phase": "p2",
+      "class": "STANDARD",
+      "requests": 1500,
+      "achieved_per_s": 50.0,
+      "accepted": 1500,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 0.72,
+      "p95_ms": 9.3,
+      "p99_ms": 85.92
+    },
+    {
+      "phase": "p3",
+      "class": "CRITICAL",
+      "requests": 24000,
+      "achieved_per_s": 800.0,
+      "accepted": 24000,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 1.08,
+      "p95_ms": 5.72,
+      "p99_ms": 25.37
+    },
+    {
+      "phase": "p3",
+      "class": "LOW",
+      "requests": 36001,
+      "achieved_per_s": 1200.0,
+      "accepted": 35985,
+      "accepted_share_pct": 99.96,
+      "http_503_share_pct": 0.04,
+      "other_errors": 0,
+      "p50_ms": 0.48,
+      "p95_ms": 3.17,
+      "p99_ms": 18.64
+    },
+    {
+      "phase": "p3",
+      "class": "STANDARD",
+      "requests": 1500,
+      "achieved_per_s": 50.0,
+      "accepted": 1500,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 0.72,
+      "p95_ms": 4.04,
+      "p99_ms": 20.85
+    },
+    {
+      "phase": "p4",
+      "class": "CRITICAL",
+      "requests": 24001,
+      "achieved_per_s": 800.0,
+      "accepted": 24001,
+      "accepted_share_pct": 100.0,
+      "http_503_share_pct": 0.0,
+      "other_errors": 0,
+      "p50_ms": 1.47,
+      "p95_ms": 11.86,
+      "p99_ms": 52.6
+    },
+    {
+      "phase": "p4",
+      "class": "LOW",
+      "requests": 71999,
+      "achieved_per_s": 2400.0,
+      "accepted": 70794,
+      "accepted_share_pct": 98.33,
+      "http_503_share_pct": 1.67,
+      "other_errors": 0,
+      "p50_ms": 0.63,
+      "p95_ms": 5.58,
+      "p99_ms": 30.72
+    },
+    {
+      "phase": "p4",
+      "class": "STANDARD",
+      "requests": 1501,
+      "achieved_per_s": 50.0,
+      "accepted": 1492,
+      "accepted_share_pct": 99.4,
+      "http_503_share_pct": 0.6,
+      "other_errors": 0,
+      "p50_ms": 0.91,
+      "p95_ms": 7.46,
+      "p99_ms": 38.73
+    }
+  ],
+  "dropped_iterations_by_scenario": {},
+  "dropped_iterations_total": 0,
+  "shed_counter_delta": {
+    "critical": 0.0,
+    "standard": 9.0,
+    "low": 1368.0
+  },
+  "level_changes": [],
+  "stack_by_phase": {
+    "1": {
+      "order_cpu_pct": {
+        "mean": 29.36,
+        "peak": 41.45
+      },
+      "order_hikari_pending": {
+        "mean": 0.0,
+        "peak": 0.0
+      }
+    },
+    "2": {
+      "order_cpu_pct": {
+        "mean": 37.5,
+        "peak": 72.39
+      },
+      "order_hikari_pending": {
+        "mean": 0.0,
+        "peak": 0.0
+      }
+    },
+    "3": {
+      "order_cpu_pct": {
+        "mean": 37.45,
+        "peak": 53.53
+      },
+      "order_hikari_pending": {
+        "mean": 0.67,
+        "peak": 4.0
+      }
+    },
+    "4": {
+      "order_cpu_pct": {
+        "mean": 41.96,
+        "peak": 50.37
+      },
+      "order_hikari_pending": {
+        "mean": 0.0,
+        "peak": 0.0
+      }
+    },
+    "5": {
+      "order_cpu_pct": {
+        "mean": 1.65,
+        "peak": 1.65
+      },
+      "order_hikari_pending": {
+        "mean": 0.0,
+        "peak": 0.0
+      }
+    }
+  }
+}

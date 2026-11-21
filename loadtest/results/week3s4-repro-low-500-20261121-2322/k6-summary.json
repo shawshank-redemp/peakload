@@ -1,0 +1,94 @@
+{
+    "root_group": {
+        "checks": {},
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {}
+    },
+    "metrics": {
+        "http_req_waiting": {
+            "med": 0.39625,
+            "p(95)": 1.05504135,
+            "p(99)": 111.72090000999998
+        },
+        "http_req_tls_handshaking": {
+            "med": 0,
+            "p(95)": 0,
+            "p(99)": 0
+        },
+        "dropped_iterations": {
+            "count": 172,
+            "rate": 1.4304059504348907
+        },
+        "vus_max": {
+            "max": 2461,
+            "value": 2461,
+            "min": 2440
+        },
+        "http_req_duration": {
+            "med": 0.41125,
+            "p(95)": 1.1013476999999996,
+            "p(99)": 111.7813372599999
+        },
+        "http_req_duration{expected_response:true}": {
+            "med": 0.41125,
+            "p(95)": 1.1013476999999996,
+            "p(99)": 111.7813372599999
+        },
+        "iterations": {
+            "count": 215953,
+            "rate": 1795.9328849666624
+        },
+        "http_reqs": {
+            "count": 215954,
+            "rate": 1795.9412012803277
+        },
+        "http_req_sending": {
+            "med": 0.003,
+            "p(95)": 0.011875,
+            "p(99)": 0.046708
+        },
+        "data_received": {
+            "count": 111636796,
+            "rate": 928406.6121272442
+        },
+        "http_req_receiving": {
+            "med": 0.008417,
+            "p(95)": 0.040291,
+            "p(99)": 0.078667
+        },
+        "data_sent": {
+            "count": 31982616,
+            "rate": 265977.4664934543
+        },
+        "iteration_duration": {
+            "med": 0.431458,
+            "p(95)": 1.1690335999999992,
+            "p(99)": 114.49481683999993
+        },
+        "vus": {
+            "value": 0,
+            "min": 0,
+            "max": 914
+        },
+        "http_req_blocked": {
+            "med": 0.001083,
+            "p(95)": 0.003959,
+            "p(99)": 0.07120600999999983
+        },
+        "http_req_connecting": {
+            "med": 0,
+            "p(95)": 0,
+            "p(99)": 0.048333469999999996
+        },
+        "http_req_failed": {
+            "passes": 0,
+            "fails": 215954,
+            "value": 0
+        }
+    },
+    "setup_data": {
+        "orderId": "01a1ff3d-4caf-7403-ad85-760a3fe98d84"
+    }
+}
