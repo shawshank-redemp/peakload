@@ -70,7 +70,7 @@ peakload:
       # Pause between retry runs; how long an order may wait before it is given up; orders per run.
       retry-interval: ${PENDING_RETRY_INTERVAL:PT5S}
       max-age: ${PENDING_MAX_AGE:PT15M}
-      batch-size: 50
+      batch-size: 200
     relay:
       # Outbox rows per batch, and the longest wait for one broker ack. send-wait must exceed the producer's
       # delivery.timeout.ms (10 s above).

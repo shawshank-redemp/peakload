@@ -10,7 +10,13 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.ArrayList;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
 import org.apache.kafka.clients.admin.Admin;
@@ -104,18 +110,28 @@ abstract class AbstractDispatchIT {
         }
     }
 
-    /**
-     * Publishes an OrderCreated event the way the order service does: key = order id, headers event-id and
-     * event-type, payload with the pickup point.
-     */
+    /** Publishes an OrderCreated event the way the order service does: key = order id, with the pickup point. */
     protected void produceOrderCreated(UUID eventId, UUID orderId, String city, double lat, double lon) {
         String payload = String.format(
                 "{\"orderId\":\"%s\",\"status\":\"CREATED\",\"version\":0,\"city\":\"%s\","
                         + "\"occurredAt\":\"%s\",\"pickupLat\":%s,\"pickupLon\":%s}",
                 orderId, city, Instant.now(), lat, lon);
+        produce(eventId, orderId, "OrderCreated", payload);
+    }
+
+    /** Publishes an OrderStatusChanged event the way the order service does. */
+    protected void produceOrderStatusChanged(UUID eventId, UUID orderId, String status) {
+        String payload = String.format(
+                "{\"orderId\":\"%s\",\"status\":\"%s\",\"version\":1,\"occurredAt\":\"%s\"}",
+                orderId, status, Instant.now());
+        produce(eventId, orderId, "OrderStatusChanged", payload);
+    }
+
+    /** Publishes one record to order-events with the event-id and event-type headers, keyed by order id. */
+    protected void produce(UUID eventId, UUID orderId, String eventType, String payload) {
         ProducerRecord<String, String> record = new ProducerRecord<>("order-events", orderId.toString(), payload);
         record.headers().add("event-id", eventId.toString().getBytes(StandardCharsets.UTF_8));
-        record.headers().add("event-type", "OrderCreated".getBytes(StandardCharsets.UTF_8));
+        record.headers().add("event-type", eventType.getBytes(StandardCharsets.UTF_8));
         try (KafkaProducer<String, String> producer = new KafkaProducer<>(Map.of(
                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, REDPANDA.getBootstrapServers(),
                 ProducerConfig.ACKS_CONFIG, "all",
@@ -123,7 +139,30 @@ abstract class AbstractDispatchIT {
                 ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class))) {
             producer.send(record).get(30, TimeUnit.SECONDS);
         } catch (Exception e) {
-            throw new IllegalStateException("could not produce OrderCreated", e);
+            throw new IllegalStateException("could not produce " + eventType, e);
+        }
+    }
+
+    /** Runs {@code task} on {@code threads} threads that start together. Returns the results in submission order. */
+    protected static <T> List<T> concurrently(int threads, Callable<T> task) throws Exception {
+        ExecutorService pool = Executors.newFixedThreadPool(threads);
+        try {
+            CountDownLatch startGate = new CountDownLatch(1);
+            List<Future<T>> futures = new ArrayList<>();
+            for (int i = 0; i < threads; i++) {
+                futures.add(pool.submit(() -> {
+                    startGate.await();
+                    return task.call();
+                }));
+            }
+            startGate.countDown();
+            List<T> results = new ArrayList<>();
+            for (Future<T> future : futures) {
+                results.add(future.get(120, TimeUnit.SECONDS));
+            }
+            return results;
+        } finally {
+            pool.shutdownNow();
         }
     }
 

@@ -27,6 +27,7 @@ class OrderEventListener {
 
     static final String GROUP = "dispatch-order-events";
     static final String ORDER_CREATED = "OrderCreated";
+    static final String ORDER_STATUS_CHANGED = "OrderStatusChanged";
 
     private static final Logger log = LoggerFactory.getLogger(OrderEventListener.class);
 
@@ -49,6 +50,10 @@ class OrderEventListener {
     @KafkaListener(topics = EventNames.ORDER_EVENTS, groupId = GROUP)
     void onEvent(ConsumerRecord<String, String> record) {
         String eventType = header(record, EventNames.EVENT_TYPE);
+        if (ORDER_STATUS_CHANGED.equals(eventType)) {
+            onStatusChanged(record);
+            return;
+        }
         if (!ORDER_CREATED.equals(eventType)) {
             log.debug("ignoring {} event at offset {}", eventType, record.offset());
             return;
@@ -71,6 +76,21 @@ class OrderEventListener {
             latency.record(System.nanoTime() - startedNanos, TimeUnit.NANOSECONDS);
         }
         log.info("order {} event {}: {}", event.orderId(), eventId, outcome);
+    }
+
+    private void onStatusChanged(ConsumerRecord<String, String> record) {
+        UUID eventId;
+        OrderStatusEvent event;
+        try {
+            eventId = UUID.fromString(requireHeader(record, EventNames.EVENT_ID));
+            event = OrderStatusEvent.parse(mapper, record.value());
+        } catch (IllegalArgumentException e) {
+            malformed.increment();
+            log.error("skipping malformed OrderStatusChanged at offset {}: {}", record.offset(), e.getMessage());
+            return;
+        }
+        assignments.onOrderStatusChanged(eventId, event);
+        log.info("order {} status {} event {}", event.orderId(), event.status(), eventId);
     }
 
     private static String requireHeader(ConsumerRecord<String, String> record, String name) {

@@ -56,6 +56,12 @@ public class AssignmentService {
     private final Counter noCandidate;
     private final Counter duplicates;
     private final Counter gaveUp;
+    private final Counter completed;
+    private final Counter pendingCancelled;
+    private final Counter ridersReleased;
+    private final Counter releaseNoActive;
+    private final Counter releaseInconsistent;
+    private final Counter statusIgnored;
 
     AssignmentService(
             JdbcTemplate jdbc,
@@ -83,6 +89,18 @@ public class AssignmentService {
                 .description("OrderCreated events already processed").register(registry);
         this.gaveUp = Counter.builder("pending.expired")
                 .description("Pending orders given up after the maximum age").register(registry);
+        this.completed = Counter.builder("assignments.completed")
+                .description("Assignments completed by a DELIVERED or CANCELLED status event").register(registry);
+        this.pendingCancelled = Counter.builder("pending.cancelled")
+                .description("Pending orders removed because the order was cancelled").register(registry);
+        this.ridersReleased = Counter.builder("riders.released")
+                .description("Riders set back to AVAILABLE after their assignment ended").register(registry);
+        this.releaseNoActive = Counter.builder("release.no.active")
+                .description("DELIVERED or CANCELLED for an order with no ACTIVE assignment").register(registry);
+        this.releaseInconsistent = Counter.builder("release.inconsistent")
+                .description("Release skipped: the assignment was ACTIVE but its rider was not BUSY").register(registry);
+        this.statusIgnored = Counter.builder("status.changes.ignored")
+                .description("OrderStatusChanged events for statuses dispatch does not act on").register(registry);
     }
 
     /** Handles one OrderCreated event: dedupe, then assign or park the order in one transaction. */
@@ -113,6 +131,83 @@ public class AssignmentService {
                     """, event.orderId(), event.city(), event.pickupLat(), event.pickupLon());
             return Outcome.PENDING;
         });
+    }
+
+    /**
+     * Handles one OrderStatusChanged event. Only DELIVERED and CANCELLED matter here.
+     *
+     * <p>Ordering inside the transaction matters. For CANCELLED, the pending row is deleted first. If the
+     * pending retry job is assigning this order at the same moment, the DELETE waits for that job to commit.
+     * The assignment is then read in a new statement, which sees the committed ACTIVE row and releases it.
+     * In the other order, the release could miss an assignment that commits a moment later, and the rider
+     * would stay BUSY for good.
+     *
+     * <p>The release (assignment COMPLETED and rider AVAILABLE) runs in a savepoint. If the rider is not
+     * BUSY, the savepoint is rolled back, the event is still marked processed, and the inconsistency is logged
+     * and counted. Nothing unsafe is done.
+     */
+    public void onOrderStatusChanged(UUID eventId, OrderStatusEvent event) {
+        tx.executeWithoutResult(status -> {
+            int inserted = jdbc.update("""
+                    INSERT INTO processed_events (event_id, event_type, aggregate_id)
+                    VALUES (?, 'OrderStatusChanged', ?)
+                    ON CONFLICT (event_id) DO NOTHING
+                    """, eventId, event.orderId());
+            if (inserted == 0) {
+                duplicates.increment();
+                return;
+            }
+            switch (event.status()) {
+                case "CANCELLED" -> {
+                    if (jdbc.update("DELETE FROM pending_orders WHERE order_id = ?", event.orderId()) == 1) {
+                        pendingCancelled.increment();
+                    }
+                    releaseAssignment(event.orderId());
+                }
+                case "DELIVERED" -> releaseAssignment(event.orderId());
+                default -> {
+                    statusIgnored.increment();
+                    log.debug("ignoring status {} for order {}", event.status(), event.orderId());
+                }
+            }
+        });
+    }
+
+    /** Completes the ACTIVE assignment of an order and frees its rider, if there is one. */
+    private void releaseAssignment(UUID orderId) {
+        try {
+            Boolean released = nested.execute(status -> {
+                List<UUID> riders = jdbc.queryForList("""
+                        UPDATE assignments
+                        SET status = 'COMPLETED'
+                        WHERE order_id = ? AND status = 'ACTIVE'
+                        RETURNING rider_id
+                        """, UUID.class, orderId);
+                if (riders.isEmpty()) {
+                    return null; // nothing to release
+                }
+                int updated = jdbc.update("""
+                        UPDATE riders
+                        SET status = 'AVAILABLE', version = version + 1, updated_at = now()
+                        WHERE id = ? AND status = 'BUSY'
+                        """, riders.get(0));
+                if (updated == 0) {
+                    throw new CandidateRejected("rider " + riders.get(0) + " is not BUSY");
+                }
+                return Boolean.TRUE;
+            });
+            if (released == null) {
+                releaseNoActive.increment();
+                log.debug("no ACTIVE assignment for order {}; nothing to release", orderId);
+                return;
+            }
+            completed.increment();
+            ridersReleased.increment();
+            log.info("order {} released its rider", orderId);
+        } catch (CandidateRejected e) {
+            releaseInconsistent.increment();
+            log.error("release skipped for order {}: {}", orderId, e.getMessage());
+        }
     }
 
     /**

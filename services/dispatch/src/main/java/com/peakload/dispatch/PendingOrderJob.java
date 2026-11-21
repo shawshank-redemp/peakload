@@ -42,8 +42,13 @@ class PendingOrderJob {
 
     @Scheduled(fixedDelayString = "${peakload.dispatch.pending.retry-interval:PT5S}")
     void retryPending() {
-        List<UUID> ids = jdbc.queryForList(
-                "SELECT order_id FROM pending_orders ORDER BY created_at LIMIT ?", UUID.class, batchSize);
+        // Round-robin: orders never tried (last_attempt_at IS NULL) come first, then the least recently tried.
+        // Ordering by age alone let orders that can never be served fill every batch, so newer orders starved.
+        List<UUID> ids = jdbc.queryForList("""
+                SELECT order_id FROM pending_orders
+                ORDER BY last_attempt_at NULLS FIRST, created_at
+                LIMIT ?
+                """, UUID.class, batchSize);
         for (UUID id : ids) {
             try {
                 assignments.retryPending(id);
