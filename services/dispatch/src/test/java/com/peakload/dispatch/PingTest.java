@@ -6,12 +6,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+// A web-layer slice: only the controller is loaded, so no datasource, Flyway or Kafka is created. A full
+// @SpringBootTest here connected to the live database (localhost:15432/peakload) and ran Flyway against it.
+@WebMvcTest(PingController.class)
 class PingTest {
 
     @Autowired
