@@ -1,0 +1,18 @@
+precheck at 2026-11-22T04:02:24Z
+pmset -g therm:
+  Note: No thermal warning level has been recorded
+  Note: No performance warning level has been recorded
+  Note: No CPU power status has been recorded
+  thermal: ok
+docker CPU sums over 3 samples: 34.93 35.61 40.64 (median 35.61 %, limit 100 %)
+  peakload-admission-1 0.20%
+  peakload-postgres-1 0.22%
+  peakload-order-1 0.38%
+  peakload-dispatch-1 0.70%
+  peakload-redis-1 0.36%
+  peakload-redpanda-1 0.47%
+  sentinel-demo-control-plane 16.94%
+postgres now: autovacuum workers=0, checkpointer active=0
+  bgwriter: checkpoints_timed=1 checkpoints_req=42 buffers_checkpoint=160618
+  tables: autovacuum_count=0 autoanalyze_count=0
+RESULT: go

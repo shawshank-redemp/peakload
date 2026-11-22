@@ -1,0 +1,29 @@
+rep 1 setup exit=0 seconds=82
+precheck refused (try 1)
+precheck refused (try 2)
+precheck refused (try 3)
+precheck refused (try 4)
+rep 1 batch exit=0
+precheck refused (try 1)
+rep 1 drop exit=0
+rep 2 setup exit=0 seconds=83
+precheck refused (try 1)
+precheck refused (try 2)
+precheck refused (try 3)
+precheck refused (try 4)
+precheck refused (try 5)
+precheck refused (try 6)
+rep 2 drop exit=0
+rep 2 batch exit=0
+precheck refused (try 1)
+rep 3 setup exit=0 seconds=84
+precheck refused (try 1)
+precheck refused (try 2)
+precheck refused (try 3)
+precheck refused (try 4)
+precheck refused (try 5)
+precheck refused (try 6)
+rep 3 batch exit=0
+precheck refused (try 1)
+rep 3 drop exit=0
+all done

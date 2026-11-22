@@ -1,0 +1,49 @@
+Timing is on.
+Time: 8.919 ms
+Time: 1298.656 ms (00:01.299)
+Time: 1.360 ms
+psql:<stdin>:8: NOTICE:  dropped 6 partitions
+CALL
+Time: 44.690 ms
+ wal_bytes 
+-----------
+    451088
+(1 row)
+
+Time: 0.365 ms
+ pg_stat_force_next_flush 
+--------------------------
+ 
+(1 row)
+
+Time: 0.597 ms
+ pg_sleep 
+----------
+ 
+(1 row)
+
+Time: 2002.118 ms (00:02.002)
+ dead_tuples_after 
+-------------------
+                 0
+(1 row)
+
+Time: 5.560 ms
+ size_after 
+------------
+ 1240809472
+(1 row)
+
+Time: 0.777 ms
+ rows_after 
+------------
+    4973341
+(1 row)
+
+Time: 462.006 ms
+ size_before_bytes | rows_before 
+-------------------+-------------
+        1949319168 |     7485608
+(1 row)
+
+Time: 0.096 ms

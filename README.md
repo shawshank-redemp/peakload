@@ -714,3 +714,81 @@ Each condition was run twice, in alternating order (r1 forward, r2 reverse). Sam
 - Whether the environment got slower or just noisier. Week 1's Docker and VM state is not recorded, and I did not re-run Week 1's exact setup.
 - Whether more runs would separate dispatch or pg_stat from noise. That needs more runs per condition than the two the plan asked for.
 - The admission failure codes.
+
+### Step 2 correction: the admission-path runs were cold, and the 50% failures are explained
+
+The two admission-path runs in the bisect (r1-05, r2-02) failed about half their creates. I investigated without changing code (`loadtest/step2/status-probe.js`, folders `loadtest/results/week4s2-status-probe-*`).
+- **Cause, as measured:** admission had been recreated just before those runs (`docker compose up -d` with the limiter and shedding off). A **freshly started** admission returns 503 on about half of creates (`status_503` 12,824 of 27,037 and 14,703 of 24,381 in the two cold probes). The admission counters show the 503s are upstream errors: `admission_upstream_errors_total{type="pool_timeout"}` 8,322 and 10,944, and `type="other"` 4,502 and 3,759. There were no 429s, no shed events and no 504s.
+- **Warm:** the same container, probed again right after, returned 130,947 of 130,947 creates as 201 with no upstream errors, at 4,365 req/s.
+- **Not determined:** why cold admission hits pool timeouts (the 200-connection pool with a 0.5 s wait is my guess, not measured), and what the `other` type is. The admission log did not record it.
+- **Consequence for the bisect:** the admission-path runs measured admission's cold start, not steady state. They are not valid for the comparison "admission in the path". Their warm-up (30 s at 20 req/s) was too light to warm 200 upstream connections. I have not re-run them.
+
+### Step 2 pre-run check (`loadtest/precheck.sh`)
+
+Every measured run now starts with `loadtest/precheck.sh <run folder>`, which writes its readings to `precheck.txt` in that folder and refuses to start the run if:
+- `pmset -g therm` records a thermal or performance warning, or a CPU speed limit below 100;
+- the median of three `docker stats` CPU sums (2 s apart) is above 100 (out of 600 on this VM, about 17%);
+- an autovacuum worker or the checkpointer is busy.
+
+It also records the background bgwriter and autovacuum counters. The thresholds are starting values, chosen before any run in this step. In Step 3 and 4 the check refused several times while autovacuum was working on tables the previous operation had just loaded. Each wait is recorded in `driver.log`.
+
+### Week 4: partitioning (experimental database `peakload_exp`)
+
+**Scope.** The experiment runs on `peakload_exp`, a copy of the 1M-order dataset created by dump and reseed, never on `peakload`. The variants are standalone SQL (`loadtest/partition/01-setup-variants.sql`), not Flyway migrations. Adopting one would be a separate decision. The flat tables are untouched.
+
+**What each variant changes.**
+- `outbox_p`: monthly `RANGE` partitions on `created_at` (2025-11 to 2026-12, plus a default). The primary key becomes `(id, created_at)`, because a partitioned table's key must include the partition column. The relay's partial index is created per partition.
+- `orders_p`: the same partitioning for `orders`, with primary key `(id, created_at)`. **It has no foreign key from `idempotency_keys`.** A foreign key can only reference a partitioned table on a unique key that includes `created_at`, so the real design would need `idempotency_keys` to carry `order_created_at` as a composite foreign key. This measured copy is only for reads, and the foreign key is not reproduced.
+- `idempotency_keys` and `processed_events` are **not partitioned**. Their uniqueness on the key must not depend on a partition column, and partitioning them would weaken the duplicate guarantee.
+
+**Deterministic measures** (`loadtest/partition/02-measure-deterministic.sql`, three repeats, output in `loadtest/results/week4s3-partition-wal-fixed-measure/`, table from `loadtest/partition/extract.py`). Planning and execution times vary between repeats, and the buffer split varies with cache state, so the table gives ranges:
+
+| Measure | Flat | Partitioned | Notes |
+|---|---|---|---|
+| GET by id on `orders` (no `created_at`) | 1 leaf, planning 0.090–0.188 ms, execution 0.016–0.025 ms, planning buffers 47 | 15 leaves probed, planning 0.646–1.209 ms, execution 0.103–0.358 ms, planning buffers 513 | Partitioning costs on the read by id, as expected. |
+| GET by id with `created_at` in the predicate | n/a | 1 leaf, execution 0.007–0.008 ms | Pruning works when the predicate has `created_at`. |
+| Range: orders from the last 7 days | 1 leaf (seq scan), execution 57.4–57.6 ms, 28,000+ buffers read | 3 leaves, execution 5.1–7.4 ms, 317 buffers, no reads | **Confounded**: the flat `orders` table has no `created_at` index. Partitioning vs. adding an index is not separated (see "Not done"). |
+| Relay batch (oldest 100 unpublished) | 1 leaf, execution 1.24–9.55 ms (one outlier at 9.55), buffers 226–240 | 15 leaves probed, execution 1.05–2.44 ms, buffers 158–171, planning 0.47–0.78 ms | Partitioned: more planning cost and more partitions probed, fewer buffers, similar execution time. |
+
+**Sizes** (summed over leaves, bytes): `orders` 296.8 MB total (257.3 MB heap, 39.5 MB indexes) vs `orders_p` 360.3 MB (257.3 MB heap, 102.4 MB indexes, from the extra primary key and the composite index). `outbox` 1.589 GB (1.343 GB heap, 245 MB indexes) vs `outbox_p` 1.649 GB (1.333 GB heap, 316 MB indexes).
+
+**WAL per 10,000-row insert** (insert LSN read inside the transaction, rolled back): flat outbox 2.78–2.83 MB, partitioned 2.78–2.99 MB. The spreads overlap; no difference.
+
+**Order-create replay** (secondary, `loadtest/partition/bench-create.sh`; pgbench, 16 clients, 60 s, one statement writing order, idempotency row and outbox row, alternating, three repeats, experimental database):
+
+| Repeat | Flat outbox tps / avg latency | Partitioned outbox tps / avg latency |
+|---|---|---|
+| 1 | 10,327 / 1.549 ms | 9,499 / 1.684 ms |
+| 2 | 9,539 / 1.677 ms | 9,042 / 1.769 ms |
+| 3 | 8,038 / 1.990 ms | 6,852 / 2.335 ms |
+
+Partitioned was slower in all three pairs (by 8%, 5% and 15%). But the flat repeats span 8,038–10,327 tps, a wider range than the gap between the means (mean 9,302 vs 8,464, about 9%). Throughput also fell from repeat to repeat as the tables grew and autovacuum ran. **I do not claim a throughput difference from these numbers.** The result is "no measurable difference beyond the run-to-run spread, with a possible slowdown from partitioning that three repeats cannot confirm".
+
+**Decision.** Partition `outbox` only if the owner accepts a 15-partition relay query and a primary key that includes `created_at`. The measured gains are small. Partitioning `orders` also needs the composite foreign key, which is a schema change that this step did not test. The default recommendation is to keep the unpartitioned design. This is a decision for the owner.
+
+### Week 4: retention (batched DELETE vs DETACH and DROP)
+
+**Setup.** Each repeat rebuilds two copies of the 5.8 M-row outbox on `peakload_exp` (`loadtest/partition/03-retention-setup.sql`): `ret_flat` with indexes on `created_at` and on unpublished rows, and `ret_part`, partitioned monthly. The operation removes rows with `created_at < 2026-05-01`: 2,546,193 rows, six months, in the flat table. Each operation runs while 8 pgbench clients insert into the same table (`loadtest/partition/run-retention.sh`). Three repeats, with the order of the two operations alternating between repeats. The batched delete commits every 10,000 rows (`04-op-batch.sql`, procedure `purge_flat`). The partition option detaches and drops the six partitions (`04-op-drop.sql`, procedure `drop_old_partitions`).
+
+**Results** (`loadtest/results/week4s4-retention-20261122-0930/`; raw pgbench logs are kept out of the repo because of their size).
+
+| Measure | Batched DELETE, repeats 1 / 2 / 3 | DETACH + DROP, repeats 1 / 2 / 3 |
+|---|---|---|
+| Duration of the operation | 19.7 s / 27.7 s / 10.9 s | 85.5 ms / 166 ms / 45 ms |
+| Rows removed | 2,546,193 (each run, printed by the procedure) | 6 partitions; their row count was not printed |
+| WAL written by the operation | 2.393 GB / 2.425 GB / 2.393 GB | 0.48 MB / 0.66 MB / 0.45 MB |
+| Dead tuples right after | 2,546,193 / 2,546,193 / 2,546,193 | 0 |
+| Table size before → after | 2.107 → 2.132 GB; 2.108 → 2.135 GB; 2.114 → 2.134 GB | 1.946 → 1.238 GB; 1.943 → 1.233 GB; 1.949 → 1.241 GB |
+| Autovacuum runs during the operation | 0 / 0 / 0 | not recorded |
+| Concurrent insert tps (100 s window that contains the operation) | 7,438 / 7,745 / 11,280 | 10,064 / 9,189 / 12,766 |
+| Concurrent insert average latency | 1.08 / 1.03 / 0.71 ms | 0.80 / 0.87 / 0.63 ms |
+| Concurrent inserts over 100 ms | 54 / 120 / 14 | 23 / 12 / 0 |
+| Max single concurrent insert | 254 / 245 / 207 ms | 225 / 271 / 76 ms |
+
+**What the numbers say.**
+- **Duration and WAL.** The partition option is far cheaper: tens of milliseconds and under 1 MB of WAL, against 10–28 seconds and about 2.4 GB. The gap is much larger than the spread across repeats. Dropping a partition does not write each row.
+- **Space.** The batched delete leaves 2.5 M dead tuples and returns no space at once (the table stays at about 2.1 GB until VACUUM and a rebuild). The partition drop returns about 0.7 GB immediately.
+- **Concurrent writes.** In all three pairs the partition option had higher insert tps and lower average latency than the batched delete (tps 35%, 19% and 13% higher). The mean difference (10,673 vs 8,821 tps, about 21%) is about the size of the run-to-run spread of the batch option (7,438–11,280), so I do not claim it as an established effect. The 100 s window contains each operation only partly. The batch option's WAL and I/O may slow inserts for the whole window, which would favour the partition option, but this was not separated. The counts of slow inserts point the same way; the maxima overlap.
+- **Locks.** The plain `DETACH PARTITION` takes an `ACCESS EXCLUSIVE` lock on the parent table, so it can block writers. The latency log shows no multi-second stall for either option, but it covers the whole window, so a stall of a few hundred milliseconds would not be separated out. The batched delete commits per batch by design. Lock waits were not measured with `pg_locks`, and `DETACH PARTITION ... CONCURRENTLY` was not tested.
+
+**Limitations.** Three repeats each. The batch size (10,000) and the cut-off (2026-05-01) were chosen, not tuned. Autovacuum ran between operations (the pre-run check waited for it several times), so the table state differs a little between repeats.

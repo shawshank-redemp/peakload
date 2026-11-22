@@ -1,0 +1,9 @@
+psql:<stdin>:7: NOTICE:  table "ret_flat" does not exist, skipping
+psql:<stdin>:7: NOTICE:  table "ret_part" does not exist, skipping
+                 what                  |  count  
+---------------------------------------+---------
+ ret_flat rows                         | 7519097
+ ret_part rows                         | 7368563
+ rows before cut-off 2026-05-01 (flat) | 2546193
+(3 rows)
+

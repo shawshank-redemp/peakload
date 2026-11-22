@@ -1,0 +1,56 @@
+Timing is on.
+Time: 2.408 ms
+Time: 2422.770 ms (00:02.423)
+Time: 14.655 ms
+Time: 0.521 ms
+psql:<stdin>:9: NOTICE:  purge_flat removed 2546193 rows
+CALL
+Time: 19691.992 ms (00:19.692)
+ wal_bytes  
+------------
+ 2393168864
+(1 row)
+
+Time: 1.406 ms
+ pg_stat_force_next_flush 
+--------------------------
+ 
+(1 row)
+
+Time: 1.088 ms
+ pg_sleep 
+----------
+ 
+(1 row)
+
+Time: 2002.495 ms (00:02.002)
+ dead_tuples_after 
+-------------------
+           2546193
+(1 row)
+
+Time: 5.302 ms
+ size_after 
+------------
+ 2132221952
+(1 row)
+
+Time: 0.692 ms
+ rows_after 
+------------
+    5193374
+(1 row)
+
+Time: 30279.429 ms (00:30.279)
+ autovacuum_runs_during 
+------------------------
+                      0
+(1 row)
+
+Time: 7.785 ms
+ size_before_bytes | rows_before 
+-------------------+-------------
+        2106884096 |     7608461
+(1 row)
+
+Time: 0.206 ms
