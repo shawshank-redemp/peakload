@@ -79,7 +79,7 @@ sleep 3
 kill $SAMPLER $STACK 2>/dev/null; wait $SAMPLER $STACK 2>/dev/null
 
 curl -s localhost:8080/actuator/prometheus > "$OUT/admission-metrics-final.txt"
-curl -s localhost:8081/actuator/prometheus > "$OUT/order-metrics-final.txt"
+bash loadtest/http-in-network.sh order 8081 /actuator/prometheus > "$OUT/order-metrics-final.txt"
 
 # Checks. Each line is name=value. The dispatch invariants are the four SQL statements in
 # services/dispatch/src/test/java/com/peakload/dispatch/Invariants.java, run against the live database.

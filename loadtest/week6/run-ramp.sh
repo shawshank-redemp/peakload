@@ -19,6 +19,16 @@ drain_orders() {
   done
 }
 reset_tables() { drain_orders; EMPTY=1 bash loadtest/db/seed.sh > /dev/null; }
+# Postgres counters for matching a stall to a checkpoint or an autovacuum burst later (PostgreSQL 16 counters).
+pg_counters() {
+  {
+    pgq "select 'checkpoints_timed='||checkpoints_timed||' checkpoints_req='||checkpoints_req||' buffers_checkpoint='||buffers_checkpoint||' buffers_backend='||buffers_backend from pg_stat_bgwriter"
+    pgq "select 'autovacuum_count='||coalesce(sum(autovacuum_count),0)||' autoanalyze_count='||coalesce(sum(autoanalyze_count),0)||' n_dead_tup='||coalesce(sum(n_dead_tup),0) from pg_stat_user_tables where schemaname='public'"
+    pgq "select 'wal_lsn='||pg_current_wal_lsn()||' wal_bytes_from_origin='||pg_wal_lsn_diff(pg_current_wal_lsn(), '0/0')"
+    pgq "select 'autovacuum_workers_now='||count(*) from pg_stat_activity where backend_type='autovacuum worker'"
+    pgq "select 'checkpointer_active_now='||count(*) from pg_stat_activity where backend_type='checkpointer'"
+  } > "$1"
+}
 
 gate "$OUT/precheck-before-reset"
 log "run rate=$RATE duration=$DUR shed=$SHED"
@@ -35,6 +45,7 @@ docker compose --profile loadtest run --rm --no-deps -e BASE_URL=http://admissio
 reset_tables
 gate "$OUT/precheck-after-reset"
 echo "orders_before=$(pgq 'select count(*) from orders')" > "$OUT/counts.txt"
+pg_counters "$OUT/pg-before.txt"
 mkdir -p "$OUT/k6"
 python3 loadtest/week6/sampler.py --out "$OUT/samples.jsonl" --interval 2 &
 SAMPLER=$!
@@ -47,6 +58,7 @@ log "k6 exit=$?"
 kill $SAMPLER 2>/dev/null; wait $SAMPLER 2>/dev/null
 drain_orders
 echo "orders_after=$(pgq 'select count(*) from orders')" >> "$OUT/counts.txt"
+pg_counters "$OUT/pg-after.txt"
 curl -s localhost:8080/actuator/prometheus > "$OUT/admission-prometheus.txt"
 docker compose logs --no-color admission > "$OUT/admission-log.txt" 2>&1
 docker compose start dispatch > /dev/null

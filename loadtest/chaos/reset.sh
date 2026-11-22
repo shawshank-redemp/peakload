@@ -35,8 +35,8 @@ EMPTY=1 bash loadtest/db/seed.sh > /dev/null
 log "order and dispatch tables truncated (riders kept, set AVAILABLE)"
 bash loadtest/chaos/seed-riders.sh "$PER_CITY" | tee -a "$LOG"
 docker compose start dispatch > /dev/null
-for t in $(seq 1 60); do curl -s localhost:8082/api/ping | grep -q dispatch && break; sleep 2; done
-curl -s localhost:8082/api/ping | grep -q dispatch || fail "dispatch not healthy after start"
+for t in $(seq 1 60); do bash loadtest/http-in-network.sh dispatch 8082 /api/ping | grep -q dispatch && break; sleep 2; done
+bash loadtest/http-in-network.sh dispatch 8082 /api/ping | grep -q dispatch || fail "dispatch not healthy after start"
 log "dispatch started and healthy"
 log "state after: orders=$(pgq 'select count(*) from orders') assignments=$(pgq 'select count(*) from dispatch.assignments') pending=$(pgq 'select count(*) from dispatch.pending_orders') riders_available=$(pgq "select count(*) from dispatch.riders where status='AVAILABLE'")"
 log "reset done"

@@ -118,9 +118,10 @@ services:
       order:
         condition: service_healthy
 
+  # Week 6: order, dispatch and tracking publish no host ports. Reach them inside the compose network
+  # (for example docker compose exec order ..., or the service name from another container).
   order:
     build: { context: ., args: { SERVICE: order } }
-    ports: ["8081:8081"]
     environment:
       # Inside the compose network the database is reachable as postgres:5432, not localhost.
       DB_URL: jdbc:postgresql://postgres:5432/peakload
@@ -141,7 +142,6 @@ services:
 
   dispatch:
     build: { context: ., args: { SERVICE: dispatch } }
-    ports: ["8082:8082"]
     environment:
       # Same Postgres server as the order service, in the "dispatch" schema (set by the service's config).
       DB_URL: jdbc:postgresql://postgres:5432/peakload
@@ -159,7 +159,6 @@ services:
 
   tracking:
     build: { context: ., args: { SERVICE: tracking } }
-    ports: ["8083:8083"]
 
   # ---------- load test ----------
   # Runs inside the compose network, so traffic does not go through host port forwarding.

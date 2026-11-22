@@ -5,11 +5,22 @@ admission and order actuators: Hikari active and pending, admission in-flight, a
 """
 import argparse
 import json
+import os
 import re
 import signal
 import subprocess
 import time
 import urllib.request
+
+# Week 6, step 2: order has no host port. Its metrics are fetched from inside the container.
+ORDER_HELPER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "http-in-network.sh")
+
+def order_prom():
+    try:
+        return subprocess.run(["bash", ORDER_HELPER, "order", "8081", "/actuator/prometheus"],
+                              capture_output=True, text=True, timeout=10).stdout
+    except Exception:
+        return ""
 
 stop = False
 
@@ -63,7 +74,7 @@ def main():
             except Exception:
                 pass
             adm = prom("http://localhost:8080/actuator/prometheus")
-            order = prom("http://localhost:8081/actuator/prometheus")
+            order = order_prom()
             levels = {}
             for line in adm.splitlines():
                 m = re.match(r'admission_load_level_seconds_total\{[^}]*level="([A-Z_]+)"[^}]*\} (\S+)', line)

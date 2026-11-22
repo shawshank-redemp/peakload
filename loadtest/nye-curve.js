@@ -33,7 +33,8 @@ const CLIENTS = 300;
 const CITIES = ['Pune', 'Mumbai', 'Delhi', 'Chennai', 'Kolkata'];
 const MENU_ID = '11111111-1111-4111-8111-111111111111'; // seeded restaurant (V2__seed_sample_menu.sql)
 const BASE_RATE = { CRITICAL: 200, STANDARD: 20, LOW: 400 };
-const PEAK_RATE = { CRITICAL: 1000, STANDARD: 100, LOW: 2400 };
+// Week 6, step 2: PEAK_CRITICAL scales the POST /orders peak. The default (1000) is the Week 3 value.
+const PEAK_RATE = { CRITICAL: Number(__ENV.PEAK_CRITICAL || 1000), STANDARD: 100, LOW: 2400 };
 const NEXT_STATUS = {
   CREATED: 'CONFIRMED', CONFIRMED: 'PREPARING', PREPARING: 'READY',
   READY: 'PICKED_UP', PICKED_UP: 'DELIVERED',

@@ -13,6 +13,7 @@ Sources:
 """
 import argparse
 import json
+import os
 import re
 import signal
 import subprocess
@@ -20,7 +21,8 @@ import sys
 import time
 from datetime import datetime, timezone
 
-ORDER_METRICS = "http://localhost:8081/actuator/prometheus"
+# Week 6, step 2: order has no host port. Metrics are read from inside its container.
+ORDER_METRICS_HELPER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "http-in-network.sh")
 HIKARI_NAMES = (
     "hikaricp_connections_active",
     "hikaricp_connections_pending",
@@ -84,7 +86,7 @@ def sample_postgres(errors):
 
 def sample_order_metrics(errors):
     try:
-        out = run(["curl", "-s", "--max-time", "5", ORDER_METRICS], timeout=10)
+        out = run(["bash", ORDER_METRICS_HELPER, "order", "8081", "/actuator/prometheus"], timeout=20)
         if out.returncode != 0 or not out.stdout:
             errors.append("order metrics: no response")
             return None, None

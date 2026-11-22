@@ -24,7 +24,7 @@ create_run() {  # $1 = out dir, $2 = duration
 }
 dispatch_counters() {  # one snapshot per dispatch process lifetime (taken just before each kill, and at the end)
   echo "# lifetime snapshot $(now_ms)" >> "$OUT/dispatch-metrics.txt"
-  curl -s localhost:8082/actuator/prometheus | grep "^events_duplicates_ignored_total" >> "$OUT/dispatch-metrics.txt" || true
+  bash loadtest/http-in-network.sh dispatch 8082 /actuator/prometheus | grep "^events_duplicates_ignored_total" >> "$OUT/dispatch-metrics.txt" || true
 }
 lag_now() { docker compose exec -T redpanda rpk group describe dispatch-order-events 2>/dev/null | awk '/^TOTAL-LAG/ {print $2}'; }
 
