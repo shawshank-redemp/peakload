@@ -1,0 +1,13 @@
+128849|5751.8|0.045|UPDATE idempotency_keys SET order_id = $1, response_status = $5, response_body = $2::jsonb WHERE client_id = $
+128849|5234.3|0.041|INSERT INTO orders (id, client_id, status, version, payload, pickup_lat, pickup_lon) VALUES ($1, $2, $6, $7, $
+128849|4442.1|0.034|INSERT INTO idempotency_keys (client_id, idempotency_key, request_hash, expires_at) VALUES ($1, $2, $3, now() 
+128849|2686.0|0.021|INSERT INTO outbox (id, aggregate_type, aggregate_id, event_type, payload) VALUES ($1, $2, $3, $4, $5::jsonb)
+128849|2188.8|0.017|UPDATE outbox SET published_at = now() WHERE id = $1
+94672|992.7|0.010|INSERT INTO processed_events (event_id, event_type, aggregate_id) VALUES ($1, $2, $3) ON CONFLICT (event_id) D
+128849|802.3|0.006|SELECT $2 FROM ONLY "public"."orders" x WHERE "id" OPERATOR(pg_catalog.=) $1 FOR KEY SHARE OF x
+1293|783.9|0.606|SELECT id, aggregate_id, event_type, payload::text AS payload FROM outbox WHERE published_at IS NULL ORDER BY 
+38|263.3|6.929|SELECT count(*) FROM outbox WHERE published_at IS NULL
+24|10.1|0.422|select coalesce(sum(case when state=$1 then $2 end),$3),coalesce(sum(case when state=$4 then $5 end),$6),coale
+24|4.0|0.168|SELECT COALESCE(EXTRACT($1 FROM now() - MIN(created_at)), $2) FROM outbox WHERE published_at IS NULL
+1|0.1|0.137|select pg_stat_statements_reset()
+1|0.0|0.004|DELETE FROM idempotency_keys WHERE (client_id, idempotency_key) IN ( SELECT client_id, idempotency_key FROM id

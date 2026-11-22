@@ -1,0 +1,43 @@
+[08:39:59] condition: CODE=current DISPATCH=off PGSTAT=on TARGET=direct RATE=4400
+ Container peakload-dispatch-1 Stopping 
+ Container peakload-dispatch-1 Stopped 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-admission-1 Stopping 
+ Container peakload-admission-1 Stopped 
+[08:40:03] pg_stat_statements.track = all
+[08:40:34] warm-up done (discarded), k6 exit=0
+[08:40:35] outbox drained after warm-up in 1 s
+[08:41:06] measured run done, k6 exit=0
+[08:41:18] outbox drained after run in 12 s
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redis-1 Waiting 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-redis-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-dispatch-1 Starting 
+ Container peakload-dispatch-1 Started 
+ Container peakload-redis-1 Running 
+ Container peakload-redpanda-1 Running 
+ Container peakload-postgres-1 Running 
+ Container peakload-order-1 Running 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-redis-1 Waiting 
+ Container peakload-order-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redis-1 Healthy 
+ Container peakload-order-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-admission-1 Starting 
+ Container peakload-admission-1 Started 
+[08:41:24] done

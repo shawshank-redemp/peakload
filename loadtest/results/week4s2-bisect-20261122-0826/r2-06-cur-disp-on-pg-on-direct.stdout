@@ -1,0 +1,49 @@
+[08:42:58] condition: CODE=current DISPATCH=on PGSTAT=on TARGET=direct RATE=4400
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redis-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-redis-1 Healthy 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-admission-1 Stopping 
+ Container peakload-admission-1 Stopped 
+[08:43:03] pg_stat_statements.track = all
+ERROR:  deadlock detected
+DETAIL:  Process 14070 waits for AccessExclusiveLock on relation 25109 of database 16384; blocked by process 13484.
+Process 13484 waits for RowExclusiveLock on relation 25117 of database 16384; blocked by process 14070.
+HINT:  See server log for query details.
+[08:43:35] warm-up done (discarded), k6 exit=0
+[08:43:35] outbox drained after warm-up in 0 s
+[08:44:08] measured run done, k6 exit=99
+[08:44:29] outbox drained after run in 21 s
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-redis-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redis-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-redpanda-1 Running 
+ Container peakload-redis-1 Running 
+ Container peakload-postgres-1 Running 
+ Container peakload-order-1 Running 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-order-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redis-1 Waiting 
+ Container peakload-redis-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-order-1 Healthy 
+ Container peakload-admission-1 Starting 
+ Container peakload-admission-1 Started 
+[08:44:36] done

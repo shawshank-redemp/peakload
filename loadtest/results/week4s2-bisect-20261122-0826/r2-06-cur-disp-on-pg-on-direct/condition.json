@@ -1,0 +1,1 @@
+{"code": "current", "dispatch": "on", "pg_stat": "on", "target": "direct", "target_url": "http://order:8081", "rate": 4400, "read_rate": 0, "dispatch_running": "1"}

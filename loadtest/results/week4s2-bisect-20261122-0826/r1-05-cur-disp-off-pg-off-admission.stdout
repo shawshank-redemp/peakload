@@ -1,0 +1,61 @@
+[08:32:35] condition: CODE=current DISPATCH=off PGSTAT=off TARGET=admission RATE=4400
+ Container peakload-dispatch-1 Stopping 
+ Container peakload-dispatch-1 Stopped 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-redis-1 Running 
+ Container peakload-redpanda-1 Running 
+ Container peakload-postgres-1 Running 
+ Container peakload-order-1 Running 
+ Container peakload-admission-1 Recreate 
+ Container peakload-admission-1 Recreated 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-redis-1 Waiting 
+ Container peakload-order-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redis-1 Healthy 
+ Container peakload-order-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-admission-1 Starting 
+ Container peakload-admission-1 Started 
+[08:32:46] pg_stat_statements.track = all
+[08:33:18] warm-up done (discarded), k6 exit=0
+[08:33:18] outbox drained after warm-up in 0 s
+[08:33:51] measured run done, k6 exit=99
+[08:33:51] outbox drained after run in 0 s
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-redis-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redis-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-dispatch-1 Starting 
+ Container peakload-dispatch-1 Started 
+ Container peakload-redpanda-1 Running 
+ Container peakload-redis-1 Running 
+ Container peakload-postgres-1 Running 
+ Container peakload-order-1 Running 
+ Container peakload-admission-1 Recreate 
+ Container peakload-admission-1 Recreated 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redis-1 Waiting 
+ Container peakload-order-1 Waiting 
+ Container peakload-order-1 Healthy 
+ Container peakload-redis-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-admission-1 Starting 
+ Container peakload-admission-1 Started 
+[08:33:57] done

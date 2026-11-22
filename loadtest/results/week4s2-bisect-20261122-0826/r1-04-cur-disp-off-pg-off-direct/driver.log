@@ -1,0 +1,7 @@
+[08:31:07] condition: CODE=current DISPATCH=off PGSTAT=off TARGET=direct RATE=4400
+[08:31:11] pg_stat_statements.track = all
+[08:31:42] warm-up done (discarded), k6 exit=0
+[08:31:42] outbox drained after warm-up in 0 s
+[08:32:14] measured run done, k6 exit=0
+[08:32:29] outbox drained after run in 15 s
+[08:32:35] done

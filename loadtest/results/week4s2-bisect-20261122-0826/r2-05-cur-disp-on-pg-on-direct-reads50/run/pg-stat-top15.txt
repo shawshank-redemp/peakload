@@ -1,0 +1,15 @@
+128415|6869.8|0.053|UPDATE idempotency_keys SET order_id = $1, response_status = 201, response_body = $2::jsonb WHERE client_id = 
+128415|6392.5|0.050|INSERT INTO orders (id, client_id, status, version, payload, pickup_lat, pickup_lon) VALUES ($1, $2, 'CREATED'
+128415|5261.6|0.041|INSERT INTO idempotency_keys (client_id, idempotency_key, request_hash, expires_at) VALUES ($1, $2, $3, now() 
+128415|3110.4|0.024|INSERT INTO outbox (id, aggregate_type, aggregate_id, event_type, payload) VALUES ($1, $2, $3, $4, $5::jsonb)
+128415|2456.2|0.019|UPDATE outbox SET published_at = now() WHERE id = $1
+57013|1685.6|0.030|INSERT INTO pending_orders (order_id, city, pickup_lat, pickup_lon) VALUES ($1, $2, $3, $4) ON CONFLICT (order
+1288|1050.7|0.816|SELECT id, aggregate_id, event_type, payload::text AS payload FROM outbox WHERE published_at IS NULL ORDER BY 
+128415|1007.3|0.008|SELECT 1 FROM ONLY "public"."orders" x WHERE "id" OPERATOR(pg_catalog.=) $1 FOR KEY SHARE OF x
+43|960.5|22.336|SELECT count(*) FROM outbox WHERE published_at IS NULL
+57013|835.5|0.015|INSERT INTO processed_events (event_id, event_type, aggregate_id) VALUES ($1, 'OrderCreated', $2) ON CONFLICT 
+63514|652.5|0.010|INSERT INTO processed_events (event_id, event_type, aggregate_id) VALUES ($1, $2, $3) ON CONFLICT (event_id) D
+10|257.1|25.713|SELECT order_id FROM pending_orders ORDER BY last_attempt_at NULLS FIRST, created_at LIMIT $1
+2000|80.8|0.040|UPDATE pending_orders SET attempts = attempts + 1, last_attempt_at = now() WHERE order_id = $1
+2000|33.5|0.017|SELECT order_id, city, pickup_lat, pickup_lon, EXTRACT(EPOCH FROM now() - created_at) AS age_seconds FROM pend
+1501|13.2|0.009|SELECT id, payload->>$2 AS customer_id, payload->>$3 AS city, status, (payload->>$4)::bigint AS total_paise, v

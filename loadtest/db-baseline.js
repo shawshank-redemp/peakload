@@ -45,16 +45,21 @@ export const options = {
           exec: 'create',
           tags: { workload: 'create' },
         },
-        read: {
-          executor: 'constant-arrival-rate',
-          rate: READ_RATE,
-          timeUnit: '1s',
-          duration: DURATION,
-          preAllocatedVUs: 20,
-          maxVUs: 200,
-          exec: 'read',
-          tags: { workload: 'read' },
-        },
+        // READ_RATE=0 drops the read scenario (creates only), used by the Week 4 step 2 bisect runs.
+        ...(READ_RATE > 0
+          ? {
+              read: {
+                executor: 'constant-arrival-rate',
+                rate: READ_RATE,
+                timeUnit: '1s',
+                duration: DURATION,
+                preAllocatedVUs: 20,
+                maxVUs: 200,
+                exec: 'read',
+                tags: { workload: 'read' },
+              },
+            }
+          : {}),
       },
   thresholds: {
     http_req_failed: ['rate<0.01'],

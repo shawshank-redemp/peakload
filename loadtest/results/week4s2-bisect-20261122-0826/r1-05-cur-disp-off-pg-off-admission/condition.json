@@ -1,0 +1,1 @@
+{"code": "current", "dispatch": "off", "pg_stat": "off", "target": "admission", "target_url": "http://admission:8080", "rate": 4400, "read_rate": 0, "dispatch_running": "0"}

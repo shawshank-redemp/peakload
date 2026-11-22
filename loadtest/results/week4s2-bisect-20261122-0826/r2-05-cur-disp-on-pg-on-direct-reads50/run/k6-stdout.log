@@ -1,0 +1,184 @@
+ Container peakload-k6-run-9ede3f5a3363 Creating 
+ Container peakload-k6-run-9ede3f5a3363 Created 
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /loadtest/db-baseline.js
+        output: -
+
+     scenarios: (100.00%) 2 scenarios, 2200 max VUs, 1m0s max duration (incl. graceful stop):
+              * create: 4400.00 iterations/s for 30s (maxVUs: 200-2000, exec: create, gracefulStop: 30s)
+              * read: 50.00 iterations/s for 30s (maxVUs: 20-200, exec: read, gracefulStop: 30s)
+
+
+running (0m01.0s), 0266/0298 VUs, 3798 complete and 0 interrupted iterations
+create   [   3% ] 0262/0278 VUs  01.0s/30s  4400.00 iters/s
+read     [   3% ] 004/020 VUs    01.0s/30s  50.00 iters/s
+
+running (0m02.0s), 0442/0464 VUs, 7422 complete and 0 interrupted iterations
+create   [   7% ] 0434/0444 VUs  02.0s/30s  4400.00 iters/s
+read     [   7% ] 008/020 VUs    02.0s/30s  50.00 iters/s
+
+running (0m03.0s), 0366/0576 VUs, 11381 complete and 0 interrupted iterations
+create   [  10% ] 0360/0556 VUs  03.0s/30s  4400.00 iters/s
+read     [  10% ] 006/020 VUs    03.0s/30s  50.00 iters/s
+
+running (0m04.0s), 0295/0576 VUs, 15993 complete and 0 interrupted iterations
+create   [  13% ] 0292/0556 VUs  04.0s/30s  4400.00 iters/s
+read     [  13% ] 003/020 VUs    04.0s/30s  50.00 iters/s
+
+running (0m05.0s), 0129/0576 VUs, 20527 complete and 0 interrupted iterations
+create   [  17% ] 0128/0556 VUs  05.0s/30s  4400.00 iters/s
+read     [  17% ] 001/020 VUs    05.0s/30s  50.00 iters/s
+
+running (0m06.0s), 0159/0576 VUs, 24937 complete and 0 interrupted iterations
+create   [  20% ] 0157/0556 VUs  06.0s/30s  4400.00 iters/s
+read     [  20% ] 002/020 VUs    06.0s/30s  50.00 iters/s
+
+running (0m07.0s), 0463/0576 VUs, 29083 complete and 0 interrupted iterations
+create   [  23% ] 0459/0556 VUs  07.0s/30s  4400.00 iters/s
+read     [  23% ] 004/020 VUs    07.0s/30s  50.00 iters/s
+
+running (0m08.0s), 0614/0633 VUs, 33182 complete and 0 interrupted iterations
+create   [  27% ] 0606/0613 VUs  08.0s/30s  4400.00 iters/s
+read     [  27% ] 008/020 VUs    08.0s/30s  50.00 iters/s
+
+running (0m09.0s), 0225/0659 VUs, 37936 complete and 0 interrupted iterations
+create   [  30% ] 0223/0639 VUs  09.0s/30s  4400.00 iters/s
+read     [  30% ] 002/020 VUs    09.0s/30s  50.00 iters/s
+
+running (0m10.0s), 0185/0659 VUs, 42428 complete and 0 interrupted iterations
+create   [  33% ] 0182/0639 VUs  10.0s/30s  4400.00 iters/s
+read     [  33% ] 003/020 VUs    10.0s/30s  50.00 iters/s
+
+running (0m11.0s), 0193/0659 VUs, 46866 complete and 0 interrupted iterations
+create   [  37% ] 0191/0639 VUs  11.0s/30s  4400.00 iters/s
+read     [  37% ] 002/020 VUs    11.0s/30s  50.00 iters/s
+
+running (0m12.0s), 0159/0659 VUs, 51352 complete and 0 interrupted iterations
+create   [  40% ] 0158/0639 VUs  12.0s/30s  4400.00 iters/s
+read     [  40% ] 001/020 VUs    12.0s/30s  50.00 iters/s
+
+running (0m13.0s), 0269/0659 VUs, 55692 complete and 0 interrupted iterations
+create   [  43% ] 0266/0639 VUs  13.0s/30s  4400.00 iters/s
+read     [  43% ] 003/020 VUs    13.0s/30s  50.00 iters/s
+
+running (0m14.0s), 0167/0659 VUs, 60275 complete and 0 interrupted iterations
+create   [  47% ] 0164/0639 VUs  14.0s/30s  4400.00 iters/s
+read     [  47% ] 003/020 VUs    14.0s/30s  50.00 iters/s
+
+running (0m15.0s), 0472/0659 VUs, 64389 complete and 0 interrupted iterations
+create   [  50% ] 0466/0639 VUs  15.0s/30s  4400.00 iters/s
+read     [  50% ] 006/020 VUs    15.0s/30s  50.00 iters/s
+
+running (0m16.0s), 0045/0659 VUs, 69267 complete and 0 interrupted iterations
+create   [  53% ] 0045/0639 VUs  16.0s/30s  4400.00 iters/s
+read     [  53% ] 000/020 VUs    16.0s/30s  50.00 iters/s
+
+running (0m17.0s), 0271/0659 VUs, 73486 complete and 0 interrupted iterations
+create   [  57% ] 0269/0639 VUs  17.0s/30s  4400.00 iters/s
+read     [  57% ] 002/020 VUs    17.0s/30s  50.00 iters/s
+
+running (0m18.0s), 0239/0659 VUs, 77966 complete and 0 interrupted iterations
+create   [  60% ] 0237/0639 VUs  18.0s/30s  4400.00 iters/s
+read     [  60% ] 002/020 VUs    18.0s/30s  50.00 iters/s
+
+running (0m19.0s), 0366/0659 VUs, 82290 complete and 0 interrupted iterations
+create   [  63% ] 0361/0639 VUs  19.0s/30s  4400.00 iters/s
+read     [  63% ] 005/020 VUs    19.0s/30s  50.00 iters/s
+
+running (0m20.0s), 0629/0692 VUs, 86363 complete and 0 interrupted iterations
+create   [  67% ] 0623/0672 VUs  20.0s/30s  4400.00 iters/s
+read     [  67% ] 006/020 VUs    20.0s/30s  50.00 iters/s
+
+running (0m21.0s), 0789/0801 VUs, 90224 complete and 0 interrupted iterations
+create   [  70% ] 0781/0781 VUs  21.0s/30s  4400.00 iters/s
+read     [  70% ] 008/020 VUs    21.0s/30s  50.00 iters/s
+
+running (0m22.0s), 0383/0806 VUs, 95052 complete and 0 interrupted iterations
+create   [  73% ] 0380/0786 VUs  22.0s/30s  4400.00 iters/s
+read     [  73% ] 003/020 VUs    22.0s/30s  50.00 iters/s
+
+running (0m23.0s), 0844/0857 VUs, 98908 complete and 0 interrupted iterations
+create   [  77% ] 0835/0837 VUs  23.0s/30s  4400.00 iters/s
+read     [  77% ] 009/020 VUs    23.0s/30s  50.00 iters/s
+
+running (0m24.0s), 0846/0990 VUs, 102956 complete and 0 interrupted iterations
+create   [  80% ] 0835/0970 VUs  24.0s/30s  4400.00 iters/s
+read     [  80% ] 011/020 VUs    24.0s/30s  50.00 iters/s
+
+running (0m25.0s), 1091/1134 VUs, 106515 complete and 0 interrupted iterations
+create   [  83% ] 1076/1114 VUs  25.0s/30s  4400.00 iters/s
+read     [  83% ] 015/020 VUs    25.0s/30s  50.00 iters/s
+
+running (0m26.0s), 0675/1134 VUs, 111382 complete and 0 interrupted iterations
+create   [  87% ] 0669/1114 VUs  26.0s/30s  4400.00 iters/s
+read     [  87% ] 006/020 VUs    26.0s/30s  50.00 iters/s
+
+running (0m27.0s), 0787/1134 VUs, 115729 complete and 0 interrupted iterations
+create   [  90% ] 0779/1114 VUs  27.0s/30s  4400.00 iters/s
+read     [  90% ] 008/020 VUs    27.0s/30s  50.00 iters/s
+
+running (0m28.0s), 0578/1134 VUs, 120381 complete and 0 interrupted iterations
+create   [  93% ] 0572/1114 VUs  28.0s/30s  4400.00 iters/s
+read     [  93% ] 006/020 VUs    28.0s/30s  50.00 iters/s
+
+running (0m29.0s), 1050/1134 VUs, 124360 complete and 0 interrupted iterations
+create   [  97% ] 1039/1114 VUs  29.0s/30s  4400.00 iters/s
+read     [  97% ] 011/020 VUs    29.0s/30s  50.00 iters/s
+
+running (0m30.0s), 0986/1145 VUs, 128815 complete and 0 interrupted iterations
+create   [ 100% ] 0974/1125 VUs  30.0s/30s  4400.00 iters/s
+read     [ 100% ] 012/020 VUs    30.0s/30s  50.00 iters/s
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✗ 'p(99)<200' p(99)=339.33ms
+
+    http_req_failed
+    ✗ 'rate<0.01' rate=1.15%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 129916 4299.941341/s
+    checks_succeeded...: 98.84% 128415 out of 129916
+    checks_failed......: 1.15%  1501 out of 129916
+
+    ✓ status is 201
+    ✗ read status is 200
+      ↳  0% — ✓ 0 / ✗ 1501
+
+    HTTP
+    http_req_duration..............: med=92.13ms p(95)=265.78ms p(99)=339.33ms
+      { expected_response:true }...: med=92.02ms p(95)=265.68ms p(99)=339.04ms
+    http_req_failed................: 1.15%  1501 out of 129916
+    http_reqs......................: 129916 4299.941341/s
+
+    EXECUTION
+    dropped_iterations.............: 3585   118.655822/s
+    iteration_duration.............: med=92.32ms p(95)=265.96ms p(99)=339.54ms
+    iterations.....................: 129916 4299.941341/s
+    vus............................: 989    min=47             max=1092
+    vus_max........................: 1145   min=298            max=1145
+
+    NETWORK
+    data_received..................: 31 MB  1.0 MB/s
+    data_sent......................: 42 MB  1.4 MB/s
+
+
+
+
+running (0m30.2s), 0000/1145 VUs, 129916 complete and 0 interrupted iterations
+create ✓ [ 100% ] 0000/1125 VUs  30s  4400.00 iters/s
+read   ✓ [ 100% ] 000/020 VUs    30s  50.00 iters/s
+time="2026-11-22T03:12:33Z" level=error msg="thresholds on metrics 'http_req_duration, http_req_failed' have been crossed"
+

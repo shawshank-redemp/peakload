@@ -1,0 +1,1 @@
+{"code": "week1", "dispatch": "off", "pg_stat": "off", "target": "direct", "target_url": "http://w1-order:8081", "rate": 4400, "read_rate": 0, "dispatch_running": "0"}
