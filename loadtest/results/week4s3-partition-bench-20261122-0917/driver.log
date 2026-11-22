@@ -1,0 +1,8 @@
+rep 1 flat exit=0 tries=0
+rep 1 part: precheck refused (try 1), waiting
+rep 1 part exit=0 tries=1
+rep 2 flat exit=0 tries=0
+rep 2 part exit=0 tries=0
+rep 3 flat: precheck refused (try 1), waiting
+rep 3 flat exit=0 tries=1
+rep 3 part exit=0 tries=0

@@ -1,0 +1,9 @@
+transaction type: /tmp/create-part.sql
+scaling factor: 1
+number of clients: 16
+number of threads: 4
+duration: 60 s
+number of transactions actually processed: 570052
+number of failed transactions: 0 (0.000%)
+latency average = 1.684 ms
+tps = 9499.326509 (without initial connection time)
