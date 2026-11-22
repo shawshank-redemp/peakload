@@ -1,0 +1,78 @@
+[13:34:18] chaos run kills=3 rate=20 duration=150s riders per city=1200
+[13:34:18] reset start
+[13:34:18] state before: orders=3001 order_outbox_unpublished=0 dispatch_outbox_unpublished=0 pending=6 assignments=2995
+[13:34:19] drained after 1 s (processed == published, orders balance, offsets in sync)
+ Container peakload-dispatch-1 Stopping 
+ Container peakload-dispatch-1 Stopped 
+[13:34:20] dispatch stopped
+[13:34:21] order and dispatch tables truncated (riders kept, set AVAILABLE)
+riders: 3600 (1200 per city)
+postgres riders AVAILABLE: 3600
+redis GEO members: 3600
+redis seen keys: 3600
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redis-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-redis-1 Healthy 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-dispatch-1 Starting 
+ Container peakload-dispatch-1 Started 
+[13:34:27] dispatch started and healthy
+[13:34:27] state after: orders=0 assignments=0 pending=0 riders_available=3600
+[13:34:27] reset done
+[13:34:27] warm-up 20 s (discarded)
+[13:34:48] reset start
+[13:34:48] state before: orders=401 order_outbox_unpublished=3 dispatch_outbox_unpublished=0 pending=0 assignments=401
+[13:34:49] drained after 1 s (processed == published, orders balance, offsets in sync)
+ Container peakload-dispatch-1 Stopping 
+ Container peakload-dispatch-1 Stopped 
+[13:34:50] dispatch stopped
+[13:34:50] order and dispatch tables truncated (riders kept, set AVAILABLE)
+riders: 3600 (1200 per city)
+postgres riders AVAILABLE: 3600
+redis GEO members: 3600
+redis seen keys: 3600
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redis-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-redis-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-dispatch-1 Starting 
+ Container peakload-dispatch-1 Started 
+[13:34:54] dispatch started and healthy
+[13:34:55] state after: orders=0 assignments=0 pending=0 riders_available=3600
+[13:34:55] reset done
+[13:35:28] dispatch killed (1)
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redis-1 Waiting 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-redis-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-dispatch-1 Starting 
+ Container peakload-dispatch-1 Started 
+[13:35:44] dispatch restarted (1)
+[13:36:08] dispatch killed (2)
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redis-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redis-1 Healthy 
+ Container peakload-dispatch-1 Starting 
+ Container peakload-dispatch-1 Started 
+[13:36:24] dispatch restarted (2)
+[13:36:48] dispatch killed (3)
+ Container peakload-redis-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-redis-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-dispatch-1 Starting 
+ Container peakload-dispatch-1 Started 
+[13:37:04] dispatch restarted (3)
+[13:37:39] k6 exit=0
+[13:38:15] done

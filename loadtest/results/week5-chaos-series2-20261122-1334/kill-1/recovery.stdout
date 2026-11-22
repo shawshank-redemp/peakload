@@ -1,0 +1,21 @@
+{
+  "kill_1": {
+    "kill_to_restart_s": 15.7,
+    "restart_to_joined_s": 118.8,
+    "restart_to_partitions_assigned_s": 118.8,
+    "restart_to_first_event_processed_s": 118.9
+  },
+  "kill_2": {
+    "kill_to_restart_s": 15.7,
+    "restart_to_joined_s": 78.7,
+    "restart_to_partitions_assigned_s": 78.8,
+    "restart_to_first_event_processed_s": 78.8
+  },
+  "kill_3": {
+    "kill_to_restart_s": 15.7,
+    "restart_to_joined_s": 38.7,
+    "restart_to_partitions_assigned_s": 38.7,
+    "restart_to_first_event_processed_s": 38.7
+  },
+  "drain_seconds_after_load_end": 30
+}

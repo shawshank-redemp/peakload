@@ -1,0 +1,52 @@
+[13:14:46] chaos run kills=0 rate=20 duration=60s riders per city=480
+[13:14:46] reset start
+[13:14:46] state before: orders=1201 order_outbox_unpublished=0 dispatch_outbox_unpublished=0 pending=9 assignments=1192
+[13:14:47] outboxes drained after 1 s
+[13:14:51] consumer lag zero for both groups after 4 s
+ Container peakload-dispatch-1 Stopping 
+ Container peakload-dispatch-1 Stopped 
+[13:14:52] dispatch stopped
+[13:14:52] order and dispatch tables truncated (riders kept, set AVAILABLE)
+riders: 1440 (480 per city)
+postgres riders AVAILABLE: 1440
+redis GEO members: 1440
+redis seen keys: 1440
+ Container peakload-redis-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redis-1 Healthy 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-dispatch-1 Starting 
+ Container peakload-dispatch-1 Started 
+[13:14:58] dispatch started and healthy
+[13:14:59] state after: orders=0 assignments=0 pending=0 riders_available=1440
+[13:14:59] reset done
+[13:14:59] warm-up 20 s (discarded)
+[13:15:20] reset start
+[13:15:21] state before: orders=400 order_outbox_unpublished=0 dispatch_outbox_unpublished=3 pending=0 assignments=400
+[13:15:21] outboxes drained after 0 s
+[13:15:25] consumer lag zero for both groups after 4 s
+ Container peakload-dispatch-1 Stopping 
+ Container peakload-dispatch-1 Stopped 
+[13:15:26] dispatch stopped
+[13:15:27] order and dispatch tables truncated (riders kept, set AVAILABLE)
+riders: 1440 (480 per city)
+postgres riders AVAILABLE: 1440
+redis GEO members: 1440
+redis seen keys: 1440
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redis-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redis-1 Healthy 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-dispatch-1 Starting 
+ Container peakload-dispatch-1 Started 
+[13:15:33] dispatch started and healthy
+[13:15:33] state after: orders=0 assignments=0 pending=0 riders_available=1440
+[13:15:33] reset done
+[13:16:48] k6 exit=0
+Exception ignored while flushing sys.stdout:
+BrokenPipeError: [Errno 32] Broken pipe
+[13:16:56] done

@@ -1,0 +1,13 @@
+[13:17:54] reset start
+[13:17:55] state before: orders=400 order_outbox_unpublished=0 dispatch_outbox_unpublished=14 pending=0 assignments=400
+[13:17:57] outboxes drained after 2 s
+[13:18:02] consumer lag zero for both groups after 5 s
+[13:18:02] dispatch stopped
+[13:18:03] order and dispatch tables truncated (riders kept, set AVAILABLE)
+riders: 3600 (1200 per city)
+postgres riders AVAILABLE: 3600
+redis GEO members: 3600
+redis seen keys: 3600
+[13:18:09] dispatch started and healthy
+[13:18:09] state after: orders=0 assignments=0 pending=0 riders_available=3600
+[13:18:09] reset done

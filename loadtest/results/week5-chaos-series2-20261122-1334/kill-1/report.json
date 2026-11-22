@@ -1,0 +1,37 @@
+{
+  "run": "kill-1",
+  "invariants": {
+    "orders_with_two_assignments": 0,
+    "riders_with_two_active_assignments": 0,
+    "active_assignment_to_rider_not_busy": 0,
+    "busy_rider_without_active_assignment": 0
+  },
+  "counts": {
+    "orders_created": 3000,
+    "assignments": 2993,
+    "pending_orders": 7,
+    "orders_minus_assignments_and_pending": 0,
+    "dispatch_processed_events": 3000,
+    "redeliveries_rejected_as_duplicates": 0,
+    "dispatch_outbox_unpublished_at_end": 0,
+    "order_outbox_unpublished_at_end": 0
+  },
+  "consumer_lag_recovery_seconds_after_restart": {
+    "kill_1": 3.2,
+    "kill_2": 1.1,
+    "kill_3": 0.3
+  },
+  "assignment_lag_seconds": {
+    "n": 2993,
+    "p50": 72.784,
+    "p95": 137.166,
+    "max": 150.974,
+    "mean": 71.656
+  },
+  "pending_reasons": {
+    "free_rider_in_radius": 1,
+    "no_free_rider_in_radius": 6,
+    "order_not_found": 0,
+    "sample": 7
+  }
+}

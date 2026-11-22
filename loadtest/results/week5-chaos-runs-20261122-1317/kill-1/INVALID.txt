@@ -1,0 +1,5 @@
+INVALID. The drain check trusted the consumer group's total lag, which read 0 right after the dispatch restart while
+events were still unprocessed. The run was reported before dispatch had processed its events (394 of 3001 at
+report time; 2863 later, still draining). Its time-to-zero-lag figures (kill_1 3.1 s, kill_2 1.0 s, kill_3 0.0 s)
+are NOT valid and must not be used. The run is kept only as the record of this harness failure.
+Replaced by the drain check in loadtest/chaos/drain.py (processed == published, orders balance, per-partition offsets).

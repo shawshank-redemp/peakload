@@ -1,0 +1,48 @@
+[13:46:26] chaos run kills=0 rate=20 duration=150s riders per city=1200
+[13:46:26] reset start
+[13:46:27] state before: orders=3001 order_outbox_unpublished=0 dispatch_outbox_unpublished=0 pending=1 assignments=3000
+[13:46:28] drained after 1 s (processed == published, orders balance, offsets in sync)
+ Container peakload-dispatch-1 Stopping 
+ Container peakload-dispatch-1 Stopped 
+[13:46:29] dispatch stopped
+[13:46:29] order and dispatch tables truncated (riders kept, set AVAILABLE)
+riders: 3600 (1200 per city)
+postgres riders AVAILABLE: 3600
+redis GEO members: 3600
+redis seen keys: 3600
+ Container peakload-redis-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redis-1 Healthy 
+ Container peakload-dispatch-1 Starting 
+ Container peakload-dispatch-1 Started 
+[13:46:35] dispatch started and healthy
+[13:46:36] state after: orders=0 assignments=0 pending=0 riders_available=3600
+[13:46:36] reset done
+[13:46:36] warm-up 20 s (discarded)
+[13:46:57] reset start
+[13:46:57] state before: orders=401 order_outbox_unpublished=0 dispatch_outbox_unpublished=0 pending=0 assignments=401
+[13:46:58] drained after 1 s (processed == published, orders balance, offsets in sync)
+ Container peakload-dispatch-1 Stopping 
+ Container peakload-dispatch-1 Stopped 
+[13:46:59] dispatch stopped
+[13:46:59] order and dispatch tables truncated (riders kept, set AVAILABLE)
+riders: 3600 (1200 per city)
+postgres riders AVAILABLE: 3600
+redis GEO members: 3600
+redis seen keys: 3600
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redis-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-redis-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-dispatch-1 Starting 
+ Container peakload-dispatch-1 Started 
+[13:47:05] dispatch started and healthy
+[13:47:06] state after: orders=0 assignments=0 pending=0 riders_available=3600
+[13:47:06] reset done
+[13:49:51] k6 exit=0
+[13:49:58] done

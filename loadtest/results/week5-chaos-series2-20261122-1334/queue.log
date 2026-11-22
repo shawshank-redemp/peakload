@@ -1,0 +1,9 @@
+kill-1 exit=0
+kill-1 invariant_total=0
+control-1 exit=0
+control-1 invariant_total=0
+kill-2 exit=0
+kill-2 invariant_total=0
+control-2 exit=0
+control-2 invariant_total=0
+all done

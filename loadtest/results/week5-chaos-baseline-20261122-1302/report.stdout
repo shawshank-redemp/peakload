@@ -1,0 +1,33 @@
+{
+  "run": "week5-chaos-baseline-20261122-1302",
+  "invariants": {
+    "orders_with_two_assignments": 0,
+    "riders_with_two_active_assignments": 0,
+    "active_assignment_to_rider_not_busy": 3,
+    "busy_rider_without_active_assignment": 0
+  },
+  "counts": {
+    "orders_created": 1201,
+    "assignments": 1198,
+    "pending_orders": 7,
+    "orders_minus_assignments_and_pending": -4,
+    "dispatch_processed_events": 1205,
+    "redeliveries_rejected_as_duplicates": 0,
+    "dispatch_outbox_unpublished_at_end": 0,
+    "order_outbox_unpublished_at_end": 0
+  },
+  "consumer_lag_recovery_seconds_after_restart": {},
+  "assignment_lag_seconds": {
+    "n": 1194,
+    "p50": 0.572,
+    "p95": 0.976,
+    "max": 1.031,
+    "mean": 0.567
+  },
+  "pending_reasons": {
+    "free_rider_in_radius": 0,
+    "no_free_rider_in_radius": 7,
+    "order_not_found": 0,
+    "sample": 7
+  }
+}

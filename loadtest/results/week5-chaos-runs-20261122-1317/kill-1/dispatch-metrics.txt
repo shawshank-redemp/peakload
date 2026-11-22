@@ -1,0 +1,8 @@
+# lifetime snapshot 1795333723056
+events_duplicates_ignored_total{application="dispatch"} 0.0
+# lifetime snapshot 1795333763102
+events_duplicates_ignored_total{application="dispatch"} 0.0
+# lifetime snapshot 1795333803162
+events_duplicates_ignored_total{application="dispatch"} 0.0
+# lifetime snapshot 1795333857083
+events_duplicates_ignored_total{application="dispatch"} 0.0
