@@ -32,5 +32,5 @@ Branch `week4-db`. Nothing pushed. `main` untouched.
 3. Whether to push `week4-db` (contains raw k6 summaries and samples in `loadtest/results/`, under 10 MB per run folder; `points.json.gz` is git-ignored).
 
 ## Finish checklist
-- `mvn -B verify` on JDK 21: run at the end of Step 1 (exit 0). Not re-run after Step 2, which changed only harness scripts and README, not Java. Re-run before any push.
+- `mvn -B verify` on JDK 21: run at the end of Step 1 (exit 0). Re-run after Step 2 as well: exit 0 (Step 2 changed no Java). Re-run before any push.
 - Stack: running with default settings (`dispatch`, `order`, `admission` started; `w1-order` removed; `pg_stat_statements.track` restored to its default).
