@@ -1,0 +1,6 @@
+[14:28:11] precheck refused (loadtest/results/week6-capacity-20261122-1419/ramp-4000/precheck-before-reset), waiting
+[14:28:55] run rate=4000 duration=30s shed=on
+[14:29:03] warm-up 20 s at 4000/s (discarded)
+[14:29:43] timed run
+[14:30:14] k6 exit=0
+[14:30:21] done

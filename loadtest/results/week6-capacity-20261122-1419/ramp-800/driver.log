@@ -1,0 +1,5 @@
+[14:19:32] run rate=800 duration=30s shed=on
+[14:19:41] warm-up 20 s at 800/s (discarded)
+[14:20:16] timed run
+[14:20:47] k6 exit=0
+[14:20:50] done

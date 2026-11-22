@@ -1,0 +1,37 @@
+# run: loadtest/results/week6-capacity-20261122-1419/shed-off-1600
+requests: 47351; achieved req/s: 1578.0; dropped iterations: 651
+
+## status breakdown (adds to 100.00%)
+  201                         47351  100.00%
+  TOTAL                       47351  100.00%
+
+non-2xx share: 0.00%  (stop rule: more than 5%)
+
+accepted (201) latency ms: n=47351 p50=2.545458 p95=102.0295 p99=366.110083
+
+## resources during the timed run (docker stats, % of one core; sampled every 2 s)
+  peakload-admission-1   mean     77%  peak    113%
+  peakload-order-1       mean     93%  peak    116%
+  peakload-postgres-1    mean     95%  peak    121%
+  peakload-redis-1       mean      9%  peak     13%
+  k6                     mean     58%  peak     67%
+  admission Hikari pending (menu pool)   peak 0  mean 0.0
+  admission Hikari active                peak 0  mean 0.0
+  order Hikari pending                   peak 11  mean 1.4
+  order Hikari active                    peak 10  mean 4.6
+  admission in-flight                    peak 21  mean 7.4
+  admission upstream pool in-use: not exposed as a metric (not measured)
+
+## load level seconds during the timed run (admission_load_level_seconds_total, delta)
+  NORMAL        26.2 s
+  ELEVATED       0.3 s
+  HIGH           0.3 s
+  HARD_CAP       1.5 s
+
+## causes behind 'other' (from the admission log; rate-limited, so counts cover what the log covers)
+        1  org.apache.hc.core5.util.DeadlineTimeoutException
+  total covered by the log: 1; 503 other in the k6 counts: 0
+
+## orders
+  orders_before=0 | orders_after=47351 | 
+  201 answers in the timed run: 47351

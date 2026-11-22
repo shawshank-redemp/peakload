@@ -961,3 +961,34 @@ Why no retry was made. A paused process still accepts the TCP connection, so adm
 **Caveats for the static membership.** Every dispatch instance needs a unique `group.instance.id`: two instances with the same id fence each other, and the second one is rejected. The default (the container hostname) is unique per container, but a multi-instance deployment must set `DISPATCH_INSTANCE_ID` explicitly. A restart that lasts longer than the session timeout (45 s here) loses the benefit: the coordinator removes the silent member after the session expires and rebalances, and the partitions move during the outage. The tested restarts were 15 s, well under that. Spring Kafka appends a consumer index to the id (`-0` here), which is stable across restarts of the same container.
 
 **The other options, still not applied.** (1) A lower `session.timeout.ms`, for example 10–15 s: it shortens recovery for every restart, but a GC or load pause longer than the session triggers a false rebalance, and every rebalance pauses consumption. (2) A graceful stop (SIGTERM, which leaves the group) in place of `docker kill`: planned restarts then skip the session wait, but a crash, which is what a kill models, still waits for the session. Static membership is the only option that helps a crash restart in these runs.
+
+## Week 6: admission capacity
+
+**Setup.** Creates through admission (`POST /orders`, `loadtest/week6/create-ramp.js`) at a constant arrival rate, 30 s per run, with a 20 s discarded warm-up at the same rate. Each run starts from a reset (order outbox drained, `loadtest/db/seed.sh` with `EMPTY=1`), and admission is restarted with the shedding flag for that run. The limiter stays on, with about 100,000 client IDs so no single client is limited; the shedding policy and the circuit breaker are at their defaults. Dispatch was stopped for the whole series, so this measures the create path only. k6 runs in the compose network. Results: `loadtest/results/week6-capacity-20261122-1419/`.
+
+**Process note.** The ramp was meant to stop at the first rate with more than 5% non-2xx. A bug in my series script (the status line was captured with the value, so the comparison never fired) let the ramp run on to 4000 req/s. The rates 2400, 3200 and 4000 were run anyway; they are marked "after the stop point" and are not part of the ramp decision. The decision uses the 800 and 1600 runs only, which were valid. The required repeats (800 and 1600, three runs each) and the shedding-off run at 1600 followed.
+
+| Run | Rate | Shedding | Achieved req/s | Dropped iter. | Status breakdown (adds to 100%) | Accepted p50 / p95 / p99 (ms) | Postgres CPU mean / peak % | Order Hikari pending peak / mean | Admission in-flight peak / mean | k6 CPU mean / peak % |
+|---|---:|---|---:|---:|---|---|---|---|---|---|
+| ramp-800 | 800 | shed on | 800.0 | 0 | 201 100.00% | 1.4 / 4.8 / 60.6 | 44 / 78 | 0 / 0.0 | 2 / 1.1 | 24 / 30 |
+| repeat-800-2 | 800 | shed on | 799.8 | 0 | 201 100.00% | 1.2 / 6.2 / 76.6 | 39 / 64 | 0 / 0.0 | 3 / 1.2 | 25 / 48 |
+| repeat-800-3 | 800 | shed on | 800.0 | 0 | 201 100.00% | 1.1 / 2.0 / 3.8 | 32 / 38 | 0 / 0.0 | 3 / 1.2 | 20 / 23 |
+| ramp-1600 | 1600 | shed on | 1585.3 | 103 | 201 82.62%, 503 shed 17.38% | 98.7 / 282.3 / 394.1 | 241 / 304 | 173 / 111.6 | 194 / 140.3 | 66 / 87 |
+| repeat-1600-2 | 1600 | shed on | 1584.6 | 457 | 201 97.28%, 503 shed 2.72% | 2.1 / 43.6 / 213.0 | 94 / 111 | 0 / 0.0 | 39 / 7.8 | 52 / 66 |
+| repeat-1600-3 | 1600 | shed on | 1599.9 | 0 | 201 100.00% | 1.8 / 5.2 / 25.3 | 88 / 103 | 0 / 0.0 | 7 / 3.8 | 47 / 54 |
+| shed-off-1600 | 1600 | shed off | 1578.0 | 651 | 201 100.00% | 2.5 / 102.0 / 366.1 | 95 / 121 | 11 / 1.4 | 21 / 7.4 | 58 / 67 |
+| after-stop-2400 | 2400 | shed on, after the stop point | 2378.5 | 624 | 201 97.65%, 503 shed 2.35% | 4.3 / 76.8 / 180.1 | 116 / 129 | 56 / 11.2 | 54 / 21.1 | 80 / 94 |
+| after-stop-3200 | 3200 | shed on, after the stop point | 3117.8 | 2442 | 201 91.03%, 503 shed 8.97% | 10.2 / 117.0 / 212.1 | 123 / 160 | 151 / 60.8 | 214 / 79.6 | 96 / 134 |
+| after-stop-4000 | 4000 | shed on, after the stop point | 3778.7 | 5894 | 201 59.11%, 503 shed 40.89% | 66.2 / 196.2 / 344.6 | 164 / 191 | 151 / 84.0 | 321 / 193.9 | 125 / 133 |
+
+**Where failures begin.** At 800 req/s: no failures in three runs. At 1600 req/s: the rate is the first that failed the 5% rule, but only once out of three runs (17.38%, 2.72% and 0.00%). The failures were all `503 shed`; no pool timeout, circuit-open or `other` answer appeared at this rate. So the 1600 rate is at the edge of the capacity, not clearly past it.
+
+**Which resource saturates first.** Postgres, and the order service's connection pool behind it. In the run that failed at 17.38%, Postgres used 241% CPU on average (of 600% for the VM), the order pool queued up to 173 waiting requests, and admission spent about 20 s at HIGH and HARD_CAP, which is where shedding starts to hit CRITICAL requests too. In the runs at 1600 that passed, Postgres used 88–94% on average and the order pool never queued. At 1600 req/s, admission's peak CPU was 83–95% and Redis peaked at 10–13%; in the runs after the stop point admission peaked at 121–192% and Redis at 12–27%. So the first saturating resource is Postgres (through the order pool). I cannot say why one run saturated and the others did not: the autovacuum and checkpoint counts were not recorded for these runs, and that is the first thing to check. The admission's upstream connection pool is not exposed as a metric, so its use was not measured.
+
+**Is k6 a limit?** Partly, at the top of the ramp. Dropped iterations appear from 2400 req/s up, and k6's own CPU averages 80% at 2400, 96% at 3200 and 125% (peak 133%) at 4000. The numbers at 3200 and 4000 are therefore not clean measurements of admission: k6 could not send the full rate. At 1600 k6 used 47–66% of a core, so k6 was not the limit there, although one run dropped 457 iterations.
+
+**What shedding does.** With shedding off at 1600 req/s, every request was answered 201 (no 503), but the accepted p99 was 366 ms and k6 dropped 651 iterations. With shedding on, the failing run answered 17% of requests with 503 and kept its accepted p99 at 394 ms. So shedding trades slow answers for fast refusals, and does not raise the throughput limit.
+
+**The causes behind "other".** None in the timed runs, except one logged `org.apache.hc.core5.util.DeadlineTimeoutException` in the shedding-off run. The admission log is rate-limited, so this is the count the log covers, not a total.
+
+**What these numbers do not show.** One VM, with admission, order, Postgres, Redis and k6 sharing six vCPUs. At most three runs per rate, so the spread is between three runs and says little about the true edge. A single 30 s run per rate after the stop point. No dispatch load. The results depend on the state of Postgres at the start of each run, which the reset controls only partly.

@@ -1,0 +1,37 @@
+# run: after-stop-3200
+requests: 93559; achieved req/s: 3117.8; dropped iterations: 2442
+
+## status breakdown (adds to 100.00%)
+  201                         85169   91.03%
+  503 shed                     8390    8.97%
+  TOTAL                       93559  100.00%
+
+non-2xx share: 8.97%  (stop rule: more than 5%)
+
+accepted (201) latency ms: n=85169 p50=10.195958 p95=116.996375 p99=212.075417
+
+## resources during the timed run (docker stats, % of one core; sampled every 2 s)
+  peakload-admission-1   mean     97%  peak    192%
+  peakload-order-1       mean    111%  peak    124%
+  peakload-postgres-1    mean    123%  peak    160%
+  peakload-redis-1       mean     12%  peak     27%
+  k6                     mean     96%  peak    134%
+  admission Hikari pending (menu pool)   peak 0  mean 0.0
+  admission Hikari active                peak 0  mean 0.0
+  order Hikari pending                   peak 151  mean 60.8
+  order Hikari active                    peak 10  mean 8.5
+  admission in-flight                    peak 214  mean 79.6
+  admission upstream pool in-use: not exposed as a metric (not measured)
+
+## load level seconds during the timed run (admission_load_level_seconds_total, delta)
+  NORMAL        18.0 s
+  ELEVATED       2.6 s
+  HIGH           5.5 s
+  HARD_CAP       1.6 s
+
+## causes behind 'other' (from the admission log; rate-limited, so counts cover what the log covers)
+  total covered by the log: 0; 503 other in the k6 counts: 0
+
+## orders
+  orders_before=0 | orders_after=85169 | 
+  201 answers in the timed run: 85169

@@ -1,0 +1,20 @@
+[14:25:46] precheck refused (loadtest/results/week6-capacity-20261122-1419/ramp-3200/precheck-before-reset), waiting
+[14:26:30] run rate=3200 duration=30s shed=on
+ Container peakload-dispatch-1 Stopping 
+ Container peakload-dispatch-1 Stopped 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+[14:26:38] warm-up 20 s at 3200/s (discarded)
+[14:27:14] timed run
+[14:27:45] k6 exit=0
+ Container peakload-redis-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-redis-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-dispatch-1 Starting 
+ Container peakload-dispatch-1 Started 
+[14:27:53] done

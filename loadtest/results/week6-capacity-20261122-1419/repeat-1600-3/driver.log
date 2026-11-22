@@ -1,0 +1,6 @@
+[14:38:18] precheck refused (loadtest/results/week6-capacity-20261122-1419/repeat-1600-3/precheck-before-reset), waiting
+[14:39:02] run rate=1600 duration=30s shed=on
+[14:39:10] warm-up 20 s at 1600/s (discarded)
+[14:39:45] timed run
+[14:40:16] k6 exit=0
+[14:40:19] done

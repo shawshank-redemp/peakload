@@ -1,0 +1,37 @@
+admission-1  | 
+admission-1  |   .   ____          _            __ _ _
+admission-1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+admission-1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+admission-1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+admission-1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+admission-1  |  =========|_|==============|___/=/_/_/_/
+admission-1  | 
+admission-1  |  :: Spring Boot ::                (v3.3.5)
+admission-1  | 
+admission-1  | 2026-11-22T09:06:49.109Z  INFO 1 --- [admission] [           main] c.p.admission.AdmissionApplication       : Starting AdmissionApplication v0.1.0 using Java 21.0.13 with PID 1 (/app/app.jar started by root in /)
+admission-1  | 2026-11-22T09:06:49.110Z  INFO 1 --- [admission] [           main] c.p.admission.AdmissionApplication       : No active profile set, falling back to 1 default profile: "default"
+admission-1  | 2026-11-22T09:06:50.065Z  INFO 1 --- [admission] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+admission-1  | 2026-11-22T09:06:50.068Z  INFO 1 --- [admission] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+admission-1  | 2026-11-22T09:06:50.097Z  INFO 1 --- [admission] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+admission-1  | 2026-11-22T09:06:50.702Z  INFO 1 --- [admission] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+admission-1  | 2026-11-22T09:06:50.790Z  INFO 1 --- [admission] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+admission-1  | 2026-11-22T09:06:50.790Z  INFO 1 --- [admission] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+admission-1  | 2026-11-22T09:06:50.813Z  INFO 1 --- [admission] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+admission-1  | 2026-11-22T09:06:50.814Z  INFO 1 --- [admission] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1672 ms
+admission-1  | 2026-11-22T09:06:51.982Z  INFO 1 --- [admission] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+admission-1  | 2026-11-22T09:06:52.349Z  INFO 1 --- [admission] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@d13379e
+admission-1  | 2026-11-22T09:06:52.350Z  INFO 1 --- [admission] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+admission-1  | 2026-11-22T09:06:52.373Z  INFO 1 --- [admission] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://postgres:5432/peakload (PostgreSQL 16.16)
+admission-1  | 2026-11-22T09:06:52.409Z  INFO 1 --- [admission] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 3 migrations (execution time 00:00.020s)
+admission-1  | 2026-11-22T09:06:52.430Z  INFO 1 --- [admission] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "admission": 2
+admission-1  | 2026-11-22T09:06:52.432Z  INFO 1 --- [admission] [           main] o.f.core.internal.command.DbMigrate      : Schema "admission" is up to date. No migration necessary.
+admission-1  | 2026-11-22T09:06:52.962Z  INFO 1 --- [admission] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+admission-1  | 2026-11-22T09:06:53.003Z  INFO 1 --- [admission] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+admission-1  | 2026-11-22T09:06:53.021Z  INFO 1 --- [admission] [           main] c.p.admission.AdmissionApplication       : Started AdmissionApplication in 4.155 seconds (process running for 4.423)
+admission-1  | 2026-11-22T09:06:53.916Z  INFO 1 --- [admission] [omcat-handler-0] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+admission-1  | 2026-11-22T09:06:53.916Z  INFO 1 --- [admission] [omcat-handler-0] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+admission-1  | 2026-11-22T09:06:53.916Z  INFO 1 --- [admission] [omcat-handler-0] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+admission-1  | 2026-11-22T09:06:56.830Z  WARN 1 --- [admission] [cat-handler-391] com.peakload.admission.LimiterCircuit    : rate limiter: Redis failed (QueryTimeoutException), switched to local mode for 2000 ms
+admission-1  | 2026-11-22T09:06:58.832Z  INFO 1 --- [admission] [at-handler-1603] com.peakload.admission.LimiterCircuit    : rate limiter: Redis is back, switched to Redis mode
+admission-1  | 2026-11-22T09:06:59.617Z  WARN 1 --- [admission] [at-handler-1942] com.peakload.admission.LimiterCircuit    : rate limiter: Redis failed (QueryTimeoutException), switched to local mode for 2000 ms
+admission-1  | 2026-11-22T09:07:01.619Z  INFO 1 --- [admission] [at-handler-3832] com.peakload.admission.LimiterCircuit    : rate limiter: Redis is back, switched to Redis mode

@@ -1,0 +1,137 @@
+ Container peakload-k6-run-b9627c7db386 Creating 
+ Container peakload-k6-run-b9627c7db386 Created 
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /loadtest/week6/create-ramp.js
+        output: json (/out/points.json.gz)
+
+     scenarios: (100.00%) 1 scenario, 3000 max VUs, 1m0s max duration (incl. graceful stop):
+              * create: 1600.00 iterations/s for 30s (maxVUs: 300-3000, exec: create, gracefulStop: 30s)
+
+
+running (0m00.9s), 0009/0300 VUs, 1507 complete and 0 interrupted iterations
+create   [   3% ] 0009/0300 VUs  00.9s/30s  1600.00 iters/s
+
+running (0m01.9s), 0059/0300 VUs, 3056 complete and 0 interrupted iterations
+create   [   6% ] 0059/0300 VUs  01.9s/30s  1600.00 iters/s
+
+running (0m02.9s), 0008/0300 VUs, 4707 complete and 0 interrupted iterations
+create   [  10% ] 0008/0300 VUs  02.9s/30s  1600.00 iters/s
+
+running (0m03.9s), 0008/0300 VUs, 6307 complete and 0 interrupted iterations
+create   [  13% ] 0008/0300 VUs  03.9s/30s  1600.00 iters/s
+
+running (0m04.9s), 0028/0300 VUs, 7886 complete and 0 interrupted iterations
+create   [  16% ] 0028/0300 VUs  04.9s/30s  1600.00 iters/s
+
+running (0m05.9s), 0006/0300 VUs, 9510 complete and 0 interrupted iterations
+create   [  20% ] 0006/0300 VUs  05.9s/30s  1600.00 iters/s
+
+running (0m06.9s), 0050/0300 VUs, 11064 complete and 0 interrupted iterations
+create   [  23% ] 0050/0300 VUs  06.9s/30s  1600.00 iters/s
+
+running (0m07.9s), 0004/0300 VUs, 12709 complete and 0 interrupted iterations
+create   [  26% ] 0004/0300 VUs  07.9s/30s  1600.00 iters/s
+
+running (0m08.9s), 0119/0300 VUs, 14197 complete and 0 interrupted iterations
+create   [  30% ] 0119/0300 VUs  08.9s/30s  1600.00 iters/s
+
+running (0m09.9s), 0119/0300 VUs, 15797 complete and 0 interrupted iterations
+create   [  33% ] 0119/0300 VUs  09.9s/30s  1600.00 iters/s
+
+running (0m10.9s), 0160/0300 VUs, 17353 complete and 0 interrupted iterations
+create   [  36% ] 0160/0300 VUs  10.9s/30s  1600.00 iters/s
+
+running (0m11.9s), 0170/0300 VUs, 18944 complete and 0 interrupted iterations
+create   [  40% ] 0170/0300 VUs  11.9s/30s  1600.00 iters/s
+
+running (0m12.9s), 0180/0300 VUs, 20535 complete and 0 interrupted iterations
+create   [  43% ] 0180/0300 VUs  12.9s/30s  1600.00 iters/s
+
+running (0m13.9s), 0190/0300 VUs, 22126 complete and 0 interrupted iterations
+create   [  46% ] 0190/0300 VUs  13.9s/30s  1600.00 iters/s
+
+running (0m14.9s), 0189/0300 VUs, 23727 complete and 0 interrupted iterations
+create   [  50% ] 0189/0300 VUs  14.9s/30s  1600.00 iters/s
+
+running (0m15.9s), 0158/0300 VUs, 25361 complete and 0 interrupted iterations
+create   [  53% ] 0158/0300 VUs  15.9s/30s  1600.00 iters/s
+
+running (0m17.0s), 0181/0300 VUs, 26943 complete and 0 interrupted iterations
+create   [  57% ] 0181/0300 VUs  17.0s/30s  1600.00 iters/s
+
+running (0m17.9s), 0178/0300 VUs, 28537 complete and 0 interrupted iterations
+create   [  60% ] 0178/0300 VUs  17.9s/30s  1600.00 iters/s
+
+running (0m18.9s), 0174/0300 VUs, 30141 complete and 0 interrupted iterations
+create   [  63% ] 0174/0300 VUs  18.9s/30s  1600.00 iters/s
+
+running (0m19.9s), 0175/0300 VUs, 31739 complete and 0 interrupted iterations
+create   [  66% ] 0175/0300 VUs  19.9s/30s  1600.00 iters/s
+
+running (0m20.9s), 0187/0300 VUs, 33329 complete and 0 interrupted iterations
+create   [  70% ] 0187/0300 VUs  20.9s/30s  1600.00 iters/s
+
+running (0m21.9s), 0177/0300 VUs, 34937 complete and 0 interrupted iterations
+create   [  73% ] 0177/0300 VUs  21.9s/30s  1600.00 iters/s
+
+running (0m22.9s), 0190/0300 VUs, 36523 complete and 0 interrupted iterations
+create   [  76% ] 0190/0300 VUs  22.9s/30s  1600.00 iters/s
+
+running (0m23.9s), 0174/0309 VUs, 38038 complete and 0 interrupted iterations
+create   [  80% ] 0174/0309 VUs  23.9s/30s  1600.00 iters/s
+
+running (0m24.9s), 0180/0309 VUs, 39632 complete and 0 interrupted iterations
+create   [  83% ] 0180/0309 VUs  24.9s/30s  1600.00 iters/s
+
+running (0m25.9s), 0189/0309 VUs, 41223 complete and 0 interrupted iterations
+create   [  86% ] 0189/0309 VUs  25.9s/30s  1600.00 iters/s
+
+running (0m26.9s), 0183/0309 VUs, 42829 complete and 0 interrupted iterations
+create   [  90% ] 0183/0309 VUs  26.9s/30s  1600.00 iters/s
+
+running (0m27.9s), 0173/0309 VUs, 44438 complete and 0 interrupted iterations
+create   [  93% ] 0173/0309 VUs  27.9s/30s  1600.00 iters/s
+
+running (0m28.9s), 0245/0309 VUs, 45967 complete and 0 interrupted iterations
+create   [  96% ] 0245/0309 VUs  28.9s/30s  1600.00 iters/s
+
+running (0m29.9s), 0179/0309 VUs, 47637 complete and 0 interrupted iterations
+create   [ 100% ] 0179/0309 VUs  29.9s/30s  1600.00 iters/s
+
+
+  █ TOTAL RESULTS 
+
+    CUSTOM
+    accepted_latency_ms............: avg=99.03ms min=976.87µs med=98.66ms max=857.79ms p(90)=230.51ms p(95)=282.26ms
+    outcome........................: 47876  1585.334344/s
+
+    HTTP
+    http_req_duration..............: avg=83.59ms min=131.58µs med=46.52ms max=857.79ms p(90)=211.71ms p(95)=268.75ms
+      { expected_response:true }...: avg=99.03ms min=976.87µs med=98.66ms max=857.79ms p(90)=230.51ms p(95)=282.26ms
+    http_req_failed................: 17.37% 8320 out of 47876
+    http_reqs......................: 47876  1585.334344/s
+
+    EXECUTION
+    dropped_iterations.............: 103    3.410674/s
+    iteration_duration.............: avg=83.98ms min=188.79µs med=47.49ms max=858ms    p(90)=212.37ms p(95)=269.46ms
+    iterations.....................: 47876  1585.334344/s
+    vus............................: 178    min=4             max=214
+    vus_max........................: 309    min=300           max=309
+
+    NETWORK
+    data_received..................: 12 MB  392 kB/s
+    data_sent......................: 16 MB  514 kB/s
+
+
+
+
+running (0m30.2s), 0000/0309 VUs, 47876 complete and 0 interrupted iterations
+create ✓ [ 100% ] 0000/0309 VUs  30s  1600.00 iters/s
