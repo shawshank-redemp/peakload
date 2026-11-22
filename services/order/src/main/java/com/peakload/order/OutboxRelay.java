@@ -4,6 +4,7 @@ import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.time.OffsetDateTime;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import java.util.List;
 import java.util.UUID;
@@ -84,7 +85,7 @@ class OutboxRelay {
 
     private BatchResult publishBatch() {
         List<OutboxRow> rows = jdbc.query("""
-                SELECT id, aggregate_id, event_type, payload::text AS payload
+                SELECT id, created_at, aggregate_id, event_type, payload::text AS payload
                 FROM outbox
                 WHERE published_at IS NULL
                 ORDER BY created_at, id
@@ -93,6 +94,7 @@ class OutboxRelay {
                 """,
                 (rs, rowNum) -> new OutboxRow(
                         rs.getObject("id", UUID.class),
+                        rs.getObject("created_at", OffsetDateTime.class),
                         rs.getObject("aggregate_id", UUID.class),
                         rs.getString("event_type"),
                         rs.getString("payload")),
@@ -113,7 +115,9 @@ class OutboxRelay {
                 return new BatchResult(rows.size() == batchSize, true);
             }
             // Only reached after the broker acknowledged this row.
-            jdbc.update("UPDATE outbox SET published_at = now() WHERE id = ?", row.id());
+            // created_at is part of the primary key, so the update names it and touches one partition only.
+            jdbc.update("UPDATE outbox SET published_at = now() WHERE id = ? AND created_at = ?",
+                    row.id(), row.createdAt());
             published.increment();
         }
         return new BatchResult(rows.size() == batchSize, false);
@@ -127,7 +131,7 @@ class OutboxRelay {
         return record;
     }
 
-    private record OutboxRow(UUID id, UUID aggregateId, String eventType, String payload) {}
+    private record OutboxRow(UUID id, OffsetDateTime createdAt, UUID aggregateId, String eventType, String payload) {}
 
     /** @param fullBatch true if the batch reached batch-size, so more rows may be waiting */
     private record BatchResult(boolean fullBatch, boolean failed) {}

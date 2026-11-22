@@ -62,6 +62,13 @@ peakload:
       # Upper bound on waiting for one ack. Must be longer than delivery.timeout.ms (10 s); see the
       # timeout invariant under spring.kafka.producer.properties.
       send-wait: PT15S
+    # Monthly partitions of the outbox (migration V6). The job creates months ahead and drops a month only when it is
+    # older than retention AND has no unpublished row. Values are starting values, not measured results.
+    partitions:
+      months-ahead: 3
+      retention: ${OUTBOX_RETENTION:P30D}
+      initial-delay: PT1M
+      interval: PT1H
   idempotency:
     # How long a key is remembered. After this time the same key counts as unseen and a
     # retry creates a new order. Measured in ISO-8601 (PT24H = 24 hours).
