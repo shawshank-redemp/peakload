@@ -9,3 +9,7 @@ loadtest/results/**/points.json.gz
 # Per-transaction latency logs from pgbench -l (large, reproducible from run-retention.sh)
 loadtest/results/**/latency-*.log
 loadtest/results/**/pgbench-*.txt
+# Raw logs and point streams from load runs (large; the summaries and scripts are what is committed)
+loadtest/results/**/admission.log
+loadtest/results/**/*.jsonl
+loadtest/results/**/points.json
