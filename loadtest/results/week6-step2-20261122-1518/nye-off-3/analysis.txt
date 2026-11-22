@@ -1,0 +1,31 @@
+run: loadtest/results/week6-step2-20261122-1518/nye-off-3
+requests (timed run): 410144 (176064 POST, 234080 other methods); dropped iterations: 98197
+POST /orders outcomes (adds to 100.00%):
+  201       97034   55.11%
+  429           0    0.00%
+  503       79030   44.89%
+  other         0    0.00%
+  sum      176064  100.00%
+accepted (201) latency ms: p50=3.3 p95=1061.9 p99=1974.4 (n=97034)
+other methods, by status (GET and PATCH answers; not create outcomes):
+  GET 200: 223432
+  GET 503: 9357
+  PATCH 200: 1231
+  PATCH 503: 59
+  PATCH 409: 1
+POST outcomes by group (k6 tag):
+  ::setup: n=400 201 100.00%, 429 0.00%, 503 0.00%, other 0.00%
+CPU per container, % (mean / peak over the timed run, sampled every 2 s):
+  admission  mean   70.9  peak  211.3
+  order      mean   28.4  peak  103.2
+  postgres   mean   38.3  peak  124.8
+  redis      mean    5.7  peak   18.0
+  k6         mean  102.1  peak  402.1
+postgres counters, before -> after:
+  checkpoints_timed: 70 -> 71 (delta 1)
+  checkpoints_req: 119 -> 119 (delta 0)
+  autovacuum_count: 415 -> 431 (delta 16)
+  autoanalyze_count: 573 -> 592 (delta 19)
+orders=97034; 201 answers=97034; orders without a 201 answer=0; non-201 POST answers=79030
+a. duplicate (client_id, idempotency_key) pairs: 0
+invariants: all hold

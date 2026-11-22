@@ -1,0 +1,17 @@
+1,2c1,2
+< requests (timed run): 39003; dropped iterations: 0
+< status breakdown (adds to 100.00%):
+---
+> requests (timed run): 39003 (39003 POST, 0 other methods); dropped iterations: 0
+> POST /orders outcomes (adds to 100.00%):
+9c9
+< by group (k6 tag):
+---
+> POST outcomes by group (k6 tag):
+23,24c23,25
+< invariants: orders=6201 idempotency_keys=6201 outbox_unpublished=0 201 answers=6201
+< invariants: all three hold
+---
+> orders=6201; 201 answers=6201; orders without a 201 answer=0; non-201 POST answers=32802
+> a. duplicate (client_id, idempotency_key) pairs: not recorded (run predates the check)
+> invariants: all hold

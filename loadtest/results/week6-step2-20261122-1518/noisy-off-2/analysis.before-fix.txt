@@ -1,0 +1,25 @@
+run: loadtest/results/week6-step2-20261122-1518/noisy-off-2
+requests (timed run): 39003; dropped iterations: 0
+status breakdown (adds to 100.00%):
+  201       39003  100.00%
+  429           0    0.00%
+  503           0    0.00%
+  other         0    0.00%
+  sum       39003  100.00%
+accepted (201) latency ms: p50=1.2 p95=2.4 p99=6.0 (n=39003)
+by group (k6 tag):
+  abusive: n=36000 201 100.00%, 429 0.00%, 503 0.00%, other 0.00%
+  normal: n=3003 201 100.00%, 429 0.00%, 503 0.00%, other 0.00%
+CPU per container, % (mean / peak over the timed run, sampled every 2 s):
+  admission  mean   37.6  peak   50.7
+  order      mean   59.7  peak   86.8
+  postgres   mean   56.9  peak   79.6
+  redis      mean    0.5  peak    1.1
+  k6         mean   34.5  peak   38.5
+postgres counters, before -> after:
+  checkpoints_timed: 62 -> 62 (delta 0)
+  checkpoints_req: 119 -> 119 (delta 0)
+  autovacuum_count: 324 -> 324 (delta 0)
+  autoanalyze_count: 459 -> 459 (delta 0)
+invariants: orders=39003 idempotency_keys=39003 outbox_unpublished=0 201 answers=39003
+invariants: all three hold

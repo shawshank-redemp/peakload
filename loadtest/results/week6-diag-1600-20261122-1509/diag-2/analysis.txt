@@ -1,0 +1,36 @@
+# run: loadtest/results/week6-diag-1600-20261122-1509/diag-2
+requests: 48000; achieved req/s: 1599.9; dropped iterations: 0
+
+## status breakdown (adds to 100.00%)
+  201                         48000  100.00%
+  TOTAL                       48000  100.00%
+
+non-2xx share: 0.00%  (stop rule: more than 5%)
+
+accepted (201) latency ms: n=48000 p50=1.741417 p95=3.633209 p99=6.922
+
+## resources during the timed run (docker stats, % of one core; sampled every 2 s)
+  peakload-admission-1   mean     62%  peak     90%
+  peakload-order-1       mean     87%  peak    112%
+  peakload-postgres-1    mean     97%  peak    140%
+  peakload-redis-1       mean      8%  peak      9%
+  k6                     mean     46%  peak     51%
+  admission Hikari pending (menu pool)   peak 0  mean 0.0
+  admission Hikari active                peak 0  mean 0.0
+  order Hikari pending                   peak 0  mean 0.0
+  order Hikari active                    peak 6  mean 3.1
+  admission in-flight                    peak 17  mean 4.9
+  admission upstream pool in-use: not exposed as a metric (not measured)
+
+## load level seconds during the timed run (admission_load_level_seconds_total, delta)
+  NORMAL        28.2 s
+  ELEVATED       0.0 s
+  HIGH           0.0 s
+  HARD_CAP       0.0 s
+
+## causes behind 'other' (from the admission log; rate-limited, so counts cover what the log covers)
+  total covered by the log: 0; 503 other in the k6 counts: 0
+
+## orders
+  orders_before=0 | orders_after=48000 | 
+  201 answers in the timed run: 48000

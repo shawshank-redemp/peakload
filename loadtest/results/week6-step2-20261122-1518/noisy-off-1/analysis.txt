@@ -1,0 +1,26 @@
+run: noisy-off-1
+requests (timed run): 39006 (39006 POST, 0 other methods); dropped iterations: 0
+POST /orders outcomes (adds to 100.00%):
+  201       39006  100.00%
+  429           0    0.00%
+  503           0    0.00%
+  other         0    0.00%
+  sum       39006  100.00%
+accepted (201) latency ms: p50=1.3 p95=5.0 p99=38.9 (n=39006)
+POST outcomes by group (k6 tag):
+  abusive: n=36001 201 100.00%, 429 0.00%, 503 0.00%, other 0.00%
+  normal: n=3005 201 100.00%, 429 0.00%, 503 0.00%, other 0.00%
+CPU per container, % (mean / peak over the timed run, sampled every 2 s):
+  admission  mean   38.2  peak   76.2
+  order      mean   57.5  peak   88.7
+  postgres   mean   54.1  peak   75.2
+  redis      mean    0.8  peak    1.9
+  k6         mean   36.5  peak   44.0
+postgres counters, before -> after:
+  checkpoints_timed: 61 -> 61 (delta 0)
+  checkpoints_req: 119 -> 119 (delta 0)
+  autovacuum_count: 312 -> 312 (delta 0)
+  autoanalyze_count: 447 -> 447 (delta 0)
+orders=39006; 201 answers=39006; orders without a 201 answer=0; non-201 POST answers=0
+a. duplicate (client_id, idempotency_key) pairs: not recorded (run predates the check)
+invariants: all hold

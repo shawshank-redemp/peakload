@@ -1,0 +1,4 @@
+orders=97034
+idempotency_keys=97034
+idempotency_duplicate_pairs=0
+outbox_unpublished=0

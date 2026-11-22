@@ -1,0 +1,5 @@
+checkpoints_timed=60 checkpoints_req=118 buffers_checkpoint=470731 buffers_backend=29930027
+autovacuum_count=289 autoanalyze_count=421 n_dead_tup=44551
+wal_lsn=17/C95B98F0 wal_bytes_from_origin=102162471152
+autovacuum_workers_now=0
+checkpointer_active_now=1

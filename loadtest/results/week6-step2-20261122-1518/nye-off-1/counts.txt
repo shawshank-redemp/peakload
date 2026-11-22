@@ -1,0 +1,5 @@
+orders=67220
+idempotency_keys=67220
+outbox_unpublished=0
+# idempotency_duplicate_pairs recorded after the run from the live table (no run or reset since)
+idempotency_duplicate_pairs=0

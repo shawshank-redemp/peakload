@@ -1,0 +1,1361 @@
+# HELP admission_circuit_state Order circuit breaker state: 0 closed, 1 open, 2 half-open
+# TYPE admission_circuit_state gauge
+admission_circuit_state{application="admission"} 0.0
+# HELP admission_in_flight Requests currently being handled, all classes including local menu reads
+# TYPE admission_in_flight gauge
+admission_in_flight{application="admission"} 0.0
+# HELP admission_limiter_circuit_opens_total Times the Redis circuit opened (including a probe that failed)
+# TYPE admission_limiter_circuit_opens_total counter
+admission_limiter_circuit_opens_total{application="admission"} 36.0
+# HELP admission_limiter_errors_total Rate-limit checks against Redis that failed or timed out
+# TYPE admission_limiter_errors_total counter
+admission_limiter_errors_total{application="admission"} 1375.0
+# HELP admission_limiter_fallback_total Requests decided by the local fallback, by outcome
+# TYPE admission_limiter_fallback_total counter
+admission_limiter_fallback_total{application="admission",outcome="allowed"} 165390.0
+admission_limiter_fallback_total{application="admission",outcome="limited"} 0.0
+# HELP admission_limiter_local_evictions_total Local buckets evicted because the cap was reached
+# TYPE admission_limiter_local_evictions_total counter
+admission_limiter_local_evictions_total{application="admission"} 0.0
+# HELP admission_limiter_mode Rate-limiter mode: 0 = Redis, 1 = local fallback
+# TYPE admission_limiter_mode gauge
+admission_limiter_mode{application="admission"} 0.0
+# HELP admission_limiter_seconds Time spent in the rate limiter's Redis round trip
+# TYPE admission_limiter_seconds histogram
+admission_limiter_seconds_bucket{application="admission",le="0.001"} 172882
+admission_limiter_seconds_bucket{application="admission",le="0.001048576"} 173818
+admission_limiter_seconds_bucket{application="admission",le="0.001398101"} 179657
+admission_limiter_seconds_bucket{application="admission",le="0.001747626"} 184294
+admission_limiter_seconds_bucket{application="admission",le="0.002097151"} 188477
+admission_limiter_seconds_bucket{application="admission",le="0.002446676"} 191955
+admission_limiter_seconds_bucket{application="admission",le="0.002796201"} 194980
+admission_limiter_seconds_bucket{application="admission",le="0.003145726"} 197994
+admission_limiter_seconds_bucket{application="admission",le="0.003495251"} 200495
+admission_limiter_seconds_bucket{application="admission",le="0.003844776"} 202908
+admission_limiter_seconds_bucket{application="admission",le="0.004194304"} 205223
+admission_limiter_seconds_bucket{application="admission",le="0.005592405"} 213361
+admission_limiter_seconds_bucket{application="admission",le="0.006990506"} 219918
+admission_limiter_seconds_bucket{application="admission",le="0.008388607"} 225853
+admission_limiter_seconds_bucket{application="admission",le="0.009786708"} 230826
+admission_limiter_seconds_bucket{application="admission",le="0.011184809"} 234627
+admission_limiter_seconds_bucket{application="admission",le="0.01258291"} 238700
+admission_limiter_seconds_bucket{application="admission",le="0.013981011"} 242273
+admission_limiter_seconds_bucket{application="admission",le="0.015379112"} 245255
+admission_limiter_seconds_bucket{application="admission",le="0.016777216"} 248719
+admission_limiter_seconds_bucket{application="admission",le="0.022369621"} 259767
+admission_limiter_seconds_bucket{application="admission",le="0.027962026"} 267246
+admission_limiter_seconds_bucket{application="admission",le="0.033554431"} 272535
+admission_limiter_seconds_bucket{application="admission",le="0.039146836"} 277861
+admission_limiter_seconds_bucket{application="admission",le="0.044739241"} 282818
+admission_limiter_seconds_bucket{application="admission",le="0.050331646"} 287384
+admission_limiter_seconds_bucket{application="admission",le="0.055924051"} 292222
+admission_limiter_seconds_bucket{application="admission",le="0.061516456"} 296409
+admission_limiter_seconds_bucket{application="admission",le="0.067108864"} 300210
+admission_limiter_seconds_bucket{application="admission",le="0.089478485"} 311706
+admission_limiter_seconds_bucket{application="admission",le="0.111848106"} 318018
+admission_limiter_seconds_bucket{application="admission",le="0.134217727"} 322659
+admission_limiter_seconds_bucket{application="admission",le="0.156587348"} 326914
+admission_limiter_seconds_bucket{application="admission",le="0.178956969"} 330463
+admission_limiter_seconds_bucket{application="admission",le="0.20132659"} 332889
+admission_limiter_seconds_bucket{application="admission",le="0.223696211"} 335308
+admission_limiter_seconds_bucket{application="admission",le="0.246065832"} 337535
+admission_limiter_seconds_bucket{application="admission",le="0.268435456"} 339623
+admission_limiter_seconds_bucket{application="admission",le="0.357913941"} 347676
+admission_limiter_seconds_bucket{application="admission",le="0.447392426"} 353206
+admission_limiter_seconds_bucket{application="admission",le="0.536870911"} 354486
+admission_limiter_seconds_bucket{application="admission",le="0.626349396"} 355629
+admission_limiter_seconds_bucket{application="admission",le="0.715827881"} 356913
+admission_limiter_seconds_bucket{application="admission",le="0.805306366"} 358132
+admission_limiter_seconds_bucket{application="admission",le="0.894784851"} 358442
+admission_limiter_seconds_bucket{application="admission",le="0.984263336"} 358666
+admission_limiter_seconds_bucket{application="admission",le="1.073741824"} 358666
+admission_limiter_seconds_bucket{application="admission",le="1.431655765"} 358666
+admission_limiter_seconds_bucket{application="admission",le="1.789569706"} 358666
+admission_limiter_seconds_bucket{application="admission",le="2.147483647"} 358666
+admission_limiter_seconds_bucket{application="admission",le="2.505397588"} 358666
+admission_limiter_seconds_bucket{application="admission",le="2.863311529"} 358666
+admission_limiter_seconds_bucket{application="admission",le="3.22122547"} 358666
+admission_limiter_seconds_bucket{application="admission",le="3.579139411"} 358666
+admission_limiter_seconds_bucket{application="admission",le="3.937053352"} 358666
+admission_limiter_seconds_bucket{application="admission",le="4.294967296"} 358666
+admission_limiter_seconds_bucket{application="admission",le="5.726623061"} 358666
+admission_limiter_seconds_bucket{application="admission",le="7.158278826"} 358666
+admission_limiter_seconds_bucket{application="admission",le="8.589934591"} 358666
+admission_limiter_seconds_bucket{application="admission",le="10.021590356"} 358666
+admission_limiter_seconds_bucket{application="admission",le="11.453246121"} 358666
+admission_limiter_seconds_bucket{application="admission",le="12.884901886"} 358666
+admission_limiter_seconds_bucket{application="admission",le="14.316557651"} 358666
+admission_limiter_seconds_bucket{application="admission",le="15.748213416"} 358666
+admission_limiter_seconds_bucket{application="admission",le="17.179869184"} 358666
+admission_limiter_seconds_bucket{application="admission",le="22.906492245"} 358666
+admission_limiter_seconds_bucket{application="admission",le="28.633115306"} 358666
+admission_limiter_seconds_bucket{application="admission",le="30.0"} 358666
+admission_limiter_seconds_bucket{application="admission",le="+Inf"} 358666
+admission_limiter_seconds_count{application="admission"} 358666
+admission_limiter_seconds_sum{application="admission"} 16024.379991169
+# HELP admission_limiter_seconds_max Time spent in the rate limiter's Redis round trip
+# TYPE admission_limiter_seconds_max gauge
+admission_limiter_seconds_max{application="admission"} 0.0
+# HELP admission_load_level Load level: 0 NORMAL, 1 ELEVATED (sheds LOW), 2 HIGH (sheds LOW, STANDARD), 3 HARD_CAP (sheds all)
+# TYPE admission_load_level gauge
+admission_load_level{application="admission"} 0.0
+# HELP admission_load_level_seconds_total Seconds spent at each load level, counted from decision times
+# TYPE admission_load_level_seconds_total counter
+admission_load_level_seconds_total{application="admission",level="ELEVATED"} 26.44931727099991
+admission_load_level_seconds_total{application="admission",level="HARD_CAP"} 31.017172805999955
+admission_load_level_seconds_total{application="admission",level="HIGH"} 16.534979337000145
+admission_load_level_seconds_total{application="admission",level="NORMAL"} 274.69739945199854
+# HELP admission_rate_limited_total Requests rejected by the rate limiter, by class
+# TYPE admission_rate_limited_total counter
+admission_rate_limited_total{application="admission",class="CRITICAL"} 0.0
+admission_rate_limited_total{application="admission",class="LOW"} 0.0
+admission_rate_limited_total{application="admission",class="STANDARD"} 0.0
+# HELP admission_requests_total Requests handled, by class and outcome
+# TYPE admission_requests_total counter
+admission_requests_total{application="admission",class="CRITICAL",outcome="shed"} 59389.0
+admission_requests_total{application="admission",class="CRITICAL",outcome="success"} 159171.0
+admission_requests_total{application="admission",class="LOW",outcome="shed"} 131243.0
+admission_requests_total{application="admission",class="LOW",outcome="success"} 157165.0
+admission_requests_total{application="admission",class="STANDARD",outcome="client_error"} 2.0
+admission_requests_total{application="admission",class="STANDARD",outcome="shed"} 4649.0
+admission_requests_total{application="admission",class="STANDARD",outcome="success"} 11062.0
+# HELP admission_shed_total Requests rejected by load shedding (503), by class
+# TYPE admission_shed_total counter
+admission_shed_total{application="admission",class="CRITICAL"} 59389.0
+admission_shed_total{application="admission",class="LOW"} 131243.0
+admission_shed_total{application="admission",class="STANDARD"} 4649.0
+# HELP admission_upstream_latency_ewma_ms Smoothed latency of order-service calls, in ms; fades when no calls are made
+# TYPE admission_upstream_latency_ewma_ms gauge
+admission_upstream_latency_ewma_ms{application="admission"} 2.3562985927978285E-99
+# HELP admission_upstream_seconds Time spent waiting for the upstream, by class
+# TYPE admission_upstream_seconds histogram
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.001"} 27210
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.001048576"} 30444
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.001398101"} 44854
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.001747626"} 51119
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.002097151"} 54837
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.002446676"} 57598
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.002796201"} 59830
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.003145726"} 61779
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.003495251"} 63489
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.003844776"} 64950
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.004194304"} 66390
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.005592405"} 71055
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.006990506"} 75265
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.008388607"} 78813
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.009786708"} 81949
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.011184809"} 84785
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.01258291"} 87244
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.013981011"} 89557
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.015379112"} 91649
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.016777216"} 93632
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.022369621"} 100793
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.027962026"} 106588
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.033554431"} 111507
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.039146836"} 115692
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.044739241"} 119410
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.050331646"} 122760
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.055924051"} 125673
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.061516456"} 128199
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.067108864"} 130652
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.089478485"} 138023
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.111848106"} 143409
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.134217727"} 147338
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.156587348"} 150121
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.178956969"} 151994
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.20132659"} 153471
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.223696211"} 154539
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.246065832"} 155259
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.268435456"} 155974
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.357913941"} 157715
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.447392426"} 158203
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.536870911"} 158654
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.626349396"} 158818
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.715827881"} 158986
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.805306366"} 159095
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.894784851"} 159168
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="0.984263336"} 159170
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="1.073741824"} 159170
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="1.431655765"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="1.789569706"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="2.147483647"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="2.505397588"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="2.863311529"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="3.22122547"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="3.579139411"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="3.937053352"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="4.294967296"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="5.726623061"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="7.158278826"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="8.589934591"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="10.021590356"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="11.453246121"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="12.884901886"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="14.316557651"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="15.748213416"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="17.179869184"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="22.906492245"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="28.633115306"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="30.0"} 159171
+admission_upstream_seconds_bucket{application="admission",class="CRITICAL",le="+Inf"} 159171
+admission_upstream_seconds_count{application="admission",class="CRITICAL"} 159171
+admission_upstream_seconds_sum{application="admission",class="CRITICAL"} 6179.129022417
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.001"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.001048576"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.001398101"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.001747626"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.002097151"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.002446676"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.002796201"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.003145726"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.003495251"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.003844776"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.004194304"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.005592405"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.006990506"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.008388607"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.009786708"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.011184809"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.01258291"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.013981011"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.015379112"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.016777216"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.022369621"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.027962026"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.033554431"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.039146836"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.044739241"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.050331646"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.055924051"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.061516456"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.067108864"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.089478485"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.111848106"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.134217727"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.156587348"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.178956969"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.20132659"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.223696211"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.246065832"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.268435456"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.357913941"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.447392426"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.536870911"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.626349396"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.715827881"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.805306366"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.894784851"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="0.984263336"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="1.073741824"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="1.431655765"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="1.789569706"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="2.147483647"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="2.505397588"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="2.863311529"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="3.22122547"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="3.579139411"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="3.937053352"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="4.294967296"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="5.726623061"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="7.158278826"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="8.589934591"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="10.021590356"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="11.453246121"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="12.884901886"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="14.316557651"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="15.748213416"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="17.179869184"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="22.906492245"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="28.633115306"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="30.0"} 0
+admission_upstream_seconds_bucket{application="admission",class="LOW",le="+Inf"} 0
+admission_upstream_seconds_count{application="admission",class="LOW"} 0
+admission_upstream_seconds_sum{application="admission",class="LOW"} 0.0
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.001"} 4472
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.001048576"} 4581
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.001398101"} 5160
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.001747626"} 5460
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.002097151"} 5706
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.002446676"} 5930
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.002796201"} 6103
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.003145726"} 6254
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.003495251"} 6372
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.003844776"} 6521
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.004194304"} 6634
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.005592405"} 7002
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.006990506"} 7318
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.008388607"} 7572
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.009786708"} 7771
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.011184809"} 7948
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.01258291"} 8096
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.013981011"} 8232
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.015379112"} 8355
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.016777216"} 8481
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.022369621"} 8860
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.027962026"} 9150
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.033554431"} 9379
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.039146836"} 9594
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.044739241"} 9741
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.050331646"} 9871
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.055924051"} 9989
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.061516456"} 10088
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.067108864"} 10173
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.089478485"} 10453
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.111848106"} 10617
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.134217727"} 10729
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.156587348"} 10810
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.178956969"} 10865
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.20132659"} 10913
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.223696211"} 10948
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.246065832"} 10971
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.268435456"} 10982
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.357913941"} 11027
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.447392426"} 11039
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.536870911"} 11050
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.626349396"} 11053
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.715827881"} 11055
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.805306366"} 11063
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.894784851"} 11063
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="0.984263336"} 11063
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="1.073741824"} 11063
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="1.431655765"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="1.789569706"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="2.147483647"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="2.505397588"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="2.863311529"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="3.22122547"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="3.579139411"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="3.937053352"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="4.294967296"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="5.726623061"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="7.158278826"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="8.589934591"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="10.021590356"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="11.453246121"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="12.884901886"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="14.316557651"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="15.748213416"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="17.179869184"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="22.906492245"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="28.633115306"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="30.0"} 11064
+admission_upstream_seconds_bucket{application="admission",class="STANDARD",le="+Inf"} 11064
+admission_upstream_seconds_count{application="admission",class="STANDARD"} 11064
+admission_upstream_seconds_sum{application="admission",class="STANDARD"} 214.818224226
+# HELP admission_upstream_seconds_max Time spent waiting for the upstream, by class
+# TYPE admission_upstream_seconds_max gauge
+admission_upstream_seconds_max{application="admission",class="CRITICAL"} 0.0
+admission_upstream_seconds_max{application="admission",class="LOW"} 0.0
+admission_upstream_seconds_max{application="admission",class="STANDARD"} 0.0
+# HELP application_ready_time_seconds Time taken for the application to be ready to service requests
+# TYPE application_ready_time_seconds gauge
+application_ready_time_seconds{application="admission",main_application_class="com.peakload.admission.AdmissionApplication"} 2.451
+# HELP application_started_time_seconds Time taken to start the application
+# TYPE application_started_time_seconds gauge
+application_started_time_seconds{application="admission",main_application_class="com.peakload.admission.AdmissionApplication"} 2.407
+# HELP disk_free_bytes Usable space for path
+# TYPE disk_free_bytes gauge
+disk_free_bytes{application="admission",path="/."} 3.87259052032E11
+# HELP disk_total_bytes Total space for path
+# TYPE disk_total_bytes gauge
+disk_total_bytes{application="admission",path="/."} 4.85421555712E11
+# HELP hikaricp_connections Total connections
+# TYPE hikaricp_connections gauge
+hikaricp_connections{application="admission",pool="HikariPool-1"} 10.0
+# HELP hikaricp_connections_acquire_seconds Connection acquire time
+# TYPE hikaricp_connections_acquire_seconds summary
+hikaricp_connections_acquire_seconds_count{application="admission",pool="HikariPool-1"} 314330
+hikaricp_connections_acquire_seconds_sum{application="admission",pool="HikariPool-1"} 688.78380683
+# HELP hikaricp_connections_acquire_seconds_max Connection acquire time
+# TYPE hikaricp_connections_acquire_seconds_max gauge
+hikaricp_connections_acquire_seconds_max{application="admission",pool="HikariPool-1"} 0.0
+# HELP hikaricp_connections_active Active connections
+# TYPE hikaricp_connections_active gauge
+hikaricp_connections_active{application="admission",pool="HikariPool-1"} 0.0
+# HELP hikaricp_connections_creation_seconds Connection creation time
+# TYPE hikaricp_connections_creation_seconds summary
+hikaricp_connections_creation_seconds_count{application="admission",pool="HikariPool-1"} 10
+hikaricp_connections_creation_seconds_sum{application="admission",pool="HikariPool-1"} 0.082
+# HELP hikaricp_connections_creation_seconds_max Connection creation time
+# TYPE hikaricp_connections_creation_seconds_max gauge
+hikaricp_connections_creation_seconds_max{application="admission",pool="HikariPool-1"} 0.0
+# HELP hikaricp_connections_idle Idle connections
+# TYPE hikaricp_connections_idle gauge
+hikaricp_connections_idle{application="admission",pool="HikariPool-1"} 10.0
+# HELP hikaricp_connections_max Max connections
+# TYPE hikaricp_connections_max gauge
+hikaricp_connections_max{application="admission",pool="HikariPool-1"} 10.0
+# HELP hikaricp_connections_min Min connections
+# TYPE hikaricp_connections_min gauge
+hikaricp_connections_min{application="admission",pool="HikariPool-1"} 10.0
+# HELP hikaricp_connections_pending Pending threads
+# TYPE hikaricp_connections_pending gauge
+hikaricp_connections_pending{application="admission",pool="HikariPool-1"} 0.0
+# HELP hikaricp_connections_timeout_total Connection timeout total count
+# TYPE hikaricp_connections_timeout_total counter
+hikaricp_connections_timeout_total{application="admission",pool="HikariPool-1"} 0.0
+# HELP hikaricp_connections_usage_seconds Connection usage time
+# TYPE hikaricp_connections_usage_seconds summary
+hikaricp_connections_usage_seconds_count{application="admission",pool="HikariPool-1"} 314330
+hikaricp_connections_usage_seconds_sum{application="admission",pool="HikariPool-1"} 401.139
+# HELP hikaricp_connections_usage_seconds_max Connection usage time
+# TYPE hikaricp_connections_usage_seconds_max gauge
+hikaricp_connections_usage_seconds_max{application="admission",pool="HikariPool-1"} 0.0
+# HELP http_server_requests_active_seconds  
+# TYPE http_server_requests_active_seconds histogram
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="120.0"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="137.438953471"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="160.345445716"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="183.251937961"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="206.158430206"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="229.064922451"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="251.971414696"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="274.877906944"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="366.503875925"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="458.129844906"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="549.755813887"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="641.381782868"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="733.007751849"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="824.63372083"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="916.259689811"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1007.885658792"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1099.511627776"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1466.015503701"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1832.519379626"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2199.023255551"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2565.527131476"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2932.031007401"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="3298.534883326"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="3665.038759251"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="4031.542635176"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="4398.046511104"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="5864.062014805"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="7200.0"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN",le="+Inf"} 1
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="120.0"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="137.438953471"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="160.345445716"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="183.251937961"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="206.158430206"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="229.064922451"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="251.971414696"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="274.877906944"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="366.503875925"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="458.129844906"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="549.755813887"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="641.381782868"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="733.007751849"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="824.63372083"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="916.259689811"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1007.885658792"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1099.511627776"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1466.015503701"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1832.519379626"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2199.023255551"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2565.527131476"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2932.031007401"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="3298.534883326"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="3665.038759251"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="4031.542635176"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="4398.046511104"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="5864.062014805"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="7200.0"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN",le="+Inf"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="120.0"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="137.438953471"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="160.345445716"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="183.251937961"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="206.158430206"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="229.064922451"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="251.971414696"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="274.877906944"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="366.503875925"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="458.129844906"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="549.755813887"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="641.381782868"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="733.007751849"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="824.63372083"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="916.259689811"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1007.885658792"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1099.511627776"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1466.015503701"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="1832.519379626"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2199.023255551"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2565.527131476"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="2932.031007401"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="3298.534883326"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="3665.038759251"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="4031.542635176"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="4398.046511104"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="5864.062014805"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="7200.0"} 0
+http_server_requests_active_seconds_bucket{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN",le="+Inf"} 0
+# HELP http_server_requests_active_seconds_gcount  
+# TYPE http_server_requests_active_seconds_gcount gauge
+http_server_requests_active_seconds_gcount{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN"} 1
+http_server_requests_active_seconds_gcount{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN"} 0
+http_server_requests_active_seconds_gcount{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN"} 0
+# HELP http_server_requests_active_seconds_gsum  
+# TYPE http_server_requests_active_seconds_gsum gauge
+http_server_requests_active_seconds_gsum{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN"} 0.010694
+http_server_requests_active_seconds_gsum{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN"} 0.0
+http_server_requests_active_seconds_gsum{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN"} 0.0
+# HELP http_server_requests_active_seconds_max  
+# TYPE http_server_requests_active_seconds_max gauge
+http_server_requests_active_seconds_max{application="admission",exception="none",method="GET",outcome="SUCCESS",status="200",uri="UNKNOWN"} 0.010695334
+http_server_requests_active_seconds_max{application="admission",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="UNKNOWN"} 0.0
+http_server_requests_active_seconds_max{application="admission",exception="none",method="POST",outcome="SUCCESS",status="200",uri="UNKNOWN"} 0.0
+# HELP http_server_requests_seconds  
+# TYPE http_server_requests_seconds histogram
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.001"} 54911
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.001048576"} 55108
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.001398101"} 56426
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.001747626"} 57378
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.002097151"} 58282
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.002446676"} 59200
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.002796201"} 59921
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.003145726"} 60624
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.003495251"} 61275
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.003844776"} 61877
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.004194304"} 62477
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.005592405"} 64797
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.006990506"} 66659
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.008388607"} 68378
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.009786708"} 70070
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.011184809"} 71435
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.01258291"} 72904
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.013981011"} 74491
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.015379112"} 75727
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.016777216"} 77284
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.022369621"} 82359
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.027962026"} 85826
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.033554431"} 88578
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.039146836"} 91443
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.044739241"} 94339
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.050331646"} 96659
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.055924051"} 99226
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.061516456"} 101643
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.067108864"} 103528
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.089478485"} 109641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.111848106"} 113178
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.134217727"} 115817
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.156587348"} 118368
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.178956969"} 120420
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.20132659"} 121704
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.223696211"} 122852
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.246065832"} 123983
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.268435456"} 125008
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.357913941"} 129601
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.447392426"} 132533
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.536870911"} 133170
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.626349396"} 133730
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.715827881"} 134484
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.805306366"} 135443
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.894784851"} 135705
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="0.984263336"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="1.073741824"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="1.431655765"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="1.789569706"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="2.147483647"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="2.505397588"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="2.863311529"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="3.22122547"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="3.579139411"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="3.937053352"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="4.294967296"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="5.726623061"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="7.158278826"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="8.589934591"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="10.021590356"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="11.453246121"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="12.884901886"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="14.316557651"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="15.748213416"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="17.179869184"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="22.906492245"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="28.633115306"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="30.0"} 135724
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**",le="+Inf"} 135724
+http_server_requests_seconds_count{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**"} 135724
+http_server_requests_seconds_sum{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**"} 8764.2223281
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.001"} 93436
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.001048576"} 94866
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.001398101"} 101989
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.001747626"} 106526
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.002097151"} 109982
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.002446676"} 112831
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.002796201"} 115270
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.003145726"} 117335
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.003495251"} 119217
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.003844776"} 120851
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.004194304"} 122384
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.005592405"} 127051
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.006990506"} 130805
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.008388607"} 133826
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.009786708"} 136389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.011184809"} 138702
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.01258291"} 140560
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.013981011"} 142231
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.015379112"} 143773
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.016777216"} 145058
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.022369621"} 149419
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.027962026"} 152582
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.033554431"} 154710
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.039146836"} 156419
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.044739241"} 157631
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.050331646"} 158614
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.055924051"} 159473
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.061516456"} 160157
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.067108864"} 160748
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.089478485"} 162584
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.111848106"} 163660
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.134217727"} 164373
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.156587348"} 164853
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.178956969"} 165186
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.20132659"} 165464
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.223696211"} 165609
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.246065832"} 165692
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.268435456"} 165848
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.357913941"} 166249
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.447392426"} 166508
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.536870911"} 166582
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.626349396"} 166613
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.715827881"} 166624
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.805306366"} 166627
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.894784851"} 166633
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="0.984263336"} 166638
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="1.073741824"} 166639
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="1.431655765"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="1.789569706"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="2.147483647"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="2.505397588"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="2.863311529"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="3.22122547"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="3.579139411"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="3.937053352"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="4.294967296"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="5.726623061"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="7.158278826"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="8.589934591"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="10.021590356"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="11.453246121"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="12.884901886"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="14.316557651"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="15.748213416"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="17.179869184"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="22.906492245"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="28.633115306"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="30.0"} 166641
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**",le="+Inf"} 166641
+http_server_requests_seconds_count{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**"} 166641
+http_server_requests_seconds_sum{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**"} 1731.60718927
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.001"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.001048576"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.001398101"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.001747626"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.002097151"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.002446676"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.002796201"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.003145726"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.003495251"} 1
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.003844776"} 3
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.004194304"} 3
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.005592405"} 6
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.006990506"} 18
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.008388607"} 28
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.009786708"} 38
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.011184809"} 46
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.01258291"} 52
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.013981011"} 56
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.015379112"} 63
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.016777216"} 66
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.022369621"} 75
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.027962026"} 84
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.033554431"} 90
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.039146836"} 92
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.044739241"} 95
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.050331646"} 96
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.055924051"} 96
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.061516456"} 97
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.067108864"} 99
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.089478485"} 103
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.111848106"} 107
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.134217727"} 111
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.156587348"} 115
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.178956969"} 115
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.20132659"} 115
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.223696211"} 115
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.246065832"} 116
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.268435456"} 117
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.357913941"} 120
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.447392426"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.536870911"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.626349396"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.715827881"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.805306366"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.894784851"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="0.984263336"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="1.073741824"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="1.431655765"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="1.789569706"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="2.147483647"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="2.505397588"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="2.863311529"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="3.22122547"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="3.579139411"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="3.937053352"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="4.294967296"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="5.726623061"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="7.158278826"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="8.589934591"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="10.021590356"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="11.453246121"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="12.884901886"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="14.316557651"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="15.748213416"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="17.179869184"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="22.906492245"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="28.633115306"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="30.0"} 123
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus",le="+Inf"} 123
+http_server_requests_seconds_count{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus"} 123
+http_server_requests_seconds_sum{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus"} 5.976813379
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.001"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.001048576"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.001398101"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.001747626"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.002097151"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.002446676"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.002796201"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.003145726"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.003495251"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.003844776"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.004194304"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.005592405"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.006990506"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.008388607"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.009786708"} 5
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.011184809"} 7
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.01258291"} 7
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.013981011"} 7
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.015379112"} 7
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.016777216"} 7
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.022369621"} 7
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.027962026"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.033554431"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.039146836"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.044739241"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.050331646"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.055924051"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.061516456"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.067108864"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.089478485"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.111848106"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.134217727"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.156587348"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.178956969"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.20132659"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.223696211"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.246065832"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.268435456"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.357913941"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.447392426"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.536870911"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.626349396"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.715827881"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.805306366"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.894784851"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="0.984263336"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="1.073741824"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="1.431655765"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="1.789569706"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="2.147483647"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="2.505397588"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="2.863311529"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="3.22122547"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="3.579139411"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="3.937053352"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="4.294967296"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="5.726623061"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="7.158278826"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="8.589934591"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="10.021590356"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="11.453246121"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="12.884901886"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="14.316557651"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="15.748213416"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="17.179869184"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="22.906492245"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="28.633115306"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="30.0"} 8
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping",le="+Inf"} 8
+http_server_requests_seconds_count{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping"} 8
+http_server_requests_seconds_sum{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping"} 0.089019165
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.001"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.001048576"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.001398101"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.001747626"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.002097151"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.002446676"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.002796201"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.003145726"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.003495251"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.003844776"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.004194304"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.005592405"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.006990506"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.008388607"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.009786708"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.011184809"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.01258291"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.013981011"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.015379112"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.016777216"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.022369621"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.027962026"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.033554431"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.039146836"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.044739241"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.050331646"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.055924051"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.061516456"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.067108864"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.089478485"} 0
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.111848106"} 1
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.134217727"} 1
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.156587348"} 1
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.178956969"} 1
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.20132659"} 1
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.223696211"} 1
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.246065832"} 1
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.268435456"} 1
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.357913941"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.447392426"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.536870911"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.626349396"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.715827881"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.805306366"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.894784851"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="0.984263336"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="1.073741824"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="1.431655765"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="1.789569706"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="2.147483647"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="2.505397588"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="2.863311529"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="3.22122547"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="3.579139411"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="3.937053352"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="4.294967296"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="5.726623061"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="7.158278826"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="8.589934591"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="10.021590356"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="11.453246121"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="12.884901886"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="14.316557651"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="15.748213416"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="17.179869184"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="22.906492245"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="28.633115306"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="30.0"} 2
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**",le="+Inf"} 2
+http_server_requests_seconds_count{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**"} 2
+http_server_requests_seconds_sum{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**"} 0.385299959
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.001"} 56
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.001048576"} 56
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.001398101"} 57
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.001747626"} 58
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.002097151"} 59
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.002446676"} 59
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.002796201"} 59
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.003145726"} 60
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.003495251"} 61
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.003844776"} 61
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.004194304"} 61
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.005592405"} 62
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.006990506"} 65
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.008388607"} 65
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.009786708"} 68
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.011184809"} 72
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.01258291"} 76
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.013981011"} 77
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.015379112"} 77
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.016777216"} 78
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.022369621"} 84
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.027962026"} 95
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.033554431"} 102
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.039146836"} 106
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.044739241"} 111
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.050331646"} 115
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.055924051"} 120
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.061516456"} 120
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.067108864"} 120
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.089478485"} 126
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.111848106"} 130
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.134217727"} 137
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.156587348"} 139
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.178956969"} 140
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.20132659"} 142
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.223696211"} 142
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.246065832"} 142
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.268435456"} 143
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.357913941"} 149
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.447392426"} 156
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.536870911"} 156
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.626349396"} 159
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.715827881"} 159
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.805306366"} 165
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.894784851"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="0.984263336"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="1.073741824"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="1.431655765"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="1.789569706"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="2.147483647"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="2.505397588"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="2.863311529"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="3.22122547"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="3.579139411"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="3.937053352"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="4.294967296"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="5.726623061"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="7.158278826"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="8.589934591"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="10.021590356"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="11.453246121"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="12.884901886"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="14.316557651"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="15.748213416"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="17.179869184"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="22.906492245"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="28.633115306"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="30.0"} 168
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**",le="+Inf"} 168
+http_server_requests_seconds_count{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**"} 168
+http_server_requests_seconds_sum{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**"} 17.945826877
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.001"} 246
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.001048576"} 280
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.001398101"} 497
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.001747626"} 652
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.002097151"} 729
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.002446676"} 776
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.002796201"} 815
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.003145726"} 843
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.003495251"} 866
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.003844776"} 893
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.004194304"} 913
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.005592405"} 970
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.006990506"} 1023
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.008388607"} 1064
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.009786708"} 1103
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.011184809"} 1134
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.01258291"} 1154
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.013981011"} 1171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.015379112"} 1190
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.016777216"} 1205
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.022369621"} 1261
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.027962026"} 1312
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.033554431"} 1359
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.039146836"} 1382
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.044739241"} 1397
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.050331646"} 1420
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.055924051"} 1439
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.061516456"} 1452
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.067108864"} 1463
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.089478485"} 1496
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.111848106"} 1520
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.134217727"} 1533
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.156587348"} 1549
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.178956969"} 1556
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.20132659"} 1566
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.223696211"} 1567
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.246065832"} 1567
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.268435456"} 1569
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.357913941"} 1580
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.447392426"} 1585
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.536870911"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.626349396"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.715827881"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.805306366"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.894784851"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="0.984263336"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="1.073741824"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="1.431655765"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="1.789569706"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="2.147483647"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="2.505397588"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="2.863311529"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="3.22122547"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="3.579139411"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="3.937053352"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="4.294967296"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="5.726623061"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="7.158278826"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="8.589934591"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="10.021590356"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="11.453246121"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="12.884901886"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="14.316557651"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="15.748213416"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="17.179869184"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="22.906492245"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="28.633115306"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="30.0"} 1586
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**",le="+Inf"} 1586
+http_server_requests_seconds_count{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**"} 1586
+http_server_requests_seconds_sum{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**"} 31.159546511
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.001"} 20027
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.001048576"} 20073
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.001398101"} 20438
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.001747626"} 20684
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.002097151"} 20898
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.002446676"} 21120
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.002796201"} 21270
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.003145726"} 21403
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.003495251"} 21543
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.003844776"} 21647
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.004194304"} 21738
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.005592405"} 22089
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.006990506"} 22319
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.008388607"} 22542
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.009786708"} 22745
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.011184809"} 22929
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.01258291"} 23207
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.013981011"} 23438
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.015379112"} 23715
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.016777216"} 24201
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.022369621"} 26173
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.027962026"} 27401
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.033554431"} 28375
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.039146836"} 29592
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.044739241"} 30692
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.050331646"} 31942
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.055924051"} 33717
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.061516456"} 35098
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.067108864"} 36536
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.089478485"} 41055
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.111848106"} 43397
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.134217727"} 44925
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.156587348"} 46376
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.178956969"} 47614
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.20132659"} 48673
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.223696211"} 49637
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.246065832"} 50603
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.268435456"} 51635
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.357913941"} 54856
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.447392426"} 57399
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.536870911"} 58043
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.626349396"} 58453
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.715827881"} 58975
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.805306366"} 59207
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.894784851"} 59264
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="0.984263336"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="1.073741824"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="1.431655765"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="1.789569706"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="2.147483647"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="2.505397588"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="2.863311529"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="3.22122547"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="3.579139411"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="3.937053352"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="4.294967296"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="5.726623061"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="7.158278826"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="8.589934591"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="10.021590356"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="11.453246121"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="12.884901886"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="14.316557651"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="15.748213416"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="17.179869184"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="22.906492245"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="28.633115306"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="30.0"} 59389
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**",le="+Inf"} 59389
+http_server_requests_seconds_count{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**"} 59389
+http_server_requests_seconds_sum{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**"} 5878.416836899
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.001"} 14136
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.001048576"} 17119
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.001398101"} 34906
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.001747626"} 44581
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.002097151"} 49831
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.002446676"} 53224
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.002796201"} 55701
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.003145726"} 57757
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.003495251"} 59494
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.003844776"} 61009
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.004194304"} 62467
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.005592405"} 66984
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.006990506"} 70526
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.008388607"} 73613
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.009786708"} 76328
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.011184809"} 78814
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.01258291"} 81058
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.013981011"} 83165
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.015379112"} 85054
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.016777216"} 86904
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.022369621"} 93546
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.027962026"} 99114
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.033554431"} 103893
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.039146836"} 108042
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.044739241"} 112069
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.050331646"} 115795
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.055924051"} 118987
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.061516456"} 122025
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.067108864"} 124674
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.089478485"} 133544
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.111848106"} 139960
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.134217727"} 144341
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.156587348"} 147412
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.178956969"} 149699
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.20132659"} 151457
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.223696211"} 153043
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.246065832"} 153961
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.268435456"} 154881
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.357913941"} 157015
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.447392426"} 157714
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.536870911"} 158332
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.626349396"} 158555
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.715827881"} 158801
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.805306366"} 158854
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.894784851"} 158979
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="0.984263336"} 159023
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="1.073741824"} 159083
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="1.431655765"} 159119
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="1.789569706"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="2.147483647"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="2.505397588"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="2.863311529"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="3.22122547"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="3.579139411"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="3.937053352"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="4.294967296"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="5.726623061"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="7.158278826"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="8.589934591"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="10.021590356"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="11.453246121"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="12.884901886"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="14.316557651"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="15.748213416"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="17.179869184"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="22.906492245"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="28.633115306"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="30.0"} 159171
+http_server_requests_seconds_bucket{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**",le="+Inf"} 159171
+http_server_requests_seconds_count{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**"} 159171
+http_server_requests_seconds_sum{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**"} 7458.607567871
+# HELP http_server_requests_seconds_max  
+# TYPE http_server_requests_seconds_max gauge
+http_server_requests_seconds_max{application="admission",error="none",exception="none",method="GET",outcome="SERVER_ERROR",status="503",uri="/**"} 0.0
+http_server_requests_seconds_max{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/**"} 0.0
+http_server_requests_seconds_max{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/actuator/prometheus"} 0.048595542
+http_server_requests_seconds_max{application="admission",error="none",exception="none",method="GET",outcome="SUCCESS",status="200",uri="/api/ping"} 0.010980541
+http_server_requests_seconds_max{application="admission",error="none",exception="none",method="PATCH",outcome="CLIENT_ERROR",status="409",uri="/**"} 0.0
+http_server_requests_seconds_max{application="admission",error="none",exception="none",method="PATCH",outcome="SERVER_ERROR",status="503",uri="/**"} 0.0
+http_server_requests_seconds_max{application="admission",error="none",exception="none",method="PATCH",outcome="SUCCESS",status="200",uri="/**"} 0.0
+http_server_requests_seconds_max{application="admission",error="none",exception="none",method="POST",outcome="SERVER_ERROR",status="503",uri="/**"} 0.0
+http_server_requests_seconds_max{application="admission",error="none",exception="none",method="POST",outcome="SUCCESS",status="201",uri="/**"} 0.0
+# HELP jdbc_connections_active Current number of active connections that have been allocated from the data source.
+# TYPE jdbc_connections_active gauge
+jdbc_connections_active{application="admission",name="dataSource"} 0.0
+# HELP jdbc_connections_idle Number of established but idle connections.
+# TYPE jdbc_connections_idle gauge
+jdbc_connections_idle{application="admission",name="dataSource"} 10.0
+# HELP jdbc_connections_max Maximum number of active connections that can be allocated at the same time.
+# TYPE jdbc_connections_max gauge
+jdbc_connections_max{application="admission",name="dataSource"} 10.0
+# HELP jdbc_connections_min Minimum number of idle connections in the pool.
+# TYPE jdbc_connections_min gauge
+jdbc_connections_min{application="admission",name="dataSource"} 10.0
+# HELP jvm_info JVM version info
+# TYPE jvm_info gauge
+jvm_info{application="admission",runtime="OpenJDK Runtime Environment",vendor="Eclipse Adoptium",version="21.0.13+9-LTS"} 1
+# HELP jvm_buffer_count_buffers An estimate of the number of buffers in the pool
+# TYPE jvm_buffer_count_buffers gauge
+jvm_buffer_count_buffers{application="admission",id="direct"} 4.0
+jvm_buffer_count_buffers{application="admission",id="mapped"} 0.0
+jvm_buffer_count_buffers{application="admission",id="mapped - 'non-volatile memory'"} 0.0
+# HELP jvm_buffer_memory_used_bytes An estimate of the memory that the Java virtual machine is using for this buffer pool
+# TYPE jvm_buffer_memory_used_bytes gauge
+jvm_buffer_memory_used_bytes{application="admission",id="direct"} 4212737.0
+jvm_buffer_memory_used_bytes{application="admission",id="mapped"} 0.0
+jvm_buffer_memory_used_bytes{application="admission",id="mapped - 'non-volatile memory'"} 0.0
+# HELP jvm_buffer_total_capacity_bytes An estimate of the total capacity of the buffers in this pool
+# TYPE jvm_buffer_total_capacity_bytes gauge
+jvm_buffer_total_capacity_bytes{application="admission",id="direct"} 4212736.0
+jvm_buffer_total_capacity_bytes{application="admission",id="mapped"} 0.0
+jvm_buffer_total_capacity_bytes{application="admission",id="mapped - 'non-volatile memory'"} 0.0
+# HELP jvm_classes_loaded_classes The number of classes that are currently loaded in the Java virtual machine
+# TYPE jvm_classes_loaded_classes gauge
+jvm_classes_loaded_classes{application="admission"} 13655.0
+# HELP jvm_classes_unloaded_classes_total The total number of classes unloaded since the Java virtual machine has started execution
+# TYPE jvm_classes_unloaded_classes_total counter
+jvm_classes_unloaded_classes_total{application="admission"} 18.0
+# HELP jvm_compilation_time_ms_total The approximate accumulated elapsed time spent in compilation
+# TYPE jvm_compilation_time_ms_total counter
+jvm_compilation_time_ms_total{application="admission",compiler="HotSpot 64-Bit Tiered Compilers"} 57531.0
+# HELP jvm_gc_concurrent_phase_time_seconds Time spent in concurrent phase
+# TYPE jvm_gc_concurrent_phase_time_seconds summary
+jvm_gc_concurrent_phase_time_seconds_count{action="end of concurrent GC pause",application="admission",cause="No GC",gc="G1 Concurrent GC"} 166
+jvm_gc_concurrent_phase_time_seconds_sum{action="end of concurrent GC pause",application="admission",cause="No GC",gc="G1 Concurrent GC"} 0.914
+# HELP jvm_gc_concurrent_phase_time_seconds_max Time spent in concurrent phase
+# TYPE jvm_gc_concurrent_phase_time_seconds_max gauge
+jvm_gc_concurrent_phase_time_seconds_max{action="end of concurrent GC pause",application="admission",cause="No GC",gc="G1 Concurrent GC"} 0.0
+# HELP jvm_gc_live_data_size_bytes Size of long-lived heap memory pool after reclamation
+# TYPE jvm_gc_live_data_size_bytes gauge
+jvm_gc_live_data_size_bytes{application="admission"} 1.1928248E8
+# HELP jvm_gc_max_data_size_bytes Max size of long-lived heap memory pool
+# TYPE jvm_gc_max_data_size_bytes gauge
+jvm_gc_max_data_size_bytes{application="admission"} 2.082471936E9
+# HELP jvm_gc_memory_allocated_bytes_total Incremented for an increase in the size of the (young) heap memory pool after one GC to before the next
+# TYPE jvm_gc_memory_allocated_bytes_total counter
+jvm_gc_memory_allocated_bytes_total{application="admission"} 4.0576745464E10
+# HELP jvm_gc_memory_promoted_bytes_total Count of positive increases in the size of the old generation memory pool before GC to after GC
+# TYPE jvm_gc_memory_promoted_bytes_total counter
+jvm_gc_memory_promoted_bytes_total{application="admission"} 1.983109416E9
+# HELP jvm_gc_overhead An approximation of the percent of CPU time used by GC activities over the last lookback period or since monitoring began, whichever is shorter, in the range [0..1]
+# TYPE jvm_gc_overhead gauge
+jvm_gc_overhead{application="admission"} 0.0
+# HELP jvm_gc_pause_seconds Time spent in GC pause
+# TYPE jvm_gc_pause_seconds summary
+jvm_gc_pause_seconds_count{action="end of minor GC",application="admission",cause="G1 Evacuation Pause",gc="G1 Young Generation"} 273
+jvm_gc_pause_seconds_sum{action="end of minor GC",application="admission",cause="G1 Evacuation Pause",gc="G1 Young Generation"} 9.795
+jvm_gc_pause_seconds_count{action="end of minor GC",application="admission",cause="Metadata GC Threshold",gc="G1 Young Generation"} 1
+jvm_gc_pause_seconds_sum{action="end of minor GC",application="admission",cause="Metadata GC Threshold",gc="G1 Young Generation"} 0.003
+# HELP jvm_gc_pause_seconds_max Time spent in GC pause
+# TYPE jvm_gc_pause_seconds_max gauge
+jvm_gc_pause_seconds_max{action="end of minor GC",application="admission",cause="G1 Evacuation Pause",gc="G1 Young Generation"} 0.0
+jvm_gc_pause_seconds_max{action="end of minor GC",application="admission",cause="Metadata GC Threshold",gc="G1 Young Generation"} 0.0
+# HELP jvm_memory_committed_bytes The amount of memory in bytes that is committed for the Java virtual machine to use
+# TYPE jvm_memory_committed_bytes gauge
+jvm_memory_committed_bytes{application="admission",area="heap",id="G1 Eden Space"} 4.13138944E8
+jvm_memory_committed_bytes{application="admission",area="heap",id="G1 Old Gen"} 2.4641536E8
+jvm_memory_committed_bytes{application="admission",area="heap",id="G1 Survivor Space"} 5242880.0
+jvm_memory_committed_bytes{application="admission",area="nonheap",id="CodeHeap 'non-nmethods'"} 2555904.0
+jvm_memory_committed_bytes{application="admission",area="nonheap",id="CodeHeap 'non-profiled nmethods'"} 1.1993088E7
+jvm_memory_committed_bytes{application="admission",area="nonheap",id="CodeHeap 'profiled nmethods'"} 2.3199744E7
+jvm_memory_committed_bytes{application="admission",area="nonheap",id="Compressed Class Space"} 9043968.0
+jvm_memory_committed_bytes{application="admission",area="nonheap",id="Metaspace"} 7.143424E7
+# HELP jvm_memory_max_bytes The maximum amount of memory in bytes that can be used for memory management
+# TYPE jvm_memory_max_bytes gauge
+jvm_memory_max_bytes{application="admission",area="heap",id="G1 Eden Space"} -1.0
+jvm_memory_max_bytes{application="admission",area="heap",id="G1 Old Gen"} 2.082471936E9
+jvm_memory_max_bytes{application="admission",area="heap",id="G1 Survivor Space"} -1.0
+jvm_memory_max_bytes{application="admission",area="nonheap",id="CodeHeap 'non-nmethods'"} 5836800.0
+jvm_memory_max_bytes{application="admission",area="nonheap",id="CodeHeap 'non-profiled nmethods'"} 1.22912768E8
+jvm_memory_max_bytes{application="admission",area="nonheap",id="CodeHeap 'profiled nmethods'"} 1.22908672E8
+jvm_memory_max_bytes{application="admission",area="nonheap",id="Compressed Class Space"} 1.073741824E9
+jvm_memory_max_bytes{application="admission",area="nonheap",id="Metaspace"} -1.0
+# HELP jvm_memory_usage_after_gc The percentage of long-lived heap pool used after the last GC event, in the range [0..1]
+# TYPE jvm_memory_usage_after_gc gauge
+jvm_memory_usage_after_gc{application="admission",area="heap",pool="long-lived"} 0.057279273702538866
+# HELP jvm_memory_used_bytes The amount of used memory
+# TYPE jvm_memory_used_bytes gauge
+jvm_memory_used_bytes{application="admission",area="heap",id="G1 Eden Space"} 6.291456E7
+jvm_memory_used_bytes{application="admission",area="heap",id="G1 Old Gen"} 1.1928248E8
+jvm_memory_used_bytes{application="admission",area="heap",id="G1 Survivor Space"} 4557992.0
+jvm_memory_used_bytes{application="admission",area="nonheap",id="CodeHeap 'non-nmethods'"} 1622912.0
+jvm_memory_used_bytes{application="admission",area="nonheap",id="CodeHeap 'non-profiled nmethods'"} 1.1753856E7
+jvm_memory_used_bytes{application="admission",area="nonheap",id="CodeHeap 'profiled nmethods'"} 7859200.0
+jvm_memory_used_bytes{application="admission",area="nonheap",id="Compressed Class Space"} 8614976.0
+jvm_memory_used_bytes{application="admission",area="nonheap",id="Metaspace"} 7.0511448E7
+# HELP jvm_threads_daemon_threads The current number of live daemon threads
+# TYPE jvm_threads_daemon_threads gauge
+jvm_threads_daemon_threads{application="admission"} 29.0
+# HELP jvm_threads_live_threads The current number of live threads including both daemon and non-daemon threads
+# TYPE jvm_threads_live_threads gauge
+jvm_threads_live_threads{application="admission"} 33.0
+# HELP jvm_threads_peak_threads The peak live thread count since the Java virtual machine started or peak was reset
+# TYPE jvm_threads_peak_threads gauge
+jvm_threads_peak_threads{application="admission"} 37.0
+# HELP jvm_threads_started_threads_total The total number of application threads started in the JVM
+# TYPE jvm_threads_started_threads_total counter
+jvm_threads_started_threads_total{application="admission"} 75.0
+# HELP jvm_threads_states_threads The current number of threads
+# TYPE jvm_threads_states_threads gauge
+jvm_threads_states_threads{application="admission",state="blocked"} 0.0
+jvm_threads_states_threads{application="admission",state="new"} 0.0
+jvm_threads_states_threads{application="admission",state="runnable"} 9.0
+jvm_threads_states_threads{application="admission",state="terminated"} 0.0
+jvm_threads_states_threads{application="admission",state="timed-waiting"} 8.0
+jvm_threads_states_threads{application="admission",state="waiting"} 16.0
+# HELP lettuce_command_completion_seconds Latency between command send and command completion (complete response received
+# TYPE lettuce_command_completion_seconds summary
+lettuce_command_completion_seconds_count{application="admission",command="CLIENT",local="local:any",remote="redis/172.25.0.5:6379"} 2
+lettuce_command_completion_seconds_sum{application="admission",command="CLIENT",local="local:any",remote="redis/172.25.0.5:6379"} 0.002362582
+lettuce_command_completion_seconds_count{application="admission",command="EVALSHA",local="local:any",remote="redis/172.25.0.5:6379"} 358162
+lettuce_command_completion_seconds_sum{application="admission",command="EVALSHA",local="local:any",remote="redis/172.25.0.5:6379"} 838.583326019
+lettuce_command_completion_seconds_count{application="admission",command="HELLO",local="local:any",remote="redis/172.25.0.5:6379"} 1
+lettuce_command_completion_seconds_sum{application="admission",command="HELLO",local="local:any",remote="redis/172.25.0.5:6379"} 0.006872875
+# HELP lettuce_command_completion_seconds_max Latency between command send and command completion (complete response received
+# TYPE lettuce_command_completion_seconds_max gauge
+lettuce_command_completion_seconds_max{application="admission",command="CLIENT",local="local:any",remote="redis/172.25.0.5:6379"} 0.0
+lettuce_command_completion_seconds_max{application="admission",command="EVALSHA",local="local:any",remote="redis/172.25.0.5:6379"} 0.0
+lettuce_command_completion_seconds_max{application="admission",command="HELLO",local="local:any",remote="redis/172.25.0.5:6379"} 0.0
+# HELP lettuce_command_firstresponse_seconds Latency between command send and first response (first response received)
+# TYPE lettuce_command_firstresponse_seconds summary
+lettuce_command_firstresponse_seconds_count{application="admission",command="CLIENT",local="local:any",remote="redis/172.25.0.5:6379"} 2
+lettuce_command_firstresponse_seconds_sum{application="admission",command="CLIENT",local="local:any",remote="redis/172.25.0.5:6379"} 0.0022345
+lettuce_command_firstresponse_seconds_count{application="admission",command="EVALSHA",local="local:any",remote="redis/172.25.0.5:6379"} 358162
+lettuce_command_firstresponse_seconds_sum{application="admission",command="EVALSHA",local="local:any",remote="redis/172.25.0.5:6379"} 837.085235257
+lettuce_command_firstresponse_seconds_count{application="admission",command="HELLO",local="local:any",remote="redis/172.25.0.5:6379"} 1
+lettuce_command_firstresponse_seconds_sum{application="admission",command="HELLO",local="local:any",remote="redis/172.25.0.5:6379"} 0.003241667
+# HELP lettuce_command_firstresponse_seconds_max Latency between command send and first response (first response received)
+# TYPE lettuce_command_firstresponse_seconds_max gauge
+lettuce_command_firstresponse_seconds_max{application="admission",command="CLIENT",local="local:any",remote="redis/172.25.0.5:6379"} 0.0
+lettuce_command_firstresponse_seconds_max{application="admission",command="EVALSHA",local="local:any",remote="redis/172.25.0.5:6379"} 0.0
+lettuce_command_firstresponse_seconds_max{application="admission",command="HELLO",local="local:any",remote="redis/172.25.0.5:6379"} 0.0
+# HELP logback_events_total Number of log events that were enabled by the effective log level
+# TYPE logback_events_total counter
+logback_events_total{application="admission",level="debug"} 0.0
+logback_events_total{application="admission",level="error"} 0.0
+logback_events_total{application="admission",level="info"} 33.0
+logback_events_total{application="admission",level="trace"} 0.0
+logback_events_total{application="admission",level="warn"} 28.0
+# HELP process_cpu_time_ns_total The "cpu time" used by the Java Virtual Machine process
+# TYPE process_cpu_time_ns_total counter
+process_cpu_time_ns_total{application="admission"} 2.399E11
+# HELP process_cpu_usage The "recent cpu usage" for the Java Virtual Machine process
+# TYPE process_cpu_usage gauge
+process_cpu_usage{application="admission"} 5.357416194703812E-4
+# HELP process_files_max_files The maximum file descriptor count
+# TYPE process_files_max_files gauge
+process_files_max_files{application="admission"} 1048576.0
+# HELP process_files_open_files The open file descriptor count
+# TYPE process_files_open_files gauge
+process_files_open_files{application="admission"} 55.0
+# HELP process_start_time_seconds Start time of the process since unix epoch.
+# TYPE process_start_time_seconds gauge
+process_start_time_seconds{application="admission"} 1.79534451678E9
+# HELP process_uptime_seconds The uptime of the Java virtual machine
+# TYPE process_uptime_seconds gauge
+process_uptime_seconds{application="admission"} 1985.974
+# HELP system_cpu_count The number of processors available to the Java virtual machine
+# TYPE system_cpu_count gauge
+system_cpu_count{application="admission"} 6.0
+# HELP system_cpu_usage The "recent cpu usage" of the system the application is running in
+# TYPE system_cpu_usage gauge
+system_cpu_usage{application="admission"} 0.3351615253372411
+# HELP system_load_average_1m The sum of the number of runnable entities queued to available processors and the number of runnable entities running on the available processors averaged over a period of time
+# TYPE system_load_average_1m gauge
+system_load_average_1m{application="admission"} 8.62158203125
+# HELP tomcat_sessions_active_current_sessions  
+# TYPE tomcat_sessions_active_current_sessions gauge
+tomcat_sessions_active_current_sessions{application="admission"} 0.0
+# HELP tomcat_sessions_active_max_sessions  
+# TYPE tomcat_sessions_active_max_sessions gauge
+tomcat_sessions_active_max_sessions{application="admission"} 0.0
+# HELP tomcat_sessions_alive_max_seconds  
+# TYPE tomcat_sessions_alive_max_seconds gauge
+tomcat_sessions_alive_max_seconds{application="admission"} 0.0
+# HELP tomcat_sessions_created_sessions_total  
+# TYPE tomcat_sessions_created_sessions_total counter
+tomcat_sessions_created_sessions_total{application="admission"} 0.0
+# HELP tomcat_sessions_expired_sessions_total  
+# TYPE tomcat_sessions_expired_sessions_total counter
+tomcat_sessions_expired_sessions_total{application="admission"} 0.0
+# HELP tomcat_sessions_rejected_sessions_total  
+# TYPE tomcat_sessions_rejected_sessions_total counter
+tomcat_sessions_rejected_sessions_total{application="admission"} 0.0

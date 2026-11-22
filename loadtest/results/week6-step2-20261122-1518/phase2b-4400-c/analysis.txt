@@ -1,0 +1,23 @@
+run: loadtest/results/week6-step2-20261122-1518/phase2b-4400-c
+requests (timed run): 44466 (44466 POST, 0 other methods); dropped iterations: 87535
+POST /orders outcomes (adds to 100.00%):
+  201       44466  100.00%
+  429           0    0.00%
+  503           0    0.00%
+  other         0    0.00%
+  sum       44466  100.00%
+accepted (201) latency ms: p50=2168.9 p95=3418.8 p99=3650.0 (n=44466)
+CPU per container, % (mean / peak over the timed run, sampled every 2 s):
+  admission  mean    0.2  peak    0.3
+  order      mean   69.9  peak  123.4
+  postgres   mean  332.7  peak  480.8
+  redis      mean    0.3  peak    0.3
+  k6         mean   57.8  peak  124.0
+postgres counters, before -> after:
+  checkpoints_timed: 77 -> 78 (delta 1)
+  checkpoints_req: 122 -> 122 (delta 0)
+  autovacuum_count: 500 -> 500 (delta 0)
+  autoanalyze_count: 681 -> 681 (delta 0)
+orders=44466; 201 answers=44466; orders without a 201 answer=0; non-201 POST answers=0
+a. duplicate (client_id, idempotency_key) pairs: 0
+invariants: all hold

@@ -1,0 +1,23 @@
+run: direct-4400-1
+requests (timed run): 40760 (40760 POST, 0 other methods); dropped iterations: 91225
+POST /orders outcomes (adds to 100.00%):
+  201       40753   99.98%
+  429           0    0.00%
+  503           0    0.00%
+  other         7    0.02%
+  sum       40760  100.00%
+accepted (201) latency ms: p50=2399.1 p95=4266.0 p99=4709.7 (n=40753)
+CPU per container, % (mean / peak over the timed run, sampled every 2 s):
+  admission  mean    0.2  peak    0.7
+  order      mean  113.3  peak  171.3
+  postgres   mean  269.6  peak  417.6
+  redis      mean    0.4  peak    1.0
+  k6         mean  108.2  peak  217.0
+postgres counters, before -> after:
+  checkpoints_timed: 61 -> 61 (delta 0)
+  checkpoints_req: 119 -> 119 (delta 0)
+  autovacuum_count: 304 -> 304 (delta 0)
+  autoanalyze_count: 439 -> 439 (delta 0)
+orders=40753; 201 answers=40753; orders without a 201 answer=0; non-201 POST answers=7
+a. duplicate (client_id, idempotency_key) pairs: not recorded (run predates the check)
+invariants: all hold

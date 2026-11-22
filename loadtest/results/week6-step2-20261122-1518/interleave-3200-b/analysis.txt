@@ -1,0 +1,23 @@
+run: loadtest/results/week6-step2-20261122-1518/interleave-3200-b
+requests (timed run): 36519 (36519 POST, 0 other methods); dropped iterations: 59482
+POST /orders outcomes (adds to 100.00%):
+  201       36519  100.00%
+  429           0    0.00%
+  503           0    0.00%
+  other         0    0.00%
+  sum       36519  100.00%
+accepted (201) latency ms: p50=2840.3 p95=4607.8 p99=4995.4 (n=36519)
+CPU per container, % (mean / peak over the timed run, sampled every 2 s):
+  admission  mean    0.2  peak    0.4
+  order      mean   69.6  peak  112.3
+  postgres   mean  382.8  peak  480.9
+  redis      mean    0.6  peak    1.9
+  k6         mean   54.8  peak   95.1
+postgres counters, before -> after:
+  checkpoints_timed: 73 -> 73 (delta 0)
+  checkpoints_req: 122 -> 122 (delta 0)
+  autovacuum_count: 478 -> 478 (delta 0)
+  autoanalyze_count: 652 -> 652 (delta 0)
+orders=36519; 201 answers=36519; orders without a 201 answer=0; non-201 POST answers=0
+a. duplicate (client_id, idempotency_key) pairs: 0
+invariants: all hold

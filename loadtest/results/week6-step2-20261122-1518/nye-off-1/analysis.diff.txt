@@ -1,0 +1,35 @@
+1,3c1,3
+< requests (timed run): 339229; dropped iterations: 202253
+< status breakdown (adds to 100.00%):
+<   201       67219   19.81%
+---
+> requests (timed run): 339229 (147785 POST, 191444 other methods); dropped iterations: 202253
+> POST /orders outcomes (adds to 100.00%):
+>   201       67219   45.48%
+5,7c5,7
+<   503       90763   26.76%
+<   other    181247   53.43%
+<   sum      339229  100.00%
+---
+>   503       80530   54.49%
+>   other        36    0.03%
+>   sum      147785  100.00%
+9c9,17
+< by group (k6 tag):
+---
+> other methods, by status (GET and PATCH answers; not create outcomes):
+>   GET 200: 180293
+>   GET 503: 10151
+>   PATCH 200: 911
+>   PATCH 503: 82
+>   PATCH 409: 4
+>   GET 504: 2
+>   PATCH 504: 1
+> POST outcomes by group (k6 tag):
+22,23c30,32
+< invariants: orders=67220 idempotency_keys=67220 outbox_unpublished=0 201 answers=67219
+< INVARIANT FAILED: orders (67220) != 201 answers (67219)
+---
+> orders=67220; 201 answers=67219; orders without a 201 answer=1; non-201 POST answers=80566
+> a. duplicate (client_id, idempotency_key) pairs: not recorded (run predates the check)
+> invariants: all hold

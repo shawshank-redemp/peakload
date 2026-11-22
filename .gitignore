@@ -13,3 +13,11 @@ loadtest/results/**/pgbench-*.txt
 loadtest/results/**/admission.log
 loadtest/results/**/*.jsonl
 loadtest/results/**/points.json
+# Raw logs from load runs (not kept in git). Each run folder keeps analysis.txt, counts.txt, pg-*.txt, reset.txt,
+# precheck files and the k6 summary; the logs are reproduced by re-running the scripts (see README, "How to run").
+loadtest/results/**/k6-stdout.log
+loadtest/results/**/admission-log.txt
+loadtest/results/**/*.stdout
+loadtest/results/**/queue*.stdout
+loadtest/**/__pycache__/
+loadtest/results/**/*.log

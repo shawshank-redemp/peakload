@@ -1,0 +1,4 @@
+orders=60000
+idempotency_keys=60000
+idempotency_duplicate_pairs=0
+outbox_unpublished=0

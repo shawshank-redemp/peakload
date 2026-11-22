@@ -1,0 +1,13 @@
+1,2c1,2
+< requests (timed run): 95129; dropped iterations: 872
+< status breakdown (adds to 100.00%):
+---
+> requests (timed run): 95129 (95129 POST, 0 other methods); dropped iterations: 872
+> POST /orders outcomes (adds to 100.00%):
+20,21c20,22
+< invariants: orders=95129 idempotency_keys=95129 outbox_unpublished=0 201 answers=95129
+< invariants: all three hold
+---
+> orders=95129; 201 answers=95129; orders without a 201 answer=0; non-201 POST answers=0
+> a. duplicate (client_id, idempotency_key) pairs: not recorded (run predates the check)
+> invariants: all hold

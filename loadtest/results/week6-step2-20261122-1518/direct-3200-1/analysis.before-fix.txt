@@ -1,0 +1,22 @@
+run: loadtest/results/week6-step2-20261122-1518/direct-3200-1
+requests (timed run): 95129; dropped iterations: 872
+status breakdown (adds to 100.00%):
+  201       95129  100.00%
+  429           0    0.00%
+  503           0    0.00%
+  other         0    0.00%
+  sum       95129  100.00%
+accepted (201) latency ms: p50=1.7 p95=18.5 p99=148.7 (n=95129)
+CPU per container, % (mean / peak over the timed run, sampled every 2 s):
+  admission  mean    0.2  peak    0.8
+  order      mean  141.0  peak  167.1
+  postgres   mean  139.3  peak  151.9
+  redis      mean    0.4  peak    1.6
+  k6         mean   88.0  peak   97.0
+postgres counters, before -> after:
+  checkpoints_timed: 61 -> 61 (delta 0)
+  checkpoints_req: 118 -> 118 (delta 0)
+  autovacuum_count: 297 -> 301 (delta 4)
+  autoanalyze_count: 429 -> 433 (delta 4)
+invariants: orders=95129 idempotency_keys=95129 outbox_unpublished=0 201 answers=95129
+invariants: all three hold

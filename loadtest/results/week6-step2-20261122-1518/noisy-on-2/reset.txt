@@ -1,0 +1,10 @@
+# reset: before warm-up at 2026-11-22T10:02:30Z
+orders=0
+idempotency_keys=0
+outbox_total=0
+outbox_unpublished=0
+# reset: after warm-up at 2026-11-22T10:02:52Z
+orders=0
+idempotency_keys=0
+outbox_total=0
+outbox_unpublished=0

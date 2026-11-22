@@ -3,7 +3,34 @@
 A surge-resilient order and dispatch backend, load-tested on a New Year's Eve-shaped traffic curve.
 The point of the project is the engineering trade-offs, each written up as an ADR with numbers.
 
-> Status: **Week 0 scaffold.** Services only expose `/api/ping` and metrics. Results tables are empty until each milestone is measured.
+> Status: Weeks 1–6 measured (Week 6 step 2 in progress, see its section). Each result below cites the folder its numbers come from; each milestone's section explains its setup.
+
+## Results
+
+Every number is from a run folder under `loadtest/results/` (named in the table). Run counts are the number of runs of that condition; ranges are across those runs, not averages. Nothing here is a production claim: one local VM, shared CPUs, simulated clients.
+
+| What was measured | Conditions | Runs | Range across runs | Main limit | Folder |
+|---|---|---:|---|---|---|
+| Direct order creation ceiling | `POST /orders` straight to the order service (in-network, no admission), 30 s per run, 2000 / 3200 / 4400 req/s | 15 (5 at 2000, 4 at 3200, 6 at 4400) | Pass rule (accepted p99 < 200 ms, < 1% dropped, zero non-2xx): **4 of 5** at 2000, **3 of 4** at 3200, **1 of 6** at 4400. Accepted p99 3.7–4784 ms; dropped 0–72% | Intermittent failure at every rate; failing runs had Postgres CPU 270–383% on average, passing runs 95–172%. Cause not found. k6 saturated at 4400 | `week6-step2-20261122-1518/` (`direct-*`, `interleave-*`, `phase2-*`, `phase2b-*`) |
+| Historical reference: direct order creation (Week 1) | `POST /orders` direct, 30 s per run, Week 1 code (before Week 4 partitioning and later changes) | 2 per rate | 5200 req/s passed (p99 under 200 ms); 5600 req/s failed | Not comparable to the table above (older code, no pickup coordinates) | `order-create/week1-20261121-1418/` |
+| Admission path capacity | `POST /orders` through admission, 30 s per run, shedding on (one 1600 run with shedding off) | 800 req/s: 3; 1600 req/s: 3 with shedding on, 1 with shedding off | 800: 100% 201 in all three; accepted p99 3.8–76.6 ms. 1600 (shed on): 503 share 17.38%, 2.72%, 0.00%. 1600 (shed off): 0% 503, accepted p99 366 ms | Postgres and the order connection pool saturate first; one of three 1600 runs failed | `week6-capacity-20261122-1419/` |
+| Limiter noisy neighbour | Five normal clients at 20 req/s each, one abusive client at 1200 req/s, 30 s; limiter on vs off, three runs each | 3 on, 3 off | Abusive 429 with limiter on: 32,802 / 32,803 / 32,294 (84–91%); abusive accepted 3,199 / 3,199 / 3,569 (expected about 3,200 = 200 burst + 100/s × 30 s). Normal 429: 0 in all six runs. Normal 503 (shedding): 0 / 0 / 30 with limiter on; 0 / 0 / 35 with limiter off | One instance; client IDs are sent by the client, so a client can claim another ID; run 3 had local-fallback decisions | `week6-step2-20261122-1518/` (`noisy-*`) |
+| Limiter overhead | Limiter on vs off, through admission and direct, one run per rate per condition | 1 per rate per condition | p99 moved in both directions (800 req/s: 4.85 off, 35.12 on ms; 1600 req/s: 30.02 off, 16.93 on ms). Median cost about 0.5 ms for the Redis round trip | One run per condition; no consistent p99 effect can be shown at this count | `week3-admission-20261121-2156/`, `week3-direct2-20261121-2159/` |
+| Redis outage: fallback and breaker | Noisy-neighbour load, 90 s; Redis stopped (A), paused with breaker on (B), paused with breaker off (C) | 1 per condition | Normal-client accepted p99 during outage: 9 ms (A), 9 ms (B), 55 ms (C). Limiter errors counted: 36 / 91 / 39,279. No 5xx in any run | One run per condition; one instance; a second instance would have its own local buckets | `week3s3-A-stop-breaker-on-20261121-2229/`, `week3s3-B-pause-breaker-on-20261121-2229/`, `week3s3-C-pause-breaker-off-20261121-2229/` |
+| NYE curve: shedding on vs off (breaker on in both) | 300 s curve, POST peak 2000 req/s (above the 1600 edge), shedding on and off alternating, three pairs | 3 pairs (6 runs) | Every pair agrees on two things: accepted count higher with shedding on (125,844 / 128,355 / 152,770 vs 67,219 / 62,114 / 97,034) and accepted p99 lower with shedding on (882 / 1,194 / 786 ms vs 2,910 / 2,614 / 1,974 ms) | k6 saturated: 61,063–202,253 iterations dropped per run; the breaker opened 5–7 times in every shedding-off run and never in a shedding-on run, so the effect is shedding plus the breaker, not shedding alone | `week6-step2-20261122-1518/` (`nye-*`) |
+| Order-kill breaker test (measurement E) | `POST`, read and menu traffic at 800 req/s for 90 s; order service stopped at +30 s and started at +60 s; breaker and retries on (ON) or off (OFF) | 4 (2 ON, 2 OFF) | ON: failures are fast 503 `order_unavailable` (96.5% of creates during the kill). OFF: during the kill, creates were 19% `connect_timeout`, 74% `other` 503, 4% `shed` (slow failures) | Two runs per condition | `week5-measurement-e-20261122-1220/` |
+| Pause test (retries) | 800 req/s for 90 s; order service paused at +30 s and unpaused at +60 s; breaker on in all runs; retries on (ON) or off (OFF) | 4 (2 ON, 2 OFF) | Breaker opened 0.65–0.68 s after the pause and closed 1.5 s after the unpause, in all four runs. No retry was made in any run (the deadline does not fit a second read timeout) | Two runs per condition; retries never fired, so the retry path is not shown to help | `week5-retry-pause-20261122-1241/` |
+| Dispatch chaos with static membership | 20 req/s for 150 s; `docker kill` of dispatch at +20, +60, +100 s, restart 15 s later; control runs with no kill | 4 (2 kill, 2 control) | Restart to partitions assigned: 3.1–4.4 s (static membership) vs 38.7–39.3 s for the last kill without it. Invariants: all zero in all four runs | One dispatch instance, one VM; two runs per condition | `week5-chaos-static-20261122-1357/`; previous series without static membership `week5-chaos-series2-20261122-1334/` |
+| Outbox retention: DELETE vs DETACH + DROP | Monthly outbox partitions on the experimental database (`peakload_exp`), 5.8 M-row outbox; three repeats of each method | 3 + 3 | Duration: batched DELETE 10.9–27.7 s; DETACH + DROP 45–166 ms. DELETE leaves 2,546,193 dead tuples; DROP leaves 0. Max concurrent insert latency: DELETE 207–254 ms, DROP 76–271 ms | Single database and VM; the DROP case does not print the row count it removed | `week4s4-retention-20261122-0930/` |
+
+**What these numbers do not show.**
+- A single local VM: admission, order, Postgres, Redis, Redpanda and k6 share six vCPUs. Every number includes that shared load.
+- Small run counts: two to six runs per condition. The spread is between those runs; no mean is given for a difference.
+- Simulated clients (k6 and scripted abusers), not real traffic. The NYE curve's shape and rates are assumptions, not measured demand.
+- A spoofable client ID: the limiter keys on the `X-Client-Id` header, which a client sets itself.
+- k6 saturation: at 4400 req/s and at the NYE peak k6 itself was at or near its CPU limit, so some results measure the generator as well as the service.
+- The unknown cause of the intermittent Postgres CPU spikes in the direct runs, and of the 16–18 s stall in the Week 5 cold check.
+- Backend errors: the order service's connection-pool timeouts (`CannotCreateTransactionException`) answered 500 until the fix in this step, which maps them to 503 with `Retry-After`. Every measurement above that involves those timeouts predates the fix. No other backend crash is recorded in these folders.
 
 ## Run it
 
@@ -23,7 +50,7 @@ Defaults are 5432 and 3000 if `.env` is missing. The `.env` here is for this mac
 | What | Where |
 |---|---|
 | Admission (entry point) | http://localhost:8080/api/ping |
-| Order / Dispatch / Tracking | :8081 / :8082 / :8083 `/api/ping` |
+| Order / Dispatch / Tracking | not published to the host (compose network only). From a host shell: `bash loadtest/http-in-network.sh order 8081 /api/ping` (the same for `dispatch 8082`, `tracking 8083`) |
 | Grafana (dashboard "Peakload overview") | http://localhost:13000 (default 3000) |
 | Prometheus | http://localhost:9090 |
 | MinIO console | not started by default, see below |
@@ -41,6 +68,69 @@ docker compose --profile loadtest run --rm k6 run /loadtest/baseline.js
 Change the rate with `-e RATE=400` (default 200), e.g. `docker compose --profile loadtest run --rm -e RATE=400 k6 run /loadtest/baseline.js`. The k6 service is behind the `loadtest` profile, so `docker compose up` does not start it.
 
 Then watch request rate and p99 latency move in Grafana.
+
+## How to run
+
+Everything here runs from the repository root. Commands are as written; the ones marked **tested** were run once from a clean checkout of this branch.
+
+**Prerequisites.** Docker Desktop (the stack and k6 run in containers). JDK 21 for Maven (`JAVA_HOME` must point at a JDK 21; a default JDK 27 fails the build). Bash, curl and Python 3 on the host. The pre-run check reads the Mac's thermal state with `pmset`, so it works only on macOS; on another OS, skip it and record that in the run folder.
+
+**1. Start the stack** (**tested**)
+
+```bash
+docker compose up -d --build
+curl -s localhost:8080/api/ping        # admission: {"service":"admission",...}
+```
+
+Admission (8080) is the only app port on the host. Order, dispatch and tracking are on the compose network; reach them with `loadtest/http-in-network.sh <service> <port> <path>`. Prometheus (9090) and Grafana (3000 or `GRAFANA_PORT`) are published.
+
+**2. Smoke test through admission** (**tested**)
+
+```bash
+curl -s -o /dev/null -w "%{http_code}\n" -H 'Content-Type: application/json' \
+  -H "Idempotency-Key: $(uuidgen)" -H 'X-Client-Id: smoke' \
+  -d '{"customerId":"smoke","city":"bengaluru","totalPaise":500,"pickupLat":12.97,"pickupLon":77.59}' \
+  localhost:8080/orders                 # 201
+```
+
+**3. Run the tests** (**tested**)
+
+```bash
+JAVA_HOME=$(/usr/libexec/java_home -v 21) mvn -B verify
+```
+
+The integration tests use Testcontainers, so Docker must be running. This is the same command the Week 6 step 2 check used (green on JDK 21).
+
+**4. Benchmarks.** Each script writes into the folder you name with `OUT=`. Create the folder first if you want a fixed location; the scripts create it. Every run first runs the pre-run check and resets the order (and, where used, dispatch) tables, runs a discarded warm-up, resets again, and then runs the timed load.
+
+| Benchmark | Command | What it measures |
+|---|---|---|
+| Direct order creation (Week 6 step 2) | `OUT=loadtest/results/my-direct MODE=direct RATE=2000 bash loadtest/week6/run-step2.sh` | `POST /orders` straight to order, 30 s (**tested** at 800, then the same script at 2000 for the table) |
+| Limiter noisy neighbour | `OUT=loadtest/results/my-noisy MODE=noisy LIMITER=on bash loadtest/week6/run-step2.sh` (or `LIMITER=off`) | 5 normal clients at 20 req/s, one abusive client at 1200 req/s |
+| NYE curve, shedding on/off | `OUT=loadtest/results/my-nye MODE=nye SHED=on PEAK_CRITICAL=2000 bash loadtest/week6/run-step2.sh` | 300 s curve; `PEAK_CRITICAL` is the POST peak (default 1000 in the Week 3 curve) |
+| Admission capacity (Week 6 step 1) | `OUT=loadtest/results/my-ramp RATE=800 SHED=on bash loadtest/week6/run-ramp.sh` | `POST /orders` through admission at a fixed rate |
+| Redis outage | `OUT=loadtest/results/my-outage OUTAGE=stop BREAKER=true bash loadtest/run-outage.sh` | noisy load with Redis stopped (`stop`) or paused (`pause`) |
+| Order kill, breaker/retries (Week 5 measurement E) | `bash loadtest/week5/run-measurement-e.sh loadtest/results/my-e` | ON, OFF, ON, OFF at 800 req/s; order stopped at +30 s, started at +60 s |
+| Pause (retries) | `bash loadtest/week5/run-retry-pause.sh loadtest/results/my-pause` (retries ON and OFF alternating, two runs each) | `docker pause` of the order service at +30 s, unpause at +60 s, breaker on |
+| Dispatch chaos (Week 5 step 2) | `OUT=loadtest/results/my-chaos KILLS=3 RATE=20 DURATION=150s bash loadtest/chaos/run-chaos.sh` (`KILLS=0` for a control) | dispatch killed with `docker kill` three times per run; invariants checked after the drain |
+| Outbox retention (Week 4 step 4) | `OUT=loadtest/results/my-retention bash loadtest/partition/run-retention.sh` | batched DELETE vs DETACH + DROP; **experimental database only** (`peakload_exp`) |
+
+Runs take a few minutes each (the 300 s NYE curve about 8 minutes including its warm-up, reset and drain). The Week 6 step 2 batch ran these in sequence and stopped on the first failed invariant.
+
+**What the pre-run check does** (`loadtest/precheck.sh <OUT>`). It writes `precheck.txt` into the run folder and refuses to start the run (exit non-zero) when: a thermal or speed warning is recorded; the Docker idle CPU (median of three samples, out of 600% on this 6-vCPU VM) is above 100%; or an autovacuum worker or the checkpointer is busy. It also records the table counts, so you can see the starting state.
+
+**What the reset does.** The run scripts drain the order outbox (wait until no row is unpublished, capped at 300–900 s), then run `loadtest/db/seed.sh` with `EMPTY=1`, which truncates the order and dispatch tables. `reset.txt` in the run folder records the counts after each reset. Dispatch is stopped for the create-path runs and started again at the end.
+
+**Where results go, and how to read a run folder.** Each run writes into its folder:
+
+- `analysis.txt`: the numbers, generated from the files below by `loadtest/week6/analyse_step2.py` (step 2 runs) or the matching `analyse_*.py`. It has the outcome breakdown (adds to 100.00%), accepted-request latency, CPU per container, Postgres counters before and after, and the invariant result (`invariants: all hold` or `FAILED: ...`).
+- `counts.txt`: orders, idempotency keys, duplicate pairs and unpublished outbox rows at the end.
+- `reset.txt`, `precheck-*`, `pg-before.txt`, `pg-after.txt`: the starting state and Postgres counters.
+- `samples.jsonl`: CPU and the admission/order actuator values, every 2 s.
+- `admission-prometheus.txt`, `order-prometheus.txt`: the counters at the end (breaker transitions, shed, limiter fallback).
+- `k6/k6-summary.json`: k6's own summary. The per-request points (`k6/points.json.gz`) are large and are not in git; the analysis reads them, so keep them if you re-analyse a run.
+
+Raw logs (`k6-stdout.log`, `admission-log.txt`, `*.stdout`, `*.log`) are not kept in git; re-running the script reproduces them. Only the analysis and the counters are committed.
 
 ## Layout
 
@@ -992,3 +1082,92 @@ Why no retry was made. A paused process still accepts the TCP connection, so adm
 **The causes behind "other".** None in the timed runs, except one logged `org.apache.hc.core5.util.DeadlineTimeoutException` in the shedding-off run. The admission log is rate-limited, so this is the count the log covers, not a total.
 
 **What these numbers do not show.** One VM, with admission, order, Postgres, Redis and k6 sharing six vCPUs. At most three runs per rate, so the spread is between three runs and says little about the true edge. A single 30 s run per rate after the stop point. No dispatch load. The results depend on the state of Postgres at the start of each run, which the reset controls only partly.
+
+### Step 2 A: the 1600 req/s intermittency (diagnosis only, nothing applied)
+
+Three more runs at 1600 req/s with the step 1 procedure, with Postgres counters before and after each run (`loadtest/week6/run-ramp.sh`, now records `pg-before.txt` and `pg-after.txt`). Results: `loadtest/results/week6-diag-1600-20261122-1509/`. Counters are the deltas across the timed run; the table is in that folder's `diag-*/analysis.txt`.
+
+| Run | 201 | 503 shed | Accepted p50 / p95 / p99 (ms) | Postgres CPU mean / peak % | Order Hikari pending peak | Checkpoints (timed / requested) during run | Autovacuum runs during run |
+|---|---:|---:|---|---|---|---|---|
+| diag-1 | 87.83% | 12.17% | 55.1 / 230.7 / 326.2 | 262 / 369 | 178 | +1 timed / +0 | 0 |
+| diag-2 | 100.00% | 0.00% | 1.7 / 3.6 / 6.9 | 97 / 140 | 0 | +0 / +0 | +4 |
+| diag-3 | 99.04% | 0.96% | 2.0 / 12.0 / 90.3 | 87 / 110 | 1 | +0 / +0 | 0 |
+
+**Reading.** The 503 share ranges from 0.00% to 12.17% across three runs at the same rate. The run with the high share (diag-1) is the only one with a timed checkpoint during the run, and the only one where Postgres averaged over 200% CPU and the order pool queued. That is a coincidence in one run, not a demonstrated cause: diag-2 had autovacuum activity and no checkpoint and was clean, and diag-3 had neither and still shed about 1%. With three runs I cannot separate the two. Nothing here shows which resource starts the queue.
+
+**Options, not applied.** Each is a hypothesis to test in a later step, with its trade-off:
+- `max_wal_size` (larger means fewer requested checkpoints under write bursts; costs more WAL on disk and longer crash recovery).
+- `checkpoint_completion_target` (spreads checkpoint writes over more of the interval; can lengthen the period during which dirty pages are being written).
+- `shared_buffers` (a larger buffer cache reduces reads; uses more RAM that the other containers on this 6 vCPU VM also need).
+- Autovacuum thresholds on the `orders` and `outbox` tables (earlier vacuum keeps dead tuples low; more frequent vacuum work during the run).
+
+### Step 2 B: order, dispatch and tracking ports are internal to the compose network
+
+Only admission (8080), the monitoring ports (Prometheus 9090, Grafana 3000) and the data stores on their existing mappings (Postgres 15432, Redis 6379, Redpanda 19092, MinIO 9000/9001) are published to the host. `order` (8081), `dispatch` (8082) and `tracking` (8083) publish nothing now. Prometheus and k6 already reached them by service name.
+
+- `docker-compose.yml`: removed the `ports:` entries for order, dispatch and tracking. `docker compose config -q` passes.
+- Scripts that read those services' metrics from the host now read them from inside the container through `loadtest/http-in-network.sh <service> <port> <path>` (`docker compose exec` with a bash `/dev/tcp` GET): `loadtest/sample.py`, `loadtest/week6/sampler.py`, `loadtest/run-nye.sh`, `loadtest/chaos/run-chaos.sh`, `loadtest/chaos/reset.sh`. Admission's upstream address in the compose file is `http://order:8081`.
+- Checked after recreating the three containers: `curl localhost:8081`, `8082`, `8083` all get no answer; the helper returns `{"status":"UP"}` for order and tracking, and `{"status":"ok","service":"dispatch"}` for dispatch's ping.
+- Smoke test through admission only: `POST /orders` at `localhost:8080` returned `201` with an `orderId`, and `GET /orders/{id}` through admission returned `200` with the order in `CREATED`.
+
+### Step 2 C: final runs (in progress)
+
+Every run uses `loadtest/week6/run-step2.sh` (one procedure for all modes): pre-run check, order outbox drained, tables reset (`loadtest/db/seed.sh` with `EMPTY=1`), a discarded warm-up at the same load (20 s; for the NYE curve, its 30 s calm stage), reset again, a second pre-run check, Postgres counters before and after, the timed run with the sampler, drain, and a per-run `reset.txt`, `precheck` and `counts.txt`. Dispatch is stopped for every run in this step, so these runs measure the create path only. Results: `loadtest/results/week6-step2-20261122-1518/`.
+
+**Invariants (checked after every run, `loadtest/week6/analyse_step2.py`).** These replace the first version, which required orders to equal the 201 answers exactly.
+- (a) No duplicate `(client_id, idempotency_key)` pair. The table's primary key already enforces this; the count is recorded at the end of each run from this step on.
+- (b) The number of 201 answers is at most the number of orders created.
+- (c) Orders created minus 201 answers is at most the number of POST answers that were not 201.
+- (d) No unpublished order-outbox row at the end.
+
+**Unknown outcome.** A POST that times out or gets a 500 or 504 can still have created its order: the order commits, and the client does not see the 201. A client that retries with the same `Idempotency-Key` gets that order back. The order service stores the first response with the key and answers a replay with status 200 and the stored body (`OrderService.createOrder`), so the retry is not a second order. Invariant (c) allows for this.
+
+**NYE run `nye-off-1` (shedding off, POST peak 2000 req/s).** It passes the corrected invariants. Orders created 67,220; POST 201 answers 67,219; so one order exists without a 201 answer, and the POST answers that were not 201 number 80,566 (80,530 × 503, 35 × 504, 1 × 500). Duplicate pairs: 0. Outbox unpublished at end: 0. The 67,219 201 answers include 400 seed orders that k6's `setup()` created before the curve started, so the curve itself created 66,819 orders.
+- The extra order is an unknown outcome: one POST got a 500 or 504 but its order was written. The admission log has no request IDs, so I can't name the request. The 500 came from the order service, not admission: `OrderController` has no handler for the exception, so Spring answers 500 and admission passes that status through. The order service logged 24 errors in the second of that 500, all `org.springframework.transaction.CannotCreateTransactionException: Could not open JDBC Connection for transaction`, with `java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 2000ms` as the root cause (Hikari pool of 10, `connection-timeout` 2000 ms). The frame that throws is `TransactionAspectSupport.invokeWithinTransaction`, at the start of the `@Transactional` `OrderService.createOrder`. Admission's `admission_requests_total{outcome="server_error"}` counts this one 500 as passed through. The 504s are admission's `read_timeout` (`SocketTimeoutException` mapped to 504 by `UpstreamException.Type.READ_TIMEOUT`; 38 across all methods, the same as the 35 POST, 2 GET and 1 PATCH 504s). The `DeadlineTimeoutException` lines in the log are a different path: `OTHER`, answered 503 ("the order service call failed").
+- The order pool is the saturated resource in this run: all 10 connections busy and up to 184 requests waiting.
+- **The POST 503s are mostly the circuit breaker, not shedding.** With shedding off, `admission_shed_total` is 0. Admission's counters for the run show `circuit_open` 78,049 for CRITICAL (the POST class) and 4,772 for STANDARD, against 73,620 CRITICAL successes. Upstream errors were `other` 1,608 and `pool_timeout` 1,055 (both answered 503), and `read_timeout` 38 (504). So in this run the 503 share is the Week 5 breaker opening, and the shedding comparison is not a comparison of shedding alone: the breaker is on in both conditions. The breaker opened 7 times during the run (`admission_circuit_transitions_total`: 7 to open, 7 to half-open, 7 to closed; state closed at the end).
+- **Analysis fix.** The first version of `analyse_step2.py` counted every non-201, non-429, non-503 answer as "other", so the GET and PATCH 200s in this run were counted as create failures (the "other" figure was 181,247, or 53%). That was wrong. The corrected breakdown counts POST answers only: 201 45.48%, 429 0%, 503 54.49%, other 0.03%; GET and PATCH are reported by status in their own table. I re-ran the analysis for every existing run in this folder. The figures for the POST-only runs are unchanged; only the labels and invariant wording changed, and the NYE run's numbers changed as shown above (its old "other" and 503 shares are superseded).
+- **k6 saturated at the NYE peak.** k6 dropped 202,253 iterations and its CPU averaged 122% (peak 365%). The peak POST rate was therefore not delivered as scheduled. The shedding-on versus shedding-off comparison uses the same generator and the same schedule, so the two conditions face the same limit. The rates are the ones this VM and this generator produced, not claims about the service's ceiling.
+
+**Direct order ceiling (`MODE=direct`, POST straight to the order service on the compose network; admission not in the path).** One column per run; the rate is the target over 30 s.
+
+| Run | Scheduled | Sent | Dropped | 201 | 429 | 503 | other | Accepted p50 / p95 / p99 (ms) | Postgres CPU mean / peak % |
+|---|---:|---:|---:|---:|---:|---:|---:|---|---|
+| direct-2000-1 (first after recreation) | 60000 | 44324 | 15681 (26.14%) | 44324 | 0 | 0 | 0 | 522.9 / 3328.1 / 3539.3 | 333.8 / 396.1 |
+| interleave-2000-a | 60000 | 60002 | 0 (0.00%) | 60002 | 0 | 0 | 0 | 1.1 / 2.0 / 3.7 | 96.9 / 120.4 |
+| interleave-2000-b | 60000 | 60002 | 0 (0.00%) | 60002 | 0 | 0 | 0 | 1.1 / 2.0 / 3.7 | 95.5 / 117.8 |
+| interleave-2000-c | 60000 | 60000 | 0 (0.00%) | 60000 | 0 | 0 | 0 | 1.2 / 2.3 / 4.8 | 107.6 / 118.5 |
+| direct-3200-1 | 96000 | 95129 | 872 (0.91%) | 95129 | 0 | 0 | 0 | 1.7 / 18.5 / 148.7 | 139.3 / 151.9 |
+| interleave-3200-a | 96000 | 96003 | 0 (0.00%) | 96003 | 0 | 0 | 0 | 1.5 / 4.7 / 16.6 | 133.4 / 151.0 |
+| interleave-3200-b | 96000 | 36519 | 59482 (61.96%) | 36519 | 0 | 0 | 0 | 2840.3 / 4607.8 / 4995.4 | 382.8 / 480.9 |
+| direct-4400-1 | 132000 | 40760 | 91225 (69.11%) | 40753 | 0 | 0 | 7 | 2399.1 / 4266.0 / 4709.7 | 269.6 / 417.6 |
+| interleave-4400-a | 132000 | 131472 | 529 (0.40%) | 131472 | 0 | 0 | 0 | 5.1 / 77.0 / 139.6 | 157.4 / 177.3 |
+| phase2-4400-b | 132000 | 130762 | 1241 (0.94%) | 130762 | 0 | 0 | 0 | 38.3 / 150.0 / 211.7 | 171.7 / 176.0 |
+
+Invariants hold in all ten runs. The `other` 7 in direct-4400-1 is k6 requests that got no status (client-side failures); they are not orders. Run labels: `direct-*` is the first run at that rate in the batch, `interleave-*` the repeats interleaved with other rates, `phase2-*` the third run at 4400 req/s.
+
+**Pass rule.** A run passes if the accepted (201) p99 is below 200 ms, fewer than 1% of the scheduled requests are dropped, and there are zero non-2xx answers. This rule was set after the first run at 4400 req/s, and applied to every direct run below.
+
+| Rate (req/s) | Run | Dropped (of scheduled) | Non-2xx | Accepted p99 (ms) | Result |
+|---|---|---:|---:|---:|---|
+| 2000 | direct-2000-1 (first after recreation) | 15681 (26.14%) | 0 | 3539.3 | fail |
+| 2000 | interleave-2000-a | 0 (0.00%) | 0 | 3.7 | pass |
+| 2000 | interleave-2000-b | 0 (0.00%) | 0 | 3.7 | pass |
+| 2000 | interleave-2000-c | 0 (0.00%) | 0 | 4.8 | pass |
+| 2000 | phase2b-2000-d | 0 (0.00%) | 0 | 6.7 | pass |
+| 3200 | direct-3200-1 | 872 (0.91%) | 0 | 148.7 | pass |
+| 3200 | interleave-3200-a | 0 (0.00%) | 0 | 16.6 | pass |
+| 3200 | interleave-3200-b | 59482 (61.96%) | 0 | 4995.4 | fail |
+| 3200 | phase2b-3200-c | 0 (0.00%) | 0 | 22.3 | pass |
+| 4400 | direct-4400-1 | 91225 (69.11%) | 7 | 4709.7 | fail |
+| 4400 | interleave-4400-a | 529 (0.40%) | 0 | 139.6 | pass |
+| 4400 | phase2-4400-b | 1241 (0.94%) | 0 | 211.7 | fail (p99) |
+| 4400 | phase2b-4400-c | 87535 (66.31%) | 0 | 3650.0 | fail |
+| 4400 | phase2b-4400-d | 95095 (72.04%) | 0 | 4707.1 | fail |
+| 4400 | phase2b-4400-e | 95160 (72.09%) | 0 | 4783.9 | fail |
+
+**Passes per rate.** 2000 req/s: **4 of 5** runs passed. 3200 req/s: **3 of 4** passed. 4400 req/s: **1 of 6** passed.
+
+**Result.** The highest rate at which most runs pass is **3200 req/s** (3 of 4). At 4400 req/s, one run in six passes, so 4400 req/s is past the ceiling on this setup, and the 2000 to 4400 req/s range is intermittent. The runs that failed at 3200 and 4400 req/s have Postgres CPU averaging 270–383%; the passing runs have 95–172%. The cause of that spike is not found: checkpoints did not fall within any timed run, pre-run idle CPU does not separate the runs, and autovacuum appears in both passing and failing runs.
+
+**Historical reference (Week 1, before the fixes in this README).** Direct `POST /orders` to the order service, 30 s runs, k6 in the compose network, from `loadtest/results/order-create/week1-20261121-1418/`: 5200 req/s passed and 5600 req/s failed (two runs each). These were run on the Week 1 code, before the Week 4 outbox partitioning and later order-service changes, so the rates are not directly comparable to the runs in this step. Week 1 also sent order bodies without pickup coordinates.
