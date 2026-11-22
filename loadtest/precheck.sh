@@ -60,5 +60,14 @@ if [ "${av:-1}" != "0" ] || [ "${ck:-1}" != "0" ]; then
   say "  REFUSE: autovacuum or checkpoint busy"; fail=1
 fi
 
+# 4. table state (Week 5: runs start from reset tables; this records what the run actually started from)
+say "table state:"
+count() { docker compose exec -T postgres psql -U peakload -d peakload -At -c "$1" 2>/dev/null || echo "?"; }
+say "  orders=$(count "select count(*) from orders")"
+say "  outbox published=$(count "select count(*) from outbox where published_at is not null") unpublished=$(count "select count(*) from outbox where published_at is null")"
+say "  idempotency_keys=$(count "select count(*) from idempotency_keys")"
+say "  dispatch pending_orders=$(count "select count(*) from dispatch.pending_orders")"
+say "  dispatch assignments=$(count "select count(*) from dispatch.assignments")"
+
 if [ $fail -eq 0 ]; then say "RESULT: go"; else say "RESULT: refused"; fi
 exit $fail

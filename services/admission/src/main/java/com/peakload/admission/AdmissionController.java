@@ -164,6 +164,14 @@ class AdmissionController {
         } catch (UpstreamException e) {
             metrics.requestFinished(label, "upstream_error");
             return error(e.status(), e.type().name().toLowerCase(), e.getMessage());
+        } catch (CircuitOpenException e) {
+            metrics.requestFinished(label, "circuit_open");
+            long seconds = Math.max(1, (e.retryAfterMillis() + 999) / 1000);
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .header("Retry-After", String.valueOf(seconds))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(bytes(Map.of("error", "order_unavailable",
+                            "message", "the order service is unavailable; retry after " + seconds + " s")));
         }
     }
 

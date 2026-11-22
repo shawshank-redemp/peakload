@@ -96,4 +96,47 @@ class AdmissionMetrics {
                 .register(registry)
                 .increment();
     }
+
+    /** A retry was sent to the order service. Labelled by class and by the reason the first attempt failed. */
+    void retry(RequestClass requestClass, String reason) {
+        Counter.builder("admission.upstream.retries")
+                .description("Retries sent to the order service, by class and by the reason the first attempt failed")
+                .tag("class", requestClass.name())
+                .tag("reason", reason)
+                .register(registry)
+                .increment();
+    }
+
+    /** A retry was not sent. The reason says why: budget, load, or deadline. */
+    void retrySkipped(String reason) {
+        Counter.builder("admission.upstream.retries.skipped")
+                .description("Retries that were allowed to be considered but not sent, by reason")
+                .tag("reason", reason)
+                .register(registry)
+                .increment();
+    }
+
+    /** A retry was refused because the retry budget was used up. */
+    void retryBudgetExhausted() {
+        Counter.builder("admission.retry.budget.exhausted")
+                .description("Retries refused because the retry budget was used up")
+                .register(registry)
+                .increment();
+    }
+
+    /** The breaker changed state. The tag is the new state. */
+    void circuitTransitioned(CircuitBreaker.State to) {
+        Counter.builder("admission.circuit.transitions")
+                .description("Order circuit breaker state changes, by the state entered")
+                .tag("to", to.name().toLowerCase())
+                .register(registry)
+                .increment();
+    }
+
+    /** Current breaker state as a number: 0 closed, 1 open, 2 half-open. */
+    void registerCircuit(java.util.function.IntSupplier state) {
+        Gauge.builder("admission.circuit.state", state::getAsInt)
+                .description("Order circuit breaker state: 0 closed, 1 open, 2 half-open")
+                .register(registry);
+    }
 }

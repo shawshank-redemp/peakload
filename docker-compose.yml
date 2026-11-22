@@ -107,6 +107,9 @@ services:
       RATE_LIMIT_BREAKER_COOLDOWN: ${RATE_LIMIT_BREAKER_COOLDOWN:-PT2S}
       # Load shedding. SHED_ENABLED=false turns it off for comparison runs (thresholds are in application.yml).
       SHED_ENABLED: ${SHED_ENABLED:-true}
+      # Week 5 retry and circuit breaker, for the measurement. Set to false to turn each off.
+      RETRY_ENABLED: ${RETRY_ENABLED:-true}
+      CIRCUIT_ENABLED: ${CIRCUIT_ENABLED:-true}
     depends_on:
       postgres:
         condition: service_healthy

@@ -93,6 +93,28 @@ peakload:
       latency-half-life: PT5S
       # Sent as Retry-After with a shed (503). Rounded up to whole seconds, at least 1.
       retry-after: PT1S
+    resilience:
+      # Week 5. Every number is an unmeasured starting value, not a result. Flags turn each part off independently
+      # for the measurement (RETRY_ENABLED, CIRCUIT_ENABLED).
+      retry:
+        enabled: ${RETRY_ENABLED:true}
+        # The whole request must finish within this, first attempt included. With a 2 s read timeout, a retry after a
+        # read timeout cannot fit under 3 s; connection-level failures can.
+        deadline: PT3S
+        # The delay before the retry is random in [0, jitter-max].
+        jitter-max: PT0.1S
+        # Retries allowed as a share of order calls in the rolling window.
+        budget-share: 0.10
+        budget-window: PT10S
+      circuit:
+        enabled: ${CIRCUIT_ENABLED:true}
+        window-size: 20
+        minimum-calls: 10
+        failure-rate-threshold: 0.5
+        open-duration: PT10S
+        half-open-probes: 3
+      # The WARN line for the "other" upstream error is written at most this often.
+      log-interval: PT10S
     upstream:
       # Where POST /orders and the other order routes are sent.
       order-url: ${ORDER_URL:http://localhost:8081}

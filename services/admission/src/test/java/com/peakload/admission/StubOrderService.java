@@ -33,6 +33,11 @@ final class StubOrderService implements AutoCloseable {
 
     private final HttpServer server;
     private final Map<String, Reply> replies = new ConcurrentHashMap<>();
+    /** Answers used in order, one per call, before the fixed answer in {@link #replies} applies. */
+    private final Map<String, java.util.Deque<Reply>> sequences = new ConcurrentHashMap<>();
+
+    /** Status for "close the connection without answering": the peer drops the connection. */
+    static final int ABORT = -1;
     private final List<Received> received = new CopyOnWriteArrayList<>();
 
     StubOrderService() {
@@ -50,7 +55,11 @@ final class StubOrderService implements AutoCloseable {
             exchange.getRequestHeaders().forEach((name, values) -> headers.put(name, values.get(0)));
             received.add(new Received(exchange.getRequestMethod(), exchange.getRequestURI().getPath(), headers, body));
 
-            Reply reply = Optional.ofNullable(replies.get(key)).orElse(Reply.of(404, "{\"error\":\"stub_no_reply\"}"));
+            Reply reply = nextReply(key);
+            if (reply.status() == ABORT) {
+                exchange.close();
+                return;
+            }
             if (reply.delayMillis() > 0) {
                 sleep(reply.delayMillis());
             }
@@ -68,6 +77,22 @@ final class StubOrderService implements AutoCloseable {
     /** Base URL, for example http://127.0.0.1:43123. */
     String url() {
         return "http://127.0.0.1:" + server.getAddress().getPort();
+    }
+
+    /** The answers for "METHOD /path" in order, one per call; after they run out, the fixed answer applies. */
+    void replySequence(String method, String path, Reply... answers) {
+        sequences.put(method + " " + path, new java.util.concurrent.ConcurrentLinkedDeque<>(java.util.List.of(answers)));
+    }
+
+    private Reply nextReply(String key) {
+        java.util.Deque<Reply> queue = sequences.get(key);
+        if (queue != null) {
+            Reply next = queue.pollFirst();
+            if (next != null) {
+                return next;
+            }
+        }
+        return Optional.ofNullable(replies.get(key)).orElse(Reply.of(404, "{\"error\":\"stub_no_reply\"}"));
     }
 
     /** Sets the answer for "METHOD /path". Replaces any earlier answer for that key. */

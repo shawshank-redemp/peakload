@@ -93,4 +93,9 @@ class LoadController {
     double secondsAt(LoadLevel candidate) {
         return secondsAtLevel.get(candidate).count();
     }
+
+    /** The level as of the last decision. Used by the retry rules: retries only at NORMAL. */
+    LoadLevel currentLevel() {
+        return level;
+    }
 }
