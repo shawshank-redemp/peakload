@@ -117,6 +117,8 @@ The integration tests use Testcontainers, so Docker must be running. This is the
 
 Runs take a few minutes each (the 300 s NYE curve about 8 minutes including its warm-up, reset and drain). The Week 6 step 2 batch ran these in sequence and stopped on the first failed invariant.
 
+The step 2 runner does not write `analysis.txt` by itself. After a run, produce it with `python3 loadtest/week6/analyse_step2.py <OUT>` (it exits 1 if an invariant fails). Tested from a clean checkout: the direct run at 800 req/s (`loadtest/results/runbook-direct-800`, 24,001 requests, all 201, accepted p99 2.6 ms, invariants hold).
+
 **What the pre-run check does** (`loadtest/precheck.sh <OUT>`). It writes `precheck.txt` into the run folder and refuses to start the run (exit non-zero) when: a thermal or speed warning is recorded; the Docker idle CPU (median of three samples, out of 600% on this 6-vCPU VM) is above 100%; or an autovacuum worker or the checkpointer is busy. It also records the table counts, so you can see the starting state.
 
 **What the reset does.** The run scripts drain the order outbox (wait until no row is unpublished, capped at 300–900 s), then run `loadtest/db/seed.sh` with `EMPTY=1`, which truncates the order and dispatch tables. `reset.txt` in the run folder records the counts after each reset. Dispatch is stopped for the create-path runs and started again at the end.
