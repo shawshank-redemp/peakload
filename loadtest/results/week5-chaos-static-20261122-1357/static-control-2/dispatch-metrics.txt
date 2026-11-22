@@ -1,0 +1,2 @@
+# lifetime snapshot 1795336964941
+events_duplicates_ignored_total{application="dispatch"} 0.0

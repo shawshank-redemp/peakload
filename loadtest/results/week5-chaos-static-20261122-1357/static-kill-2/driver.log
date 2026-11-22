@@ -1,0 +1,10 @@
+[14:05:31] chaos run kills=3 rate=20 duration=150s riders per city=1200
+[14:05:41] warm-up 20 s (discarded)
+[14:06:46] dispatch killed (1)
+[14:07:02] dispatch restarted (1)
+[14:07:26] dispatch killed (2)
+[14:07:42] dispatch restarted (2)
+[14:08:06] dispatch killed (3)
+[14:08:22] dispatch restarted (3)
+[14:08:57] k6 exit=0
+[14:09:04] done

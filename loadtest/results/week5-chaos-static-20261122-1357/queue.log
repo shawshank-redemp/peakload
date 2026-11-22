@@ -1,0 +1,9 @@
+static-kill-1 exit=0
+static-kill-1 invariant_total=0
+static-control-1 exit=0
+static-control-1 invariant_total=0
+static-kill-2 exit=0
+static-kill-2 invariant_total=0
+static-control-2 exit=0
+static-control-2 invariant_total=0
+all done
