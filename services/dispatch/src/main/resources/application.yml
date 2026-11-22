@@ -55,6 +55,12 @@ spring:
       # A new consumer group starts at the newest event, so dispatch does not replay every historical
       # OrderCreated when it first starts. Committed offsets survive restarts.
       auto-offset-reset: latest
+      properties:
+        # Static membership (Week 5 experiment). A restarted consumer with the same id takes its partitions back at once,
+        # instead of waiting for the old member's session timeout. Every dispatch instance needs a UNIQUE id: two
+        # instances with the same id fence each other. Defaults to the container hostname, which stays the same across
+        # docker kill and start of the same container.
+        group.instance.id: ${DISPATCH_INSTANCE_ID:${HOSTNAME:dispatch-local}}
 
 peakload:
   # Monthly partitions of the outbox (migration V6). The job creates months ahead and drops a month only when it is
