@@ -6,3 +6,6 @@ target/
 .env
 # Raw k6 point streams from load runs (large, reproducible from the run scripts)
 loadtest/results/**/points.json.gz
+# Per-transaction latency logs from pgbench -l (large, reproducible from run-retention.sh)
+loadtest/results/**/latency-*.log
+loadtest/results/**/pgbench-*.txt

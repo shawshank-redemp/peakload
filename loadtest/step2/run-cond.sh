@@ -23,6 +23,8 @@ CODE=${CODE:-current}; DISPATCH=${DISPATCH:-off}; PGSTAT=${PGSTAT:-on}; TARGET=$
 RATE=${RATE:-4400}
 READ_RATE=${READ_RATE:-0}
 mkdir -p "$OUT"
+# Pre-run check: refuse to measure on a busy or throttled machine (see loadtest/precheck.sh).
+bash loadtest/precheck.sh "$OUT" > /dev/null || { echo "precheck refused, run not started" >&2; echo "precheck refused" > "$OUT/REFUSED"; exit 2; }
 log() { echo "[$(date +%H:%M:%S)] $*" | tee -a "$OUT/driver.log"; }
 psql_db() { docker compose exec -T postgres psql -U peakload -d "$1" -At -c "$2"; }
 DB=peakload; [ "$CODE" = week1 ] && DB=week1
