@@ -1,7 +1,12 @@
 package com.peakload.order;
 
+import java.sql.SQLTransientConnectionException;
 import java.util.Map;
+import org.springframework.dao.DataAccessResourceFailureException;
+import org.springframework.dao.TransientDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingRequestHeaderException;
 import java.util.UUID;
@@ -97,6 +102,23 @@ class OrderController {
         return ResponseEntity.status(e.status())
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Map.of("error", e.code(), "message", e.getMessage()));
+    }
+
+    /**
+     * The database could not give a connection in time: the order connection pool is full, or the database is down.
+     * Without this, Spring answers 500 (the exception escapes the controller). A 503 with Retry-After tells the client
+     * that the failure is temporary, and admission counts it as an upstream error, not a server bug.
+     * Covers Hikari timeouts at the start of a transaction (CannotCreateTransactionException) and on a JDBC call
+     * (DataAccessResourceFailureException, which CannotGetJdbcConnectionException extends).
+     */
+    @ExceptionHandler({CannotCreateTransactionException.class, DataAccessResourceFailureException.class,
+            TransientDataAccessException.class, SQLTransientConnectionException.class})
+    ResponseEntity<Map<String, String>> databaseUnavailable() {
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                .header("Retry-After", "1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(Map.of("error", "database_unavailable",
+                        "message", "the order database is busy; retry after 1 s"));
     }
 
     @ExceptionHandler(MissingRequestHeaderException.class)
