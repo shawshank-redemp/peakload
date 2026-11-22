@@ -96,7 +96,7 @@ curl -s -o /dev/null -w "%{http_code}\n" -H 'Content-Type: application/json' \
 **3. Run the tests** (**tested**)
 
 ```bash
-JAVA_HOME=$(/usr/libexec/java_home -v 21) mvn -B verify
+JAVA_HOME=$(brew --prefix openjdk@21)/libexec/openjdk.jdk/Contents/Home mvn -B verify
 ```
 
 The integration tests use Testcontainers, so Docker must be running. This is the same command the Week 6 step 2 check used (green on JDK 21).
@@ -105,7 +105,7 @@ The integration tests use Testcontainers, so Docker must be running. This is the
 
 | Benchmark | Command | What it measures |
 |---|---|---|
-| Direct order creation (Week 6 step 2) | `OUT=loadtest/results/my-direct MODE=direct RATE=2000 bash loadtest/week6/run-step2.sh` | `POST /orders` straight to order, 30 s (**tested** at 800, then the same script at 2000 for the table) |
+| Direct order creation (Week 6 step 2) | `OUT=loadtest/results/my-direct MODE=direct RATE=800 bash loadtest/week6/run-step2.sh` | `POST /orders` straight to the order service, 30 s (**tested** at 800 req/s; use 2000, 3200 or 4400 for the ceiling runs) |
 | Limiter noisy neighbour | `OUT=loadtest/results/my-noisy MODE=noisy LIMITER=on bash loadtest/week6/run-step2.sh` (or `LIMITER=off`) | 5 normal clients at 20 req/s, one abusive client at 1200 req/s |
 | NYE curve, shedding on/off | `OUT=loadtest/results/my-nye MODE=nye SHED=on PEAK_CRITICAL=2000 bash loadtest/week6/run-step2.sh` | 300 s curve; `PEAK_CRITICAL` is the POST peak (default 1000 in the Week 3 curve) |
 | Admission capacity (Week 6 step 1) | `OUT=loadtest/results/my-ramp RATE=800 SHED=on bash loadtest/week6/run-ramp.sh` | `POST /orders` through admission at a fixed rate |
