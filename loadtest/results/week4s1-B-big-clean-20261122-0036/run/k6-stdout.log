@@ -1,0 +1,185 @@
+ Container peakload-k6-run-045d46182699 Creating 
+ Container peakload-k6-run-045d46182699 Created 
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /loadtest/db-baseline.js
+        output: json (/out/points.json.gz)
+
+     scenarios: (100.00%) 2 scenarios, 2200 max VUs, 1m0s max duration (incl. graceful stop):
+              * create: 4400.00 iterations/s for 30s (maxVUs: 200-2000, exec: create, gracefulStop: 30s)
+              * read: 50.00 iterations/s for 30s (maxVUs: 20-200, exec: read, gracefulStop: 30s)
+
+
+running (0m00.9s), 0419/0447 VUs, 2159 complete and 0 interrupted iterations
+create   [   3% ] 0413/0427 VUs  00.9s/30s  4400.00 iters/s
+read     [   3% ] 006/020 VUs    00.9s/30s  50.00 iters/s
+
+running (0m01.9s), 0758/0767 VUs, 4568 complete and 0 interrupted iterations
+create   [   6% ] 0746/0747 VUs  01.9s/30s  4400.00 iters/s
+read     [   6% ] 012/020 VUs    01.9s/30s  50.00 iters/s
+
+running (0m02.9s), 0953/0965 VUs, 7953 complete and 0 interrupted iterations
+create   [  10% ] 0940/0945 VUs  02.9s/30s  4400.00 iters/s
+read     [  10% ] 013/020 VUs    02.9s/30s  50.00 iters/s
+
+running (0m03.9s), 1206/1209 VUs, 10988 complete and 0 interrupted iterations
+create   [  13% ] 1186/1187 VUs  03.9s/30s  4400.00 iters/s
+read     [  13% ] 020/022 VUs    03.9s/30s  50.00 iters/s
+
+running (0m05.0s), 1443/1444 VUs, 12215 complete and 0 interrupted iterations
+create   [  17% ] 1409/1410 VUs  05.0s/30s  4400.00 iters/s
+read     [  17% ] 034/034 VUs    05.0s/30s  50.00 iters/s
+
+running (0m05.9s), 1629/1660 VUs, 12875 complete and 0 interrupted iterations
+create   [  20% ] 1579/1607 VUs  05.9s/30s  4400.00 iters/s
+read     [  20% ] 050/053 VUs    05.9s/30s  50.00 iters/s
+
+running (0m06.9s), 1860/1866 VUs, 14123 complete and 0 interrupted iterations
+create   [  23% ] 1805/1806 VUs  06.9s/30s  4400.00 iters/s
+read     [  23% ] 055/060 VUs    06.9s/30s  50.00 iters/s
+time="2026-11-21T19:07:08Z" level=warning msg="Insufficient VUs, reached 2000 active VUs and cannot initialize more" executor=constant-arrival-rate scenario=create
+
+running (0m07.9s), 2046/2060 VUs, 16178 complete and 0 interrupted iterations
+create   [  26% ] 1999/2000 VUs  07.9s/30s  4400.00 iters/s
+read     [  26% ] 047/060 VUs    07.9s/30s  50.00 iters/s
+
+running (0m08.9s), 2042/2060 VUs, 18359 complete and 0 interrupted iterations
+create   [  30% ] 1995/2000 VUs  08.9s/30s  4400.00 iters/s
+read     [  30% ] 047/060 VUs    08.9s/30s  50.00 iters/s
+
+running (0m09.9s), 2033/2060 VUs, 21497 complete and 0 interrupted iterations
+create   [  33% ] 1999/2000 VUs  09.9s/30s  4400.00 iters/s
+read     [  33% ] 034/060 VUs    09.9s/30s  50.00 iters/s
+
+running (0m10.9s), 1979/2061 VUs, 22815 complete and 0 interrupted iterations
+create   [  36% ] 1924/2000 VUs  10.9s/30s  4400.00 iters/s
+read     [  37% ] 055/061 VUs    11.0s/30s  50.00 iters/s
+
+running (0m11.9s), 2047/2062 VUs, 24812 complete and 0 interrupted iterations
+create   [  40% ] 1999/2000 VUs  11.9s/30s  4400.00 iters/s
+read     [  40% ] 048/062 VUs    11.9s/30s  50.00 iters/s
+
+running (0m12.9s), 2032/2062 VUs, 27809 complete and 0 interrupted iterations
+create   [  43% ] 1998/2000 VUs  12.9s/30s  4400.00 iters/s
+read     [  43% ] 034/062 VUs    12.9s/30s  50.00 iters/s
+
+running (0m13.9s), 2027/2062 VUs, 30679 complete and 0 interrupted iterations
+create   [  46% ] 1991/2000 VUs  13.9s/30s  4400.00 iters/s
+read     [  46% ] 036/062 VUs    13.9s/30s  50.00 iters/s
+
+running (0m14.9s), 2025/2062 VUs, 34052 complete and 0 interrupted iterations
+create   [  50% ] 1998/2000 VUs  14.9s/30s  4400.00 iters/s
+read     [  50% ] 027/062 VUs    14.9s/30s  50.00 iters/s
+
+running (0m15.9s), 2039/2062 VUs, 36850 complete and 0 interrupted iterations
+create   [  53% ] 1999/2000 VUs  15.9s/30s  4400.00 iters/s
+read     [  53% ] 040/062 VUs    15.9s/30s  50.00 iters/s
+
+running (0m16.9s), 2024/2062 VUs, 40020 complete and 0 interrupted iterations
+create   [  56% ] 1993/2000 VUs  16.9s/30s  4400.00 iters/s
+read     [  56% ] 031/062 VUs    16.9s/30s  50.00 iters/s
+
+running (0m18.5s), 2064/2065 VUs, 42197 complete and 0 interrupted iterations
+create   [  62% ] 2000/2000 VUs  18.5s/30s  4400.00 iters/s
+read     [  62% ] 064/065 VUs    18.5s/30s  50.00 iters/s
+
+running (0m18.9s), 2068/2070 VUs, 42759 complete and 0 interrupted iterations
+create   [  63% ] 2000/2000 VUs  18.9s/30s  4400.00 iters/s
+read     [  63% ] 068/070 VUs    18.9s/30s  50.00 iters/s
+
+running (0m19.9s), 2056/2071 VUs, 44638 complete and 0 interrupted iterations
+create   [  66% ] 1998/2000 VUs  19.9s/30s  4400.00 iters/s
+read     [  66% ] 058/071 VUs    19.9s/30s  50.00 iters/s
+
+running (0m20.9s), 2071/2079 VUs, 45102 complete and 0 interrupted iterations
+create   [  70% ] 1993/2000 VUs  20.9s/30s  4400.00 iters/s
+read     [  70% ] 078/079 VUs    20.9s/30s  50.00 iters/s
+
+running (0m21.9s), 2076/2087 VUs, 46645 complete and 0 interrupted iterations
+create   [  73% ] 2000/2000 VUs  21.9s/30s  4400.00 iters/s
+read     [  73% ] 076/087 VUs    21.9s/30s  50.00 iters/s
+
+running (0m23.0s), 2064/2087 VUs, 48081 complete and 0 interrupted iterations
+create   [  77% ] 2000/2000 VUs  23.0s/30s  4400.00 iters/s
+read     [  77% ] 064/087 VUs    23.0s/30s  50.00 iters/s
+
+running (0m23.9s), 2090/2090 VUs, 49071 complete and 0 interrupted iterations
+create   [  80% ] 2000/2000 VUs  23.9s/30s  4400.00 iters/s
+read     [  80% ] 090/090 VUs    23.9s/30s  50.00 iters/s
+
+running (0m24.9s), 2027/2092 VUs, 52026 complete and 0 interrupted iterations
+create   [  83% ] 1995/2000 VUs  24.9s/30s  4400.00 iters/s
+read     [  83% ] 032/092 VUs    24.9s/30s  50.00 iters/s
+
+running (0m25.9s), 2025/2092 VUs, 55017 complete and 0 interrupted iterations
+create   [  86% ] 1990/2000 VUs  25.9s/30s  4400.00 iters/s
+read     [  86% ] 035/092 VUs    25.9s/30s  50.00 iters/s
+
+running (0m26.9s), 2031/2092 VUs, 58223 complete and 0 interrupted iterations
+create   [  90% ] 2000/2000 VUs  26.9s/30s  4400.00 iters/s
+read     [  90% ] 031/092 VUs    26.9s/30s  50.00 iters/s
+
+running (0m27.9s), 2019/2092 VUs, 61368 complete and 0 interrupted iterations
+create   [  93% ] 1984/2000 VUs  27.9s/30s  4400.00 iters/s
+read     [  93% ] 035/092 VUs    27.9s/30s  50.00 iters/s
+
+running (0m28.9s), 2030/2092 VUs, 64434 complete and 0 interrupted iterations
+create   [  96% ] 1995/2000 VUs  28.9s/30s  4400.00 iters/s
+read     [  96% ] 035/092 VUs    28.9s/30s  50.00 iters/s
+
+running (0m29.9s), 2031/2092 VUs, 67714 complete and 0 interrupted iterations
+create   [ 100% ] 1996/2000 VUs  29.9s/30s  4400.00 iters/s
+read     [ 100% ] 035/092 VUs    29.9s/30s  50.00 iters/s
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✗ 'p(99)<200' p(99)=2.14s
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 69984  2295.431635/s
+    checks_succeeded...: 99.99% 69983 out of 69984
+    checks_failed......: 0.00%  1 out of 69984
+
+    ✓ read status is 200
+    ✗ status is 201
+      ↳  99% — ✓ 68586 / ✗ 1
+
+    HTTP
+    http_req_duration..............: med=680.05ms p(95)=1.81s p(99)=2.14s
+      { expected_response:true }...: med=680.04ms p(95)=1.81s p(99)=2.14s
+    http_req_failed................: 0.00% 1 out of 69984
+    http_reqs......................: 69984 2295.431635/s
+
+    EXECUTION
+    dropped_iterations.............: 63520 2083.416459/s
+    iteration_duration.............: med=680.26ms p(95)=1.81s p(99)=2.14s
+    iterations.....................: 69984 2295.431635/s
+    vus............................: 2035  min=421        max=2090
+    vus_max........................: 2092  min=447        max=2092
+
+    NETWORK
+    data_received..................: 17 MB 559 kB/s
+    data_sent......................: 22 MB 729 kB/s
+
+
+
+
+running (0m30.5s), 0000/2092 VUs, 69984 complete and 0 interrupted iterations
+create ✓ [ 100% ] 0000/2000 VUs  30s  4400.00 iters/s
+read   ✓ [ 100% ] 000/092 VUs    30s  50.00 iters/s
+time="2026-11-21T19:07:31Z" level=error msg="thresholds on metrics 'http_req_duration' have been crossed"
+

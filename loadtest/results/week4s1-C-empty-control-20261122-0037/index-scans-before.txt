@@ -1,0 +1,8 @@
+flyway_schema_history|flyway_schema_history_pk|0
+flyway_schema_history|flyway_schema_history_s_idx|0
+idempotency_keys|idempotency_keys_expires_at_idx|907
+idempotency_keys|idempotency_keys_pkey|8579236
+orders|orders_pkey|4447734
+outbox|outbox_pkey|4311020
+outbox|outbox_unpublished_idx|79485
+processed_events|processed_events_pkey|4313435

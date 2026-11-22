@@ -583,4 +583,92 @@ A 300 s open-loop curve (`loadtest/nye-curve.js`) run six times, shedding off an
 - Thresholds are the untuned starting values from Step 4. They were not changed for this series.
 - Run-to-run variation at this load on this machine is large. The numbers here describe these six runs only.
 
-**Test harness notes.** The first attempt had all six runs fail at setup: 400 seed orders from one client id hit the rate limit burst. Those runs are kept as `invalid-setup-429-*` and were not used. The seed step now uses one client id per seed.
+**Test harness notes.** The first attempt had all six runs fail at setup: 400 seed orders from one client id hit the rate limit burst. Those runs were discarded and are not in the repository. The seed step now uses one client id per seed.
+
+## Week 4: database baseline
+
+Read-only diagnosis of the order database on a realistic-size dataset. Single run per condition on one local VM (6 vCPU, 8 GB); the workload is the Week 1 create load, not real traffic. No schema or application change. The run counts below are from the result folders named in each row.
+
+**Instrumentation.** `pg_stat_statements` 1.10 is preloaded (`shared_preload_libraries`, `track=all`) in the compose Postgres, and the extension is created by `ops/postgres/init/01-pg-stat-statements.sql` on a fresh volume or `loadtest/db/enable-pg-stat.sh` on an existing one. Cost: a hash and a counter update per statement. I did not measure this overhead, and the comparison with Week 1 is confounded by it.
+
+**Dataset (`loadtest/db/seed-orders.sql`, `loadtest/db/seed.sh`).**
+- 1,000,000 orders, created over the last 365 days, weighted to lunch (11–14 h) and dinner (19–22 h). Eight cities, weighted towards Pune and Mumbai.
+- Status mix: orders older than 24 h are 95% DELIVERED and 5% CANCELLED. Orders from the last 24 h are CREATED 3%, CONFIRMED 5%, PREPARING 7%, READY 8%, PICKED_UP 12%, DELIVERED 60%, CANCELLED 5%. Measured after the seed: DELIVERED 94.8%, CANCELLED 5.0%.
+- One OrderCreated and one OrderStatusChanged per status step, all published. About 5.8 outbox rows per order.
+- processed_events: one row per outbox event, because the order service consumes its own event stream.
+- idempotency_keys: only the last 24 h (4,019 rows after the seed), since the cleanup job removes older keys.
+- Loaded with server-side `INSERT ... SELECT` from a fixed random seed. Took 81 s. `ANALYZE` after loading.
+- Why this size: it loads in about a minute and fits the 8 GB VM with room to spare. It is not a claim about any real company's volume. Postgres runs with the default 128 MB shared buffers, so the dataset is much larger than the cache.
+- What it cannot tell us: anything about contention with real concurrent readers, long-running reports, or a dataset that has grown for years. The cleanup job and the processed_events table never shrink, so a longer history would add rows we did not model.
+
+**Runs.** All three use the same warm-up (30 s at 20 creates/s, discarded), the same measured run (30 s of creates at 4,400 req/s directly to the order service, plus 50 GET reads/s on random seeded orders), and the same Week 1 thresholds.
+- **Run A, contaminated:** the big dataset, but dispatch's tables still held about 1.4 M pending orders from earlier NYE runs. My first seed step did not clear them. Shown for transparency, not as the baseline.
+- **Run B, clean (the baseline):** big dataset, dispatch tables cleared (`seed.sh`).
+- **Run C, control:** same code and rate, order and dispatch tables empty.
+
+| Run | Create achieved req/s | Create p50 / p95 / p99 ms | Read p50 / p99 ms | k6 dropped iterations | Order Hikari pending peak |
+|---|---|---|---|---|---|
+| Week 1, r4400 (for reference) | 4,400 | 0.71 / 1.82 / 7.98 | n/a | 0 | 0 |
+| A, big, contaminated | 2,323 (all requests) | 806.6 / 1,257 / 1,438 | 852.6 / 1,426 | 61,614 | 191 |
+| B, big, clean | 2,295 (all requests) | 679.1 / 1,806 / 2,147 | 765.0 / 2,156 | 63,520 | 191 |
+| C, empty control | 2,736 (all requests) | 655.3 / 1,148 / 1,522 | 679.9 / 1,629 | 49,631 | 191 |
+
+**Reading the table.**
+- The dataset size is not what changed latency. Run C, with empty tables, is just as slow as run B. Its median is 655 ms against 679 ms, and its p99 is 1.5 s against 2.1 s. The p99 difference is from one run each and is not established.
+- The gap from Week 1 is large: about 900 times the median and about 270 times the p99 (run B against Week 1) at the same nominal rate. Week 1 had no pool queueing at this rate (pending 0), and every run here shows pending 191. So the request path is slower per request now than in Week 1, or it has less CPU to run in. I have not identified which. See suspicions below.
+- The order service's Hikari pool (10 connections) was fully busy for the whole run, with about 190 requests waiting. Order and Postgres were at roughly 160–180% CPU each on a 6 vCPU VM, so CPU contention is a likely reason each connection is held longer. Not verified by a CPU profile.
+- The outbox relay fell behind during the run (backlog about 35,000 rows at the peak in run A) and drained after the load stopped.
+
+**Top statements (run B, `pg_stat_statements`, measured run only).**
+
+| Calls | Total ms | Mean ms | Statement (abbreviated) |
+|---|---|---|---|
+| 68,586 | 6,512 | 0.095 | `UPDATE idempotency_keys SET order_id ... WHERE client_id ...` |
+| 68,586 | 5,371 | 0.078 | `INSERT INTO orders ...` |
+| 68,586 | 4,892 | 0.071 | `INSERT INTO idempotency_keys ...` |
+| 68,586 | 3,316 | 0.048 | `INSERT INTO outbox ...` |
+| 68,586 | 1,830 | 0.027 | `UPDATE outbox SET published_at = now() WHERE id = $1` (relay, one row at a time) |
+| 695 | 890 | 1.28 | relay batch select (`published_at IS NULL ... FOR UPDATE SKIP LOCKED`) |
+| 1,397 | 948 | 0.68 | GET by id |
+| 30 | 757 | 25.2 | `SELECT count(*) FROM outbox WHERE published_at IS NULL` (metrics scrape) |
+| 1,800 | 1,582 + 1,538 | 0.88 + 0.85 | dispatch retry queries on `pending_orders` (dispatch shares this Postgres) |
+
+By mean time, the slowest recurring statements are the dispatch retry queries and the outbox count from the metrics scrape. The request-path statements all average under 0.1 ms.
+
+**EXPLAIN (ANALYZE, BUFFERS) for the hot queries (run B, `explain-hot.txt`).** Each runs in a transaction that is rolled back, with parameters from a real seeded order.
+
+| Query | Plan | Execution time |
+|---|---|---|
+| Order insert | insert, no read path | 0.4 ms |
+| Idempotency key insert (ON CONFLICT DO NOTHING) | insert, conflict arbiter `idempotency_keys_pkey` | 0.6 ms |
+| Idempotency key lock read (FOR UPDATE) | index scan on `idempotency_keys_pkey` | ~0.1 ms |
+| Outbox insert | insert | 0.5 ms |
+| Relay batch select (100 rows, SKIP LOCKED) | index scan on `outbox_unpublished_idx` (partial) | 1.1 ms |
+| Status update (version and status conditional) | index scan on `orders_pkey` | 0.7 ms |
+| GET by id | index scan on `orders_pkey` | 0.1 ms |
+| Idempotency cleanup batch | index scan on `idempotency_keys_expires_at_idx` for the expired rows | 0.1 ms |
+
+No hot query uses a sequential scan. An earlier version of my lock-read query did a sequential scan, because it looked up the key by `order_id`, which has no index. That was my test query, not the app's, so I changed it to the app's query.
+
+**Indexes and usage (run B, scans during the measured run).**
+
+| Table | Index | Scans in run | What it is for |
+|---|---|---|---|
+| orders | orders_pkey | 69,986 | GET by id, status update, FK check from idempotency_keys |
+| idempotency_keys | idempotency_keys_pkey | 137,187 | key lock, conflict arbiter, status update of the stored response |
+| idempotency_keys | idempotency_keys_expires_at_idx | 2 | cleanup job (runs every minute) |
+| outbox | outbox_pkey | 68,596 | relay update of published_at |
+| outbox | outbox_unpublished_idx | 737 | relay batch select (partial, unpublished rows only) |
+| processed_events | processed_events_pkey | 35,497 | consumer dedupe insert |
+
+No index of the order service's tables went unused. The `flyway_schema_history` indexes had zero scans, as expected for a table only read at startup. The `orders` table has no index on `client_id` or `created_at`, because no current query needs one. Any future "orders by client" or "orders by time" query would scan the whole table.
+
+**Autovacuum and dead tuples (run B, cumulative since the last statistics reset; I reset only `pg_stat_statements`).** `outbox` had 69,187 dead tuples after the run, from the relay's per-row `published_at` updates. Autovacuum had run on every table in the last few minutes (88–93 times in total). Table sizes after run B: outbox 1,302 MB data and 233 MB indexes; processed_events 511 MB and 229 MB; orders 263 MB and 40 MB; idempotency_keys 28 MB and 8 MB.
+
+**What I suspect but did not verify.**
+- **CPU contention on the shared VM.** Order (~180%) and Postgres (~160%) together use most of the 6 vCPUs, and k6 runs on the same machine. Each connection may be held longer because the work waits for CPU. Not profiled.
+- **Extra per-request work since Week 1.** The order service now writes idempotency rows, and its own consumer inserts into processed_events for every event it publishes. Both use the same connection pool. Week 1 had neither in the path. Not measured separately.
+- **Dispatch on the same Postgres.** Dispatch's retry queries and inserts ran during every run, against the same server. Run B still processed about 37,000 pending inserts. Its effect on the order path is not separated out. The dispatch tables were cleared before each run, but dispatch kept consuming during it.
+- **pg_stat_statements overhead.** Not measured. It may explain part of the gap from Week 1.
+- **The metrics count query.** `SELECT count(*) FROM outbox WHERE published_at IS NULL` averages 25 ms, although it returns zero rows. My guess is that the partial index still holds entries for the many rows the relay has updated, so the scan visits dead index entries. Not verified; it runs on every scrape, so it is worth checking.
+- **Week 1 comparability.** The Week 1 numbers were taken on the same VM but on a different day, with a different code state and without dispatch running. I did not re-run Week 1's exact configuration, so I cannot say which change caused the gap.

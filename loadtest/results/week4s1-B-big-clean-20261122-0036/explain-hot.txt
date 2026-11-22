@@ -1,0 +1,144 @@
+== 1. order insert (POST /orders, inside the create transaction)
+BEGIN
+                                          QUERY PLAN                                          
+----------------------------------------------------------------------------------------------
+ Insert on orders  (cost=0.00..0.02 rows=0 width=0) (actual time=0.349..0.349 rows=0 loops=1)
+   Buffers: shared hit=49 read=1
+   ->  Result  (cost=0.00..0.02 rows=1 width=152) (actual time=0.012..0.012 rows=1 loops=1)
+ Planning:
+   Buffers: shared hit=6
+ Planning Time: 0.191 ms
+ Execution Time: 0.384 ms
+(7 rows)
+
+ROLLBACK
+== 2. idempotency key insert (ON CONFLICT DO NOTHING)
+BEGIN
+                                               QUERY PLAN                                               
+--------------------------------------------------------------------------------------------------------
+ Insert on idempotency_keys  (cost=0.00..0.03 rows=0 width=0) (actual time=0.220..0.220 rows=0 loops=1)
+   Conflict Resolution: NOTHING
+   Conflict Arbiter Indexes: idempotency_keys_pkey
+   Tuples Inserted: 1
+   Conflicting Tuples: 0
+   Buffers: shared hit=23 read=1 dirtied=1
+   ->  Result  (cost=0.00..0.03 rows=1 width=164) (actual time=0.011..0.011 rows=1 loops=1)
+ Planning:
+   Buffers: shared hit=43
+ Planning Time: 0.056 ms
+ Trigger for constraint idempotency_keys_order_id_fkey: time=0.101 calls=1
+ Execution Time: 0.342 ms
+(12 rows)
+
+ROLLBACK
+== 3. idempotency key lock read (SELECT ... FOR UPDATE, after a conflict)
+BEGIN
+                                                                   QUERY PLAN                                                                   
+------------------------------------------------------------------------------------------------------------------------------------------------
+ LockRows  (cost=0.42..8.46 rows=1 width=104) (actual time=0.068..0.069 rows=1 loops=1)
+   Buffers: shared hit=6
+   ->  Index Scan using idempotency_keys_pkey on idempotency_keys  (cost=0.42..8.45 rows=1 width=104) (actual time=0.052..0.052 rows=1 loops=1)
+         Index Cond: ((client_id = 'loadtest'::text) AND (idempotency_key = '92b3cd8b-bdae-461f-b864-68c40295b7b5'::text))
+         Buffers: shared hit=4
+ Planning:
+   Buffers: shared hit=83 read=1 dirtied=1
+ Planning Time: 0.402 ms
+ Execution Time: 0.087 ms
+(9 rows)
+
+ROLLBACK
+== 4. outbox insert (same transaction as the order)
+BEGIN
+                                          QUERY PLAN                                          
+----------------------------------------------------------------------------------------------
+ Insert on outbox  (cost=0.00..0.01 rows=0 width=0) (actual time=0.166..0.166 rows=0 loops=1)
+   Buffers: shared hit=36
+   ->  Result  (cost=0.00..0.01 rows=1 width=144) (actual time=0.006..0.006 rows=1 loops=1)
+ Planning Time: 0.006 ms
+ Execution Time: 0.171 ms
+(5 rows)
+
+ROLLBACK
+== 5. relay batch select (FOR UPDATE SKIP LOCKED, 100 rows), with 100 unpublished rows present
+BEGIN
+INSERT 0 100
+                                                                     QUERY PLAN                                                                     
+----------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=8.45..8.51 rows=2 width=96) (actual time=1.687..1.733 rows=100 loops=1)
+   Buffers: shared hit=529
+   ->  LockRows  (cost=8.45..8.51 rows=2 width=96) (actual time=1.687..1.727 rows=100 loops=1)
+         Buffers: shared hit=529
+         ->  Incremental Sort  (cost=8.45..8.49 rows=2 width=96) (actual time=1.685..1.689 rows=100 loops=1)
+               Sort Key: created_at, id
+               Presorted Key: created_at
+               Full-sort Groups: 1  Sort Method: quicksort  Average Memory: 30kB  Peak Memory: 30kB
+               Pre-sorted Groups: 1  Sort Method: quicksort  Average Memory: 33kB  Peak Memory: 33kB
+               Buffers: shared hit=429
+               ->  Index Scan using outbox_unpublished_idx on outbox  (cost=0.42..8.44 rows=1 width=96) (actual time=1.574..1.615 rows=100 loops=1)
+                     Filter: (published_at IS NULL)
+                     Buffers: shared hit=420
+ Planning:
+   Buffers: shared hit=43 read=1
+ Planning Time: 0.594 ms
+ Execution Time: 1.756 ms
+(17 rows)
+
+ROLLBACK
+== 6. status update (conditional on version and status)
+BEGIN
+                                                        QUERY PLAN                                                         
+---------------------------------------------------------------------------------------------------------------------------
+ Update on orders  (cost=0.43..8.46 rows=0 width=0) (actual time=0.069..0.069 rows=0 loops=1)
+   Buffers: shared hit=7
+   ->  Index Scan using orders_pkey on orders  (cost=0.43..8.46 rows=1 width=54) (actual time=0.006..0.006 rows=1 loops=1)
+         Index Cond: (id = '01a1ff83-0654-70fa-8b42-51f32daacd61'::uuid)
+         Filter: ((version = 0) AND (status = 'CREATED'::text))
+         Buffers: shared hit=4
+ Planning:
+   Buffers: shared hit=16
+ Planning Time: 0.057 ms
+ Execution Time: 0.113 ms
+(10 rows)
+
+ROLLBACK
+== 7. GET order by id
+                                                      QUERY PLAN                                                      
+----------------------------------------------------------------------------------------------------------------------
+ Index Scan using orders_pkey on orders  (cost=0.43..8.46 rows=1 width=121) (actual time=0.016..0.016 rows=1 loops=1)
+   Index Cond: (id = '01a1ff83-0654-70fa-8b42-51f32daacd61'::uuid)
+   Buffers: shared hit=4
+ Planning:
+   Buffers: shared hit=17 dirtied=2
+ Planning Time: 0.064 ms
+ Execution Time: 0.024 ms
+(7 rows)
+
+== 8. idempotency cleanup batch (expired keys, LIMIT 500)
+BEGIN
+                                                                                             QUERY PLAN                                                                                             
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Delete on idempotency_keys  (cost=8.88..16.91 rows=0 width=0) (actual time=0.108..0.109 rows=0 loops=1)
+   Buffers: shared hit=9 read=1 dirtied=1
+   ->  Nested Loop  (cost=8.88..16.91 rows=1 width=76) (actual time=0.073..0.074 rows=1 loops=1)
+         Buffers: shared hit=7 read=1
+         ->  HashAggregate  (cost=8.46..8.46 rows=1 width=116) (actual time=0.023..0.023 rows=1 loops=1)
+               Group Key: "ANY_subquery".client_id, "ANY_subquery".idempotency_key
+               Batches: 1  Memory Usage: 24kB
+               Buffers: shared hit=4
+               ->  Subquery Scan on "ANY_subquery"  (cost=0.42..8.45 rows=1 width=116) (actual time=0.020..0.021 rows=1 loops=1)
+                     Buffers: shared hit=4
+                     ->  Limit  (cost=0.42..8.44 rows=1 width=46) (actual time=0.011..0.012 rows=1 loops=1)
+                           Buffers: shared hit=4
+                           ->  Index Scan using idempotency_keys_expires_at_idx on idempotency_keys idempotency_keys_1  (cost=0.42..8.44 rows=1 width=46) (actual time=0.011..0.012 rows=1 loops=1)
+                                 Index Cond: (expires_at <= now())
+                                 Buffers: shared hit=4
+         ->  Index Scan using idempotency_keys_pkey on idempotency_keys  (cost=0.42..8.44 rows=1 width=52) (actual time=0.049..0.049 rows=1 loops=1)
+               Index Cond: ((client_id = "ANY_subquery".client_id) AND (idempotency_key = "ANY_subquery".idempotency_key))
+               Buffers: shared hit=3 read=1
+ Planning:
+   Buffers: shared hit=108
+ Planning Time: 0.248 ms
+ Execution Time: 0.154 ms
+(22 rows)
+
+ROLLBACK

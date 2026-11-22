@@ -1,0 +1,5 @@
+flyway_schema_history|2|0|0|0|0|0
+idempotency_keys|4241202|4233161|24|72|87|106
+orders|6234162|10096|0|0|81|104
+outbox|15941129|4243235|0|591|93|106
+processed_events|15941021|0|0|0|83|105

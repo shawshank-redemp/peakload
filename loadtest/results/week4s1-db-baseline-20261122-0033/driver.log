@@ -1,0 +1,9 @@
+[00:33:02] outbox drained before the run after 0 s
+[00:33:02] sampled    20000 order ids for reads
+[00:33:34] warm-up done (discarded), k6 exit=0
+[00:33:34] outbox drained after warm-up in 0 s
+[00:33:34] pg_stat_statements reset; index and table statistics snapshotted
+[00:34:06] measured run done, k6 exit=99
+[00:34:24] diagnostics written
+[00:34:25] EXPLAIN written for order 01a1ff7e-8c79-7faa-8a82-d1a79b924cde (version 0, status CREATED)
+[00:34:25] done

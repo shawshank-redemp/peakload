@@ -1,0 +1,76 @@
+== table sizes (data and indexes) and planner row estimates
+      table       |  data   | indexes |  total  | est_rows 
+------------------+---------+---------+---------+----------
+ outbox           | 1343 MB | 239 MB  | 1583 MB |  5872453
+ processed_events | 517 MB  | 232 MB  | 749 MB  |  5846238
+ orders           | 283 MB  | 42 MB   | 325 MB  |  1008669
+ idempotency_keys | 54 MB   | 17 MB   | 71 MB   |   106687
+
+== exact row counts
+         t          |  count  
+--------------------+---------
+ outbox unpublished |       0
+ idempotency_keys   |  156198
+ orders             | 1152210
+ processed_events   | 5959328
+ outbox             | 5998191
+
+== dead tuples and autovacuum activity (since the last statistics reset)
+     relname      | n_live_tup | n_dead_tup | n_tup_ins | n_tup_upd | n_tup_del | autovacuum_count |        last_autovacuum        | autoanalyze_count |       last_autoanalyze        
+------------------+------------+------------+-----------+-----------+-----------+------------------+-------------------------------+-------------------+-------------------------------
+ idempotency_keys |     156221 |       4274 |   4392815 |   4384773 |        42 |               89 | 2026-11-21 19:08:41.806974+00 |               108 | 2026-11-21 19:08:42.746485+00
+ orders           |    1126970 |          1 |   6385775 |     10097 |         0 |               82 | 2026-11-21 19:07:16.085285+00 |               104 | 2026-11-21 18:49:50.949877+00
+ outbox           |    5955086 |      85184 |  16092842 |   4394854 |         0 |               94 | 2026-11-21 19:08:16.975444+00 |               106 | 2026-11-21 18:49:51.209459+00
+ outbox           |          0 |          0 |         3 |         3 |         0 |                0 |                               |                 0 | 
+ processed_events |    5967798 |          0 |  16062628 |         0 |         0 |               84 | 2026-11-21 19:07:03.903751+00 |               105 | 2026-11-21 18:49:50.743605+00
+ processed_events |     115504 |          0 |   2415319 |         0 |         0 |               43 | 2026-11-21 19:08:41.201741+00 |                64 | 2026-11-21 19:08:41.336872+00
+
+== indexes: definition, scans since the last statistics reset, size
+      table       |              index              | idx_scan | idx_tup_read | idx_tup_fetch |    size    |                                                  definition                                                   
+------------------+---------------------------------+----------+--------------+---------------+------------+---------------------------------------------------------------------------------------------------------------
+ idempotency_keys | idempotency_keys_expires_at_idx |      909 |       814656 |        261279 | 3624 kB    | CREATE INDEX idempotency_keys_expires_at_idx ON public.idempotency_keys USING btree (expires_at)
+ idempotency_keys | idempotency_keys_pkey           |  8744096 |      4810015 |       4552088 | 14 MB      | CREATE UNIQUE INDEX idempotency_keys_pkey ON public.idempotency_keys USING btree (client_id, idempotency_key)
+ orders           | orders_pkey                     |  4531608 |      7034382 |       4779607 | 42 MB      | CREATE UNIQUE INDEX orders_pkey ON public.orders USING btree (id)
+ outbox           | outbox_pkey                     |        3 |            3 |             3 | 8192 bytes | CREATE UNIQUE INDEX outbox_pkey ON dispatch.outbox USING btree (id)
+ outbox           | outbox_pkey                     |  4393450 |      4513449 |       4393449 | 236 MB     | CREATE UNIQUE INDEX outbox_pkey ON public.outbox USING btree (id)
+ outbox           | outbox_unpublished_idx          |    80385 |     17609860 |      10938093 | 3336 kB    | CREATE INDEX outbox_unpublished_idx ON public.outbox USING btree (created_at) WHERE (published_at IS NULL)
+ outbox           | outbox_unpublished_idx          |    31674 |            6 |             3 | 8192 bytes | CREATE INDEX outbox_unpublished_idx ON dispatch.outbox USING btree (created_at) WHERE (published_at IS NULL)
+ processed_events | processed_events_pkey           |  2415327 |           54 |             8 | 4632 kB    | CREATE UNIQUE INDEX processed_events_pkey ON dispatch.processed_events USING btree (event_id)
+ processed_events | processed_events_pkey           |  4365853 |         1011 |          1011 | 232 MB     | CREATE UNIQUE INDEX processed_events_pkey ON public.processed_events USING btree (event_id)
+
+== pg_stat_statements: top 15 by total time
+ calls | total_ms | mean_ms  | rows  |   hit   |  read  |                                                     query                                                      
+-------+----------+----------+-------+---------+--------+----------------------------------------------------------------------------------------------------------------
+     1 |   7373.1 | 7373.082 |     5 |    9871 | 271748 | SELECT $1 AS t, count(*) FROM orders UNION ALL SELECT $2, count(*) FROM outbox UNION ALL SELECT $3, count(*) F
+ 82422 |   7238.5 |    0.088 | 82422 | 1213723 |      4 | UPDATE idempotency_keys SET order_id = $1, response_status = 201, response_body = $2::jsonb WHERE client_id = 
+ 82422 |   5948.1 |    0.072 | 82422 |  182422 |      0 | INSERT INTO orders (id, client_id, status, version, payload, pickup_lat, pickup_lon) VALUES ($1, $2, 'CREATED'
+ 82422 |   5599.9 |    0.068 | 82422 |  910576 |    395 | INSERT INTO idempotency_keys (client_id, idempotency_key, request_hash, expires_at) VALUES ($1, $2, $3, now() 
+ 82422 |   3543.8 |    0.043 | 82422 |  502579 |      1 | INSERT INTO outbox (id, aggregate_type, aggregate_id, event_type, payload) VALUES ($1, $2, $3, $4, $5::jsonb)
+ 82422 |   2393.9 |    0.029 | 82422 |  868620 |      0 | UPDATE outbox SET published_at = now() WHERE id = $1
+ 45632 |   2002.7 |    0.044 | 45632 |  422238 |      0 | INSERT INTO pending_orders (order_id, city, pickup_lat, pickup_lon) VALUES ($1, $2, $3, $4) ON CONFLICT (order
+   838 |   1532.4 |    1.829 | 82422 |  542816 |      0 | SELECT id, aggregate_id, event_type, payload::text AS payload FROM outbox WHERE published_at IS NULL ORDER BY 
+ 82422 |   1174.3 |    0.014 | 82422 |  412224 |      0 | SELECT 1 FROM ONLY "public"."orders" x WHERE "id" OPERATOR(pg_catalog.=) $1 FOR KEY SHARE OF x
+ 45632 |   1067.3 |    0.023 | 45632 |  330855 |      0 | INSERT INTO processed_events (event_id, event_type, aggregate_id) VALUES ($1, 'OrderCreated', $2) ON CONFLICT 
+  1448 |   1002.3 |    0.692 |  1448 |    3109 |   2683 | SELECT id, payload->>'customerId' AS customer_id, payload->>'city' AS city, status, (payload->>'totalPaise')::
+ 52658 |    999.0 |    0.019 | 52658 |  422850 |      1 | INSERT INTO processed_events (event_id, event_type, aggregate_id) VALUES ($1, $2, $3) ON CONFLICT (event_id) D
+    39 |    532.0 |   13.640 |    39 |  743526 |      0 | SELECT count(*) FROM outbox WHERE published_at IS NULL
+    12 |    438.9 |   36.578 |  2400 |   11360 |      3 | SELECT order_id FROM pending_orders ORDER BY last_attempt_at NULLS FIRST, created_at LIMIT $1
+    22 |    205.3 |    9.331 |    22 |  403888 |      0 | SELECT COALESCE(EXTRACT($1 FROM now() - MIN(created_at)), $2) FROM outbox WHERE published_at IS NULL
+
+== pg_stat_statements: top 15 by mean time (at least 100 calls)
+ calls | total_ms | mean_ms | rows  |                                                     query                                                      
+-------+----------+---------+-------+----------------------------------------------------------------------------------------------------------------
+   838 |   1532.4 |   1.829 | 82422 | SELECT id, aggregate_id, event_type, payload::text AS payload FROM outbox WHERE published_at IS NULL ORDER BY 
+  1448 |   1002.3 |   0.692 |  1448 | SELECT id, payload->>'customerId' AS customer_id, payload->>'city' AS city, status, (payload->>'totalPaise')::
+ 82422 |   7238.5 |   0.088 | 82422 | UPDATE idempotency_keys SET order_id = $1, response_status = 201, response_body = $2::jsonb WHERE client_id = 
+ 82422 |   5948.1 |   0.072 | 82422 | INSERT INTO orders (id, client_id, status, version, payload, pickup_lat, pickup_lon) VALUES ($1, $2, 'CREATED'
+ 82422 |   5599.9 |   0.068 | 82422 | INSERT INTO idempotency_keys (client_id, idempotency_key, request_hash, expires_at) VALUES ($1, $2, $3, now() 
+  2400 |    127.6 |   0.053 |  2400 | UPDATE pending_orders SET attempts = attempts + 1, last_attempt_at = now() WHERE order_id = $1
+ 45633 |   2002.8 |   0.044 | 45633 | INSERT INTO pending_orders (order_id, city, pickup_lat, pickup_lon) VALUES ($1, $2, $3, $4) ON CONFLICT (order
+ 82422 |   3543.8 |   0.043 | 82422 | INSERT INTO outbox (id, aggregate_type, aggregate_id, event_type, payload) VALUES ($1, $2, $3, $4, $5::jsonb)
+ 82422 |   2393.9 |   0.029 | 82422 | UPDATE outbox SET published_at = now() WHERE id = $1
+  2400 |     56.3 |   0.023 |  2400 | SELECT order_id, city, pickup_lat, pickup_lon, EXTRACT(EPOCH FROM now() - created_at) AS age_seconds FROM pend
+ 45634 |   1067.3 |   0.023 | 45634 | INSERT INTO processed_events (event_id, event_type, aggregate_id) VALUES ($1, 'OrderCreated', $2) ON CONFLICT 
+ 52661 |    999.0 |   0.019 | 52661 | INSERT INTO processed_events (event_id, event_type, aggregate_id) VALUES ($1, $2, $3) ON CONFLICT (event_id) D
+ 82422 |   1174.3 |   0.014 | 82422 | SELECT 1 FROM ONLY "public"."orders" x WHERE "id" OPERATOR(pg_catalog.=) $1 FOR KEY SHARE OF x
+
