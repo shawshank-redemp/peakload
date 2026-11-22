@@ -1,0 +1,4 @@
+[12:18:34] run mode=on rate=800 duration=60s kill=0
+[12:18:41] warm-up 20 s at 800/s (discarded)
+[12:20:17] k6 exit=0
+[12:20:19] done

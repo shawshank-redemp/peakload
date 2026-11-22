@@ -1,0 +1,6 @@
+[12:20:46] run mode=on rate=800 duration=90s kill=1
+[12:20:53] warm-up 20 s at 800/s (discarded)
+[12:22:00] order stopped
+[12:22:30] order started
+[12:22:59] k6 exit=0
+[12:23:02] done

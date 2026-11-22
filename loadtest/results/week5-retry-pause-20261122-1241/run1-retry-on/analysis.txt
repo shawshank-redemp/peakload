@@ -1,0 +1,114 @@
+# run: run1-retry-on
+
+## outcomes by kind, phase, status, error
+kind    phase   status err                 count
+create  after   201    none                11525
+create  after   503    order_unavailable   686
+create  before  201    none                11809
+create  before  503    shed                23
+create  during  201    none                33
+create  during  503    connect_timeout     72
+create  during  503    order_unavailable   11694
+create  during  503    shed                133
+create  during  504    read_timeout        64
+menu    after   200    none                4915
+menu    before  200    none                4580
+menu    before  503    shed                47
+menu    during  200    none                609
+menu    during  503    shed                4211
+read    after   200    none                6943
+read    after   503    order_unavailable   453
+read    before  200    none                7010
+read    before  503    shed                9
+read    during  200    none                18
+read    during  503    connect_timeout     15
+read    during  503    order_unavailable   4875
+read    during  503    shed                2234
+read    during  504    read_timeout        41
+
+## full status breakdown per kind and phase (every category; the total must be 100%)
+  create before (n=11832):
+      2xx                                11809   99.81%
+      503 shed                              23    0.19%
+      TOTAL                              11832  100.00%
+  create during (n=11996):
+      503 order_unavailable              11694   97.48%
+      503 shed                             133    1.11%
+      503 connect_timeout                   72    0.60%
+      504 read_timeout                      64    0.53%
+      2xx                                   33    0.28%
+      TOTAL                              11996  100.00%
+  create after (n=12211):
+      2xx                                11525   94.38%
+      503 order_unavailable                686    5.62%
+      TOTAL                              12211  100.00%
+  read before (n=7019):
+      2xx                                 7010   99.87%
+      503 shed                               9    0.13%
+      TOTAL                               7019  100.00%
+  read during (n=7183):
+      503 order_unavailable               4875   67.87%
+      503 shed                            2234   31.10%
+      504 read_timeout                      41    0.57%
+      2xx                                   18    0.25%
+      503 connect_timeout                   15    0.21%
+      TOTAL                               7183  100.00%
+  read after (n=7396):
+      2xx                                 6943   93.88%
+      503 order_unavailable                453    6.12%
+      TOTAL                               7396  100.00%
+  menu before (n=4627):
+      2xx                                 4580   98.98%
+      503 shed                              47    1.02%
+      TOTAL                               4627  100.00%
+  menu during (n=4820):
+      503 shed                            4211   87.37%
+      2xx                                  609   12.63%
+      TOTAL                               4820  100.00%
+  menu after (n=4915):
+      2xx                                 4915  100.00%
+      TOTAL                               4915  100.00%
+
+## latency ms (k6 request duration)
+  create after   failed n=   686 p50=0.3 p99=1.9
+  create after   ok     n= 11525 p50=1.3 p99=8.8
+  create before  failed n=    23 p50=101.6 p99=146.0
+  create before  ok     n= 11809 p50=2.4 p99=242.9
+  create during  failed n= 11963 p50=0.4 p99=502.3
+  create during  ok     n=    33 p50=3.7 p99=10.8
+  menu   after   ok     n=  4915 p50=0.6 p99=4.6
+  menu   before  failed n=    47 p50=68.8 p99=162.1
+  menu   before  ok     n=  4580 p50=0.8 p99=53.3
+  menu   during  failed n=  4211 p50=0.4 p99=5.6
+  menu   during  ok     n=   609 p50=0.7 p99=3.1
+  read   after   failed n=   453 p50=0.3 p99=2.3
+  read   after   ok     n=  6943 p50=0.8 p99=5.3
+  read   before  failed n=     9 p50=89.0 p99=111.7
+  read   before  ok     n=  7010 p50=1.0 p99=99.7
+  read   during  failed n=  7165 p50=0.4 p99=22.3
+  read   during  ok     n=    18 p50=1.2 p99=3.3
+
+## breaker
+  time to open: 0.65 s after the order stop
+  time to close (proxy: first create 201 after the order start): 1.52 s
+
+## windows longer than 1 s with failures or p99 > 250 ms (seconds from T0)
+  t=  0s..  1s (2 s, phase starts before): failed=50 worst p99=417 ms
+  t= 30s.. 61s (32 s, phase starts during): failed=24478 worst p99=2003 ms
+
+## admission CPU during the timed run (docker stats, from samples.jsonl)
+  mean 47%  peak 125%  (33 samples; 100% = one core)
+
+## Postgres counters and row counts
+  pg-before.txt: checkpoints_timed=30 checkpoints_req=117 buffers_checkpoint=426336 | autovacuum_count=80 autoanalyze_count=97 | orders_before=0
+  pg-after.txt: checkpoints_timed=30 checkpoints_req=117 buffers_checkpoint=426336 | autovacuum_count=84 autoanalyze_count=101 | orders_after=23431 | duplicate_client_key_pairs=0
+  creates answered 201 in the timed run: 23367
+
+## admission retry and breaker counters (end of run; a counter absent here was never incremented)
+  admission_circuit_state{application="admission"} 0.0
+  admission_circuit_transitions_total{application="admission",to="closed"} 1.0
+  admission_circuit_transitions_total{application="admission",to="half_open"} 3.0
+  admission_circuit_transitions_total{application="admission",to="open"} 3.0
+  admission_requests_total{application="admission",class="CRITICAL",outcome="circuit_open"} 12380.0
+  admission_requests_total{application="admission",class="STANDARD",outcome="circuit_open"} 5328.0
+  admission_upstream_retries_skipped_total{application="admission",reason="load"} 192.0

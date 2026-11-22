@@ -1,0 +1,7 @@
+[12:26:30] precheck refused (loadtest/results/week5-measurement-e-20261122-1220/run3-on/precheck-before-reset), waiting
+[12:27:14] run mode=on rate=800 duration=90s kill=1
+[12:27:21] warm-up 20 s at 800/s (discarded)
+[12:28:28] order stopped
+[12:28:59] order started
+[12:29:28] k6 exit=0
+[12:29:30] done

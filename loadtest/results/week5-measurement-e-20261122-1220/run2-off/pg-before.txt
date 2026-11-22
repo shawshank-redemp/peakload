@@ -1,0 +1,3 @@
+checkpoints_timed=27 checkpoints_req=117 buffers_checkpoint=421092
+autovacuum_count=50 autoanalyze_count=57
+orders_before=0

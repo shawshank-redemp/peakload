@@ -1,0 +1,29 @@
+[12:23:15] precheck refused (loadtest/results/week5-measurement-e-20261122-1220/run2-off/precheck-before-reset), waiting
+[12:23:59] run mode=off rate=800 duration=90s kill=1
+ Container peakload-dispatch-1 Stopping 
+ Container peakload-dispatch-1 Stopped 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redpanda-1 Healthy 
+[12:24:07] warm-up 20 s at 800/s (discarded)
+ Container peakload-order-1 Stopping 
+ Container peakload-order-1 Stopped 
+[12:25:13] order stopped
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-order-1 Starting 
+ Container peakload-order-1 Started 
+[12:25:44] order started
+[12:26:14] k6 exit=0
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redis-1 Waiting 
+ Container peakload-redis-1 Healthy 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-dispatch-1 Starting 
+ Container peakload-dispatch-1 Started 
+[12:26:16] done

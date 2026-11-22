@@ -1,0 +1,23 @@
+[12:51:03] precheck refused (loadtest/results/week5-retry-pause-20261122-1241/run4-retry-off/precheck-before-reset), waiting
+[12:51:46] run mode=off rate=800 duration=90s kill=1
+ Container peakload-dispatch-1 Stopping 
+ Container peakload-dispatch-1 Stopped 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+[12:51:54] warm-up 20 s at 800/s (discarded)
+ Container peakload-order-1 Paused 
+[12:53:00] order paused
+ Container peakload-order-1 Unpaused 
+[12:53:30] order unpaused
+[12:54:00] k6 exit=0
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redis-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redis-1 Healthy 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-dispatch-1 Starting 
+ Container peakload-dispatch-1 Started 
+[12:54:03] done

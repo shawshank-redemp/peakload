@@ -1,0 +1,7 @@
+[12:47:47] precheck refused (loadtest/results/week5-retry-pause-20261122-1241/run3-retry-on/precheck-before-reset), waiting
+[12:48:30] run mode=on rate=800 duration=90s kill=1
+[12:48:40] warm-up 20 s at 800/s (discarded)
+[12:49:45] order paused
+[12:50:15] order unpaused
+[12:50:46] k6 exit=0
+[12:50:49] done

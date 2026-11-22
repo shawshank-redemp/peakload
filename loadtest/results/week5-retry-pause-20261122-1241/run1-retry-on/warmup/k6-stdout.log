@@ -1,0 +1,107 @@
+ Container peakload-k6-run-4401d4844e8a Creating 
+ Container peakload-k6-run-4401d4844e8a Created 
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /loadtest/week5/mix.js
+        output: json (/out/points.json.gz)
+
+     scenarios: (100.00%) 1 scenario, 3000 max VUs, 50s max duration (incl. graceful stop):
+              * mix: 800.00 iterations/s for 20s (maxVUs: 300-3000, exec: mix, gracefulStop: 30s)
+
+
+running (00.9s), 0164/0300 VUs, 583 complete and 0 interrupted iterations
+mix    [   5% ] 0164/0300 VUs  00.9s/20s  800.00 iters/s
+
+running (01.9s), 0007/0300 VUs, 1541 complete and 0 interrupted iterations
+mix    [  10% ] 0007/0300 VUs  01.9s/20s  800.00 iters/s
+
+running (02.9s), 0004/0300 VUs, 2343 complete and 0 interrupted iterations
+mix    [  15% ] 0004/0300 VUs  02.9s/20s  800.00 iters/s
+
+running (03.9s), 0003/0300 VUs, 3144 complete and 0 interrupted iterations
+mix    [  20% ] 0003/0300 VUs  03.9s/20s  800.00 iters/s
+
+running (04.9s), 0005/0300 VUs, 3943 complete and 0 interrupted iterations
+mix    [  25% ] 0005/0300 VUs  04.9s/20s  800.00 iters/s
+
+running (05.9s), 0002/0300 VUs, 4745 complete and 0 interrupted iterations
+mix    [  30% ] 0002/0300 VUs  05.9s/20s  800.00 iters/s
+
+running (06.9s), 0002/0300 VUs, 5546 complete and 0 interrupted iterations
+mix    [  35% ] 0002/0300 VUs  06.9s/20s  800.00 iters/s
+
+running (07.9s), 0005/0300 VUs, 6343 complete and 0 interrupted iterations
+mix    [  40% ] 0005/0300 VUs  07.9s/20s  800.00 iters/s
+
+running (08.9s), 0001/0300 VUs, 7146 complete and 0 interrupted iterations
+mix    [  45% ] 0001/0300 VUs  08.9s/20s  800.00 iters/s
+
+running (09.9s), 0001/0300 VUs, 7947 complete and 0 interrupted iterations
+mix    [  50% ] 0001/0300 VUs  09.9s/20s  800.00 iters/s
+
+running (10.9s), 0002/0300 VUs, 8746 complete and 0 interrupted iterations
+mix    [  55% ] 0002/0300 VUs  10.9s/20s  800.00 iters/s
+
+running (11.9s), 0002/0300 VUs, 9545 complete and 0 interrupted iterations
+mix    [  60% ] 0002/0300 VUs  11.9s/20s  800.00 iters/s
+
+running (12.9s), 0003/0300 VUs, 10344 complete and 0 interrupted iterations
+mix    [  65% ] 0003/0300 VUs  12.9s/20s  800.00 iters/s
+
+running (13.9s), 0002/0300 VUs, 11145 complete and 0 interrupted iterations
+mix    [  70% ] 0002/0300 VUs  13.9s/20s  800.00 iters/s
+
+running (14.9s), 0001/0300 VUs, 11945 complete and 0 interrupted iterations
+mix    [  75% ] 0001/0300 VUs  14.9s/20s  800.00 iters/s
+
+running (15.9s), 0002/0300 VUs, 12745 complete and 0 interrupted iterations
+mix    [  80% ] 0001/0300 VUs  15.9s/20s  800.00 iters/s
+
+running (16.9s), 0002/0300 VUs, 13545 complete and 0 interrupted iterations
+mix    [  85% ] 0002/0300 VUs  16.9s/20s  800.00 iters/s
+
+running (17.9s), 0002/0300 VUs, 14345 complete and 0 interrupted iterations
+mix    [  90% ] 0002/0300 VUs  17.9s/20s  800.00 iters/s
+
+running (18.9s), 0001/0300 VUs, 15145 complete and 0 interrupted iterations
+mix    [  95% ] 0001/0300 VUs  18.9s/20s  800.00 iters/s
+
+running (19.9s), 0002/0300 VUs, 15945 complete and 0 interrupted iterations
+mix    [ 100% ] 0002/0300 VUs  19.9s/20s  800.00 iters/s
+
+
+  █ TOTAL RESULTS 
+
+    CUSTOM
+    fail_latency_ms................: avg=195.35ms min=15.94ms  med=188.21ms max=338.06ms p(90)=305.06ms p(95)=317.25ms
+    ok_latency_ms..................: avg=13.4ms   min=480.58µs med=1.85ms   max=599.18ms p(90)=10.55ms  p(95)=33.94ms 
+    outcome........................: 16001  799.943848/s
+
+    HTTP
+    http_req_duration..............: avg=18.49ms  min=480.58µs med=1.89ms   max=599.18ms p(90)=18.05ms  p(95)=146.98ms
+      { expected_response:true }...: avg=13.4ms   min=480.58µs med=1.85ms   max=599.18ms p(90)=10.55ms  p(95)=33.94ms 
+    http_req_failed................: 2.79%  448 out of 16001
+    http_reqs......................: 16001  799.943848/s
+
+    EXECUTION
+    iteration_duration.............: avg=18.65ms  min=546.5µs  med=2.01ms   max=600.5ms  p(90)=18.29ms  p(95)=147.16ms
+    iterations.....................: 16001  799.943848/s
+    vus............................: 2      min=1            max=164
+    vus_max........................: 300    min=300          max=300
+
+    NETWORK
+    data_received..................: 5.1 MB 254 kB/s
+    data_sent......................: 3.8 MB 189 kB/s
+
+
+
+
+running (20.0s), 0000/0300 VUs, 16001 complete and 0 interrupted iterations
+mix  ✓ [ 100% ] 0000/0300 VUs  20s  800.00 iters/s

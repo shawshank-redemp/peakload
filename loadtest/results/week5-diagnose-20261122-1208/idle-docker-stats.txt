@@ -1,0 +1,97 @@
+--- sample 1 12:08:22
+peakload-admission-1 0.16% 612.4MiB / 7.751GiB
+peakload-postgres-1 2.03% 298.6MiB / 7.751GiB
+peakload-order-1 0.79% 458.3MiB / 7.751GiB
+peakload-dispatch-1 2.43% 383.7MiB / 7.751GiB
+peakload-redis-1 0.87% 4.41MiB / 7.751GiB
+peakload-redpanda-1 0.38% 376.7MiB / 7.751GiB
+sentinel-demo-control-plane 14.53% 808.9MiB / 7.751GiB
+--- sample 2 12:08:30
+peakload-admission-1 0.18% 612.4MiB / 7.751GiB
+peakload-postgres-1 0.15% 298.9MiB / 7.751GiB
+peakload-order-1 0.39% 458.6MiB / 7.751GiB
+peakload-dispatch-1 0.54% 388.7MiB / 7.751GiB
+peakload-redis-1 0.53% 4.41MiB / 7.751GiB
+peakload-redpanda-1 0.48% 376.7MiB / 7.751GiB
+sentinel-demo-control-plane 10.98% 807.7MiB / 7.751GiB
+--- sample 3 12:08:37
+peakload-admission-1 0.23% 612.4MiB / 7.751GiB
+peakload-postgres-1 0.10% 298.6MiB / 7.751GiB
+peakload-order-1 0.28% 458.3MiB / 7.751GiB
+peakload-dispatch-1 0.47% 383.8MiB / 7.751GiB
+peakload-redis-1 1.63% 4.41MiB / 7.751GiB
+peakload-redpanda-1 0.53% 376.7MiB / 7.751GiB
+sentinel-demo-control-plane 13.74% 802.7MiB / 7.751GiB
+--- sample 4 12:08:44
+peakload-admission-1 0.13% 612.4MiB / 7.751GiB
+peakload-postgres-1 4.17% 298.6MiB / 7.751GiB
+peakload-order-1 2.98% 458.4MiB / 7.751GiB
+peakload-dispatch-1 0.29% 383.8MiB / 7.751GiB
+peakload-redis-1 1.07% 4.41MiB / 7.751GiB
+peakload-redpanda-1 0.34% 376.7MiB / 7.751GiB
+sentinel-demo-control-plane 9.65% 806.1MiB / 7.751GiB
+--- sample 5 12:08:51
+peakload-admission-1 0.19% 612.4MiB / 7.751GiB
+peakload-postgres-1 0.17% 298.6MiB / 7.751GiB
+peakload-order-1 0.43% 458.3MiB / 7.751GiB
+peakload-dispatch-1 0.67% 383.8MiB / 7.751GiB
+peakload-redis-1 0.53% 4.41MiB / 7.751GiB
+peakload-redpanda-1 0.49% 376.7MiB / 7.751GiB
+sentinel-demo-control-plane 15.11% 805.8MiB / 7.751GiB
+--- sample 6 12:08:58
+peakload-admission-1 0.16% 612.4MiB / 7.751GiB
+peakload-postgres-1 2.01% 298.1MiB / 7.751GiB
+peakload-order-1 0.52% 458.4MiB / 7.751GiB
+peakload-dispatch-1 2.68% 383.8MiB / 7.751GiB
+peakload-redis-1 1.42% 4.426MiB / 7.751GiB
+peakload-redpanda-1 0.57% 376.7MiB / 7.751GiB
+sentinel-demo-control-plane 14.72% 805.4MiB / 7.751GiB
+--- sample 7 12:09:05
+peakload-admission-1 0.32% 612.4MiB / 7.751GiB
+peakload-postgres-1 0.06% 298.3MiB / 7.751GiB
+peakload-order-1 0.24% 458.3MiB / 7.751GiB
+peakload-dispatch-1 0.37% 383.8MiB / 7.751GiB
+peakload-redis-1 0.35% 4.41MiB / 7.751GiB
+peakload-redpanda-1 4.53% 376.7MiB / 7.751GiB
+sentinel-demo-control-plane 13.09% 803.2MiB / 7.751GiB
+--- sample 8 12:09:12
+peakload-admission-1 0.16% 612.4MiB / 7.751GiB
+peakload-postgres-1 0.06% 298.3MiB / 7.751GiB
+peakload-order-1 0.22% 458.3MiB / 7.751GiB
+peakload-dispatch-1 0.75% 383.8MiB / 7.751GiB
+peakload-redis-1 1.61% 4.41MiB / 7.751GiB
+peakload-redpanda-1 0.46% 376.7MiB / 7.751GiB
+sentinel-demo-control-plane 19.98% 802.6MiB / 7.751GiB
+--- sample 9 12:09:19
+peakload-admission-1 0.15% 612.4MiB / 7.751GiB
+peakload-postgres-1 2.81% 298.3MiB / 7.751GiB
+peakload-order-1 1.58% 458.4MiB / 7.751GiB
+peakload-dispatch-1 0.50% 383.8MiB / 7.751GiB
+peakload-redis-1 0.33% 4.41MiB / 7.751GiB
+peakload-redpanda-1 0.42% 376.7MiB / 7.751GiB
+sentinel-demo-control-plane 11.20% 805MiB / 7.751GiB
+--- sample 10 12:09:26
+peakload-admission-1 0.43% 618.4MiB / 7.751GiB
+peakload-postgres-1 0.74% 298.4MiB / 7.751GiB
+peakload-order-1 0.41% 458.3MiB / 7.751GiB
+peakload-dispatch-1 0.68% 383.8MiB / 7.751GiB
+peakload-redis-1 0.40% 4.41MiB / 7.751GiB
+peakload-redpanda-1 0.55% 376.7MiB / 7.751GiB
+sentinel-demo-control-plane 13.67% 805.2MiB / 7.751GiB
+--- sample 11 12:09:33
+peakload-admission-1 0.13% 618.4MiB / 7.751GiB
+peakload-postgres-1 2.18% 298.3MiB / 7.751GiB
+peakload-order-1 0.22% 458.3MiB / 7.751GiB
+peakload-dispatch-1 2.30% 383.8MiB / 7.751GiB
+peakload-redis-1 0.79% 4.41MiB / 7.751GiB
+peakload-redpanda-1 0.36% 376.7MiB / 7.751GiB
+sentinel-demo-control-plane 12.11% 806.7MiB / 7.751GiB
+--- sample 12 12:09:40
+peakload-admission-1 0.18% 618.4MiB / 7.751GiB
+peakload-postgres-1 2.98% 298.3MiB / 7.751GiB
+peakload-order-1 0.33% 458.3MiB / 7.751GiB
+peakload-dispatch-1 1.01% 383.8MiB / 7.751GiB
+peakload-redis-1 0.50% 4.41MiB / 7.751GiB
+peakload-redpanda-1 0.45% 376.7MiB / 7.751GiB
+sentinel-demo-control-plane 12.50% 799.4MiB / 7.751GiB
+DONE

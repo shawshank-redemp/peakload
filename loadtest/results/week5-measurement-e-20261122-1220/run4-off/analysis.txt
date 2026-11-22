@@ -1,0 +1,74 @@
+# run: loadtest/results/week5-measurement-e-20261122-1220/run4-off
+
+## outcomes by kind, phase, status, error
+kind    phase   status err                 count
+create  after   201    none                7590
+create  after   503    connect_timeout     403
+create  after   503    other               3933
+create  after   503    shed                182
+create  before  201    none                12001
+create  during  201    none                461
+create  during  503    connect_timeout     9823
+create  during  503    connection_refused  23
+create  during  503    other               8
+create  during  503    shed                1735
+menu    after   200    none                4448
+menu    after   503    shed                408
+menu    before  200    none                4719
+menu    during  200    none                229
+menu    during  503    shed                4639
+read    after   200    none                4308
+read    after   503    other               2424
+read    after   503    shed                583
+read    before  200    none                7002
+read    during  200    none                272
+read    during  503    connect_timeout     64
+read    during  503    connection_refused  18
+read    during  503    other               4
+read    during  503    shed                6724
+
+## share of answers per kind and phase
+  create before  n= 12001 2xx=100.00%  shed= 0.00%  circuit_open= 0.00%  pool_timeout= 0.00%  other= 0.00%
+  create during  n= 12050 2xx=  3.83%  shed=14.40%  circuit_open= 0.00%  pool_timeout= 0.00%  other= 0.07%
+  create after   n= 12108 2xx= 62.69%  shed= 1.50%  circuit_open= 0.00%  pool_timeout= 0.00%  other=32.48%
+  read   before  n=  7002 2xx=100.00%  shed= 0.00%  circuit_open= 0.00%  pool_timeout= 0.00%  other= 0.00%
+  read   during  n=  7082 2xx=  3.84%  shed=94.94%  circuit_open= 0.00%  pool_timeout= 0.00%  other= 0.06%
+  read   after   n=  7315 2xx= 58.89%  shed= 7.97%  circuit_open= 0.00%  pool_timeout= 0.00%  other=33.14%
+  menu   before  n=  4719 2xx=100.00%  shed= 0.00%  circuit_open= 0.00%  pool_timeout= 0.00%  other= 0.00%
+  menu   during  n=  4868 2xx=  4.70%  shed=95.30%  circuit_open= 0.00%  pool_timeout= 0.00%  other= 0.00%
+  menu   after   n=  4856 2xx= 91.60%  shed= 8.40%  circuit_open= 0.00%  pool_timeout= 0.00%  other= 0.00%
+
+## latency ms (k6 request duration)
+  create after   failed n=  4518 p50=0.6 p99=501.9
+  create after   ok     n=  7590 p50=2.0 p99=616.2
+  create before  ok     n= 12001 p50=1.2 p99=14.8
+  create during  failed n= 11589 p50=501.1 p99=503.6
+  create during  ok     n=   461 p50=1.5 p99=9.5
+  menu   after   failed n=   408 p50=0.5 p99=97.7
+  menu   after   ok     n=  4448 p50=0.8 p99=27.5
+  menu   before  ok     n=  4719 p50=0.6 p99=5.7
+  menu   during  failed n=  4639 p50=0.3 p99=3.0
+  menu   during  ok     n=   229 p50=0.9 p99=50.3
+  read   after   failed n=  3007 p50=0.5 p99=84.6
+  read   after   ok     n=  4308 p50=1.1 p99=117.0
+  read   before  ok     n=  7002 p50=0.7 p99=6.9
+  read   during  failed n=  6810 p50=0.3 p99=43.8
+  read   during  ok     n=   272 p50=0.9 p99=2.6
+
+## breaker
+  time to open: no circuit_open answer after the stop
+  time to close (proxy: first create 201 after the order start): 9.36 s
+
+## windows longer than 1 s with failures or p99 > 250 ms (seconds from T0)
+  t= 31s.. 72s (42 s, phase starts during): failed=30971 worst p99=1018 ms
+
+## admission CPU during the timed run (docker stats, from samples.jsonl)
+  mean 41%  peak 96%  (43 samples; 100% = one core)
+
+## Postgres counters and row counts
+  pg-before.txt: checkpoints_timed=28 checkpoints_req=117 buffers_checkpoint=421727 | autovacuum_count=70 autoanalyze_count=81 | orders_before=0
+  pg-after.txt: checkpoints_timed=28 checkpoints_req=117 buffers_checkpoint=421727 | autovacuum_count=78 autoanalyze_count=89 | orders_after=20052 | duplicate_client_key_pairs=0
+  creates answered 201 in the timed run: 20052
+
+## admission counters (end of run)
+  admission_circuit_state{application="admission"} 0.0

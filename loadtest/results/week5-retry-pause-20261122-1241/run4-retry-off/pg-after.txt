@@ -1,0 +1,4 @@
+checkpoints_timed=32 checkpoints_req=117 buffers_checkpoint=428075
+autovacuum_count=120 autoanalyze_count=141
+orders_after=23502
+duplicate_client_key_pairs=0

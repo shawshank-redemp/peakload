@@ -1,0 +1,22 @@
+[12:42:01] run mode=on rate=800 duration=90s kill=1
+ Container peakload-dispatch-1 Stopping 
+ Container peakload-dispatch-1 Stopped 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+[12:42:10] warm-up 20 s at 800/s (discarded)
+ Container peakload-order-1 Paused 
+[12:43:16] order paused
+ Container peakload-order-1 Unpaused 
+[12:43:46] order unpaused
+[12:44:17] k6 exit=0
+ Container peakload-postgres-1 Waiting 
+ Container peakload-redis-1 Waiting 
+ Container peakload-redpanda-1 Waiting 
+ Container peakload-redpanda-1 Healthy 
+ Container peakload-postgres-1 Healthy 
+ Container peakload-redis-1 Healthy 
+ Container peakload-dispatch-1 Starting 
+ Container peakload-dispatch-1 Started 
+[12:44:19] done
