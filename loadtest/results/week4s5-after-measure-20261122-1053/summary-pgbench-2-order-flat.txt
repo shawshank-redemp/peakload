@@ -1,0 +1,7 @@
+transaction type: /tmp/bench-create-flat.sql
+number of clients: 16
+duration: 60 s
+number of transactions actually processed: 592024
+number of failed transactions: 0 (0.000%)
+latency average = 1.622 ms
+tps = 9866.674795 (without initial connection time)

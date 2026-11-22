@@ -1,0 +1,192 @@
+Pager usage is off.
+BEGIN
+INSERT 0 200
+== relay batch select (100 rows), flat outbox (before)
+                                                   QUERY PLAN                                                    
+-----------------------------------------------------------------------------------------------------------------
+ Limit (actual time=0.502..0.546 rows=100 loops=1)
+   Buffers: shared hit=476
+   ->  LockRows (actual time=0.502..0.539 rows=100 loops=1)
+         Buffers: shared hit=476
+         ->  Incremental Sort (actual time=0.499..0.502 rows=100 loops=1)
+               Sort Key: created_at, id
+               Presorted Key: created_at
+               Full-sort Groups: 1  Sort Method: quicksort  Average Memory: 30kB  Peak Memory: 30kB
+               Pre-sorted Groups: 1  Sort Method: quicksort  Average Memory: 42kB  Peak Memory: 42kB
+               Buffers: shared hit=376
+               ->  Index Scan using outbox_unpublished_idx on outbox (actual time=0.235..0.361 rows=200 loops=1)
+                     Filter: (published_at IS NULL)
+                     Buffers: shared hit=366
+ Planning:
+   Buffers: shared hit=95
+ Planning Time: 0.251 ms
+ Execution Time: 0.565 ms
+(17 rows)
+
+== relay batch select (100 rows), outbox_p (after)
+                                                                     QUERY PLAN                                                                     
+----------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit (actual time=0.164..0.166 rows=0 loops=1)
+   Buffers: shared hit=13
+   ->  LockRows (actual time=0.163..0.165 rows=0 loops=1)
+         Buffers: shared hit=13
+         ->  Sort (actual time=0.163..0.165 rows=0 loops=1)
+               Sort Key: outbox_p.created_at, outbox_p.id
+               Sort Method: quicksort  Memory: 25kB
+               Buffers: shared hit=13
+               ->  Append (actual time=0.135..0.137 rows=0 loops=1)
+                     Buffers: shared hit=13
+                     ->  Index Scan using outbox_p_2025_11_created_at_idx on outbox_p_2025_11 outbox_p_1 (actual time=0.013..0.013 rows=0 loops=1)
+                           Filter: (published_at IS NULL)
+                           Buffers: shared hit=1
+                     ->  Index Scan using outbox_p_2025_12_created_at_idx on outbox_p_2025_12 outbox_p_2 (actual time=0.010..0.010 rows=0 loops=1)
+                           Filter: (published_at IS NULL)
+                           Buffers: shared hit=1
+                     ->  Index Scan using outbox_p_2026_01_created_at_idx on outbox_p_2026_01 outbox_p_3 (actual time=0.009..0.009 rows=0 loops=1)
+                           Filter: (published_at IS NULL)
+                           Buffers: shared hit=1
+                     ->  Index Scan using outbox_p_2026_02_created_at_idx on outbox_p_2026_02 outbox_p_4 (actual time=0.010..0.010 rows=0 loops=1)
+                           Filter: (published_at IS NULL)
+                           Buffers: shared hit=1
+                     ->  Index Scan using outbox_p_2026_03_created_at_idx on outbox_p_2026_03 outbox_p_5 (actual time=0.013..0.013 rows=0 loops=1)
+                           Filter: (published_at IS NULL)
+                           Buffers: shared hit=1
+                     ->  Index Scan using outbox_p_2026_04_created_at_idx on outbox_p_2026_04 outbox_p_6 (actual time=0.009..0.009 rows=0 loops=1)
+                           Filter: (published_at IS NULL)
+                           Buffers: shared hit=1
+                     ->  Index Scan using outbox_p_2026_05_created_at_idx on outbox_p_2026_05 outbox_p_7 (actual time=0.009..0.009 rows=0 loops=1)
+                           Filter: (published_at IS NULL)
+                           Buffers: shared hit=1
+                     ->  Index Scan using outbox_p_2026_06_created_at_idx on outbox_p_2026_06 outbox_p_8 (actual time=0.002..0.002 rows=0 loops=1)
+                           Filter: (published_at IS NULL)
+                           Buffers: shared hit=1
+                     ->  Index Scan using outbox_p_2026_07_created_at_idx on outbox_p_2026_07 outbox_p_9 (actual time=0.010..0.010 rows=0 loops=1)
+                           Filter: (published_at IS NULL)
+                           Buffers: shared hit=1
+                     ->  Index Scan using outbox_p_2026_08_created_at_idx on outbox_p_2026_08 outbox_p_10 (actual time=0.010..0.010 rows=0 loops=1)
+                           Filter: (published_at IS NULL)
+                           Buffers: shared hit=1
+                     ->  Index Scan using outbox_p_2026_09_created_at_idx on outbox_p_2026_09 outbox_p_11 (actual time=0.010..0.010 rows=0 loops=1)
+                           Filter: (published_at IS NULL)
+                           Buffers: shared hit=1
+                     ->  Index Scan using outbox_p_2026_10_created_at_idx on outbox_p_2026_10 outbox_p_12 (actual time=0.010..0.010 rows=0 loops=1)
+                           Filter: (published_at IS NULL)
+                           Buffers: shared hit=1
+                     ->  Index Scan using outbox_p_2026_11_created_at_idx on outbox_p_2026_11 outbox_p_13 (actual time=0.010..0.010 rows=0 loops=1)
+                           Filter: (published_at IS NULL)
+                           Buffers: shared hit=1
+                     ->  Seq Scan on outbox_p_2026_12 outbox_p_14 (actual time=0.003..0.003 rows=0 loops=1)
+                           Filter: (published_at IS NULL)
+                     ->  Seq Scan on outbox_p_default outbox_p_15 (actual time=0.006..0.006 rows=0 loops=1)
+                           Filter: (published_at IS NULL)
+ Planning:
+   Buffers: shared hit=1018
+ Planning Time: 1.813 ms
+ Execution Time: 0.269 ms
+(57 rows)
+
+ROLLBACK
+BEGIN
+== per-row relay update, flat outbox (before): WHERE id only
+                                       QUERY PLAN                                       
+----------------------------------------------------------------------------------------
+ Update on outbox (actual time=0.093..0.093 rows=0 loops=1)
+   Buffers: shared hit=16 dirtied=2 written=1
+   ->  Index Scan using outbox_pkey on outbox (actual time=0.012..0.013 rows=1 loops=1)
+         Index Cond: (id = '01a1f242-9316-7857-862e-5dc86376fdc9'::uuid)
+         Buffers: shared hit=6
+ Planning Time: 0.027 ms
+ Execution Time: 0.124 ms
+(7 rows)
+
+ROLLBACK
+BEGIN
+== per-row relay update, outbox_p, WHERE id only (what the old statement would do after partitioning)
+                                                          QUERY PLAN                                                          
+------------------------------------------------------------------------------------------------------------------------------
+ Update on outbox_p (actual time=0.262..0.263 rows=0 loops=1)
+   Update on outbox_p_2025_11 outbox_p_1
+   Update on outbox_p_2025_12 outbox_p_2
+   Update on outbox_p_2026_01 outbox_p_3
+   Update on outbox_p_2026_02 outbox_p_4
+   Update on outbox_p_2026_03 outbox_p_5
+   Update on outbox_p_2026_04 outbox_p_6
+   Update on outbox_p_2026_05 outbox_p_7
+   Update on outbox_p_2026_06 outbox_p_8
+   Update on outbox_p_2026_07 outbox_p_9
+   Update on outbox_p_2026_08 outbox_p_10
+   Update on outbox_p_2026_09 outbox_p_11
+   Update on outbox_p_2026_10 outbox_p_12
+   Update on outbox_p_2026_11 outbox_p_13
+   Update on outbox_p_2026_12 outbox_p_14
+   Update on outbox_p_default outbox_p_15
+   Buffers: shared hit=64
+   ->  Append (actual time=0.173..0.178 rows=1 loops=1)
+         Buffers: shared hit=42
+         ->  Index Scan using outbox_p_2025_11_pkey on outbox_p_2025_11 outbox_p_1 (actual time=0.004..0.004 rows=0 loops=1)
+               Index Cond: (id = '01a1f242-9316-7857-862e-5dc86376fdc9'::uuid)
+               Buffers: shared hit=3
+         ->  Index Scan using outbox_p_2025_12_pkey on outbox_p_2025_12 outbox_p_2 (actual time=0.012..0.012 rows=0 loops=1)
+               Index Cond: (id = '01a1f242-9316-7857-862e-5dc86376fdc9'::uuid)
+               Buffers: shared hit=3
+         ->  Index Scan using outbox_p_2026_01_pkey on outbox_p_2026_01 outbox_p_3 (actual time=0.014..0.014 rows=0 loops=1)
+               Index Cond: (id = '01a1f242-9316-7857-862e-5dc86376fdc9'::uuid)
+               Buffers: shared hit=3
+         ->  Index Scan using outbox_p_2026_02_pkey on outbox_p_2026_02 outbox_p_4 (actual time=0.016..0.016 rows=0 loops=1)
+               Index Cond: (id = '01a1f242-9316-7857-862e-5dc86376fdc9'::uuid)
+               Buffers: shared hit=3
+         ->  Index Scan using outbox_p_2026_03_pkey on outbox_p_2026_03 outbox_p_5 (actual time=0.019..0.019 rows=0 loops=1)
+               Index Cond: (id = '01a1f242-9316-7857-862e-5dc86376fdc9'::uuid)
+               Buffers: shared hit=3
+         ->  Index Scan using outbox_p_2026_04_pkey on outbox_p_2026_04 outbox_p_6 (actual time=0.014..0.014 rows=0 loops=1)
+               Index Cond: (id = '01a1f242-9316-7857-862e-5dc86376fdc9'::uuid)
+               Buffers: shared hit=3
+         ->  Index Scan using outbox_p_2026_05_pkey on outbox_p_2026_05 outbox_p_7 (actual time=0.015..0.015 rows=0 loops=1)
+               Index Cond: (id = '01a1f242-9316-7857-862e-5dc86376fdc9'::uuid)
+               Buffers: shared hit=3
+         ->  Index Scan using outbox_p_2026_06_pkey on outbox_p_2026_06 outbox_p_8 (actual time=0.016..0.016 rows=0 loops=1)
+               Index Cond: (id = '01a1f242-9316-7857-862e-5dc86376fdc9'::uuid)
+               Buffers: shared hit=3
+         ->  Index Scan using outbox_p_2026_07_pkey on outbox_p_2026_07 outbox_p_9 (actual time=0.015..0.015 rows=0 loops=1)
+               Index Cond: (id = '01a1f242-9316-7857-862e-5dc86376fdc9'::uuid)
+               Buffers: shared hit=3
+         ->  Index Scan using outbox_p_2026_08_pkey on outbox_p_2026_08 outbox_p_10 (actual time=0.012..0.012 rows=0 loops=1)
+               Index Cond: (id = '01a1f242-9316-7857-862e-5dc86376fdc9'::uuid)
+               Buffers: shared hit=3
+         ->  Index Scan using outbox_p_2026_09_pkey on outbox_p_2026_09 outbox_p_11 (actual time=0.012..0.012 rows=0 loops=1)
+               Index Cond: (id = '01a1f242-9316-7857-862e-5dc86376fdc9'::uuid)
+               Buffers: shared hit=3
+         ->  Index Scan using outbox_p_2026_10_pkey on outbox_p_2026_10 outbox_p_12 (actual time=0.015..0.016 rows=0 loops=1)
+               Index Cond: (id = '01a1f242-9316-7857-862e-5dc86376fdc9'::uuid)
+               Buffers: shared hit=3
+         ->  Index Scan using outbox_p_2026_11_pkey on outbox_p_2026_11 outbox_p_13 (actual time=0.009..0.010 rows=1 loops=1)
+               Index Cond: (id = '01a1f242-9316-7857-862e-5dc86376fdc9'::uuid)
+               Buffers: shared hit=6
+         ->  Seq Scan on outbox_p_2026_12 outbox_p_14 (actual time=0.001..0.001 rows=0 loops=1)
+               Filter: (id = '01a1f242-9316-7857-862e-5dc86376fdc9'::uuid)
+         ->  Seq Scan on outbox_p_default outbox_p_15 (actual time=0.001..0.001 rows=0 loops=1)
+               Filter: (id = '01a1f242-9316-7857-862e-5dc86376fdc9'::uuid)
+ Planning:
+   Buffers: shared hit=17
+ Planning Time: 0.163 ms
+ Execution Time: 0.389 ms
+(66 rows)
+
+ROLLBACK
+BEGIN
+== per-row relay update, outbox_p, WHERE id AND created_at (the new statement)
+                                                                       QUERY PLAN                                                                       
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+ Update on outbox_p (actual time=0.030..0.031 rows=0 loops=1)
+   Update on outbox_p_2026_11 outbox_p_1
+   Buffers: shared hit=14
+   ->  Index Scan using outbox_p_2026_11_pkey on outbox_p_2026_11 outbox_p_1 (actual time=0.008..0.009 rows=1 loops=1)
+         Index Cond: ((id = '01a1f242-9316-7857-862e-5dc86376fdc9'::uuid) AND (created_at = '2026-11-19 05:23:31.733787+00'::timestamp with time zone))
+         Buffers: shared hit=6
+ Planning:
+   Buffers: shared hit=1
+ Planning Time: 0.078 ms
+ Execution Time: 0.040 ms
+(10 rows)
+
+ROLLBACK

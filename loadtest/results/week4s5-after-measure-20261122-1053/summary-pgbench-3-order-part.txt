@@ -1,0 +1,7 @@
+transaction type: /tmp/bench-create-part.sql
+number of clients: 16
+duration: 60 s
+number of transactions actually processed: 550116
+number of failed transactions: 0 (0.000%)
+latency average = 1.745 ms
+tps = 9168.309670 (without initial connection time)

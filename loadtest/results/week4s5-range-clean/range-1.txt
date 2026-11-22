@@ -1,0 +1,38 @@
+Pager usage is off.
+== range 7 days, flat orders with created_at index
+                                               QUERY PLAN                                               
+--------------------------------------------------------------------------------------------------------
+ Aggregate (actual time=2.416..2.416 rows=1 loops=1)
+   Buffers: shared hit=4 read=55
+   ->  Index Only Scan using orders_created_idx on orders (actual time=0.025..1.779 rows=21801 loops=1)
+         Index Cond: (created_at > (now() - '7 days'::interval))
+         Heap Fetches: 0
+         Buffers: shared hit=4 read=55
+ Planning:
+   Buffers: shared hit=81 read=11
+ Planning Time: 1.126 ms
+ Execution Time: 2.434 ms
+(10 rows)
+
+== range 7 days, orders_p (partitioned, no index needed for pruning)
+                                                                         QUERY PLAN                                                                         
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate (actual time=26.695..26.696 rows=1 loops=1)
+   Buffers: shared hit=1 read=313
+   ->  Append (actual time=10.075..26.019 rows=21801 loops=1)
+         Buffers: shared hit=1 read=313
+         Subplans Removed: 12
+         ->  Index Only Scan using orders_p_2026_11_client_id_created_at_idx on orders_p_2026_11 orders_p_1 (actual time=10.074..25.059 rows=21801 loops=1)
+               Index Cond: (created_at > (now() - '7 days'::interval))
+               Heap Fetches: 0
+               Buffers: shared hit=1 read=313
+         ->  Seq Scan on orders_p_2026_12 orders_p_2 (actual time=0.005..0.005 rows=0 loops=1)
+               Filter: (created_at > (now() - '7 days'::interval))
+         ->  Seq Scan on orders_p_default orders_p_3 (actual time=0.002..0.002 rows=0 loops=1)
+               Filter: (created_at > (now() - '7 days'::interval))
+ Planning:
+   Buffers: shared hit=871 read=22 dirtied=13
+ Planning Time: 2.079 ms
+ Execution Time: 26.732 ms
+(17 rows)
+

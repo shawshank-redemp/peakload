@@ -1,0 +1,7 @@
+transaction type: /tmp/relay-flat.sql
+number of clients: 16
+duration: 60 s
+number of transactions actually processed: 303848
+number of failed transactions: 0 (0.000%)
+latency average = 3.159 ms
+tps = 5064.556139 (without initial connection time)

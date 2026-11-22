@@ -1,0 +1,38 @@
+Pager usage is off.
+== range 7 days, flat orders with created_at index
+                                               QUERY PLAN                                               
+--------------------------------------------------------------------------------------------------------
+ Aggregate (actual time=1.995..1.995 rows=1 loops=1)
+   Buffers: shared hit=59
+   ->  Index Only Scan using orders_created_idx on orders (actual time=0.016..1.319 rows=21800 loops=1)
+         Index Cond: (created_at > (now() - '7 days'::interval))
+         Heap Fetches: 0
+         Buffers: shared hit=59
+ Planning:
+   Buffers: shared hit=92
+ Planning Time: 0.385 ms
+ Execution Time: 2.013 ms
+(10 rows)
+
+== range 7 days, orders_p (partitioned, no index needed for pruning)
+                                                                        QUERY PLAN                                                                        
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate (actual time=4.941..4.942 rows=1 loops=1)
+   Buffers: shared hit=314
+   ->  Append (actual time=0.551..4.264 rows=21800 loops=1)
+         Buffers: shared hit=314
+         Subplans Removed: 12
+         ->  Index Only Scan using orders_p_2026_11_client_id_created_at_idx on orders_p_2026_11 orders_p_1 (actual time=0.551..3.243 rows=21800 loops=1)
+               Index Cond: (created_at > (now() - '7 days'::interval))
+               Heap Fetches: 0
+               Buffers: shared hit=314
+         ->  Seq Scan on orders_p_2026_12 orders_p_2 (actual time=0.005..0.005 rows=0 loops=1)
+               Filter: (created_at > (now() - '7 days'::interval))
+         ->  Seq Scan on orders_p_default orders_p_3 (actual time=0.001..0.001 rows=0 loops=1)
+               Filter: (created_at > (now() - '7 days'::interval))
+ Planning:
+   Buffers: shared hit=893
+ Planning Time: 1.620 ms
+ Execution Time: 4.974 ms
+(17 rows)
+

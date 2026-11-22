@@ -1,0 +1,14 @@
+1-order-flat exit=0
+precheck refused loadtest/results/week4s5-after-measure-20261122-1053/precheck-1-order-part (try 1)
+1-order-part exit=0
+1-relay-flat exit=0
+1-relay-part exit=0
+2-order-flat exit=0
+2-order-part exit=0
+2-relay-flat exit=0
+2-relay-part exit=0
+3-order-flat exit=0
+3-order-part exit=0
+3-relay-flat exit=0
+3-relay-part exit=0
+all done
