@@ -57,6 +57,14 @@ spring:
       auto-offset-reset: latest
 
 peakload:
+  # Monthly partitions of the outbox (migration V6). The job creates months ahead and drops a month only when it is
+  # older than retention AND has no unpublished row. Values are starting values, not measured results.
+  outbox:
+    partitions:
+      months-ahead: 3
+      retention: ${OUTBOX_RETENTION:P30D}
+      initial-delay: PT1M
+      interval: PT1H
   dispatch:
     location:
       # How long a location ping keeps a rider "fresh". The seen key expires after this time; the GEO
