@@ -1,0 +1,8 @@
+[10:44:53] cold r1: measured run exit=0
+[10:45:45] warm r1: full-rate ramp done (not measured)
+[10:46:18] warm r1: measured run exit=0
+[10:47:08] cold r2: measured run exit=0
+[10:47:21] warm r2: precheck refused, waiting
+[10:48:42] warm r2: full-rate ramp done (not measured)
+[10:49:13] warm r2: measured run exit=0
+[10:49:14] done

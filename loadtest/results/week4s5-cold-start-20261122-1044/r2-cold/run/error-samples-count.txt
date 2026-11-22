@@ -1,0 +1,2 @@
+1902 error sample status=503 body={\"error\":\"other\",\"message\":\"the order service call failed\"}
+4094 error sample status=503 body={\"error\":\"pool_timeout\",\"message\":\"admission is at its upstream connection limit\"}

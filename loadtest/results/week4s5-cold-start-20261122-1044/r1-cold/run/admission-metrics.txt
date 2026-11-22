@@ -1,0 +1,4 @@
+admission_requests_total{application="admission",class="CRITICAL",outcome="success"} 10077.0
+admission_requests_total{application="admission",class="CRITICAL",outcome="upstream_error"} 13929.0
+admission_upstream_errors_total{application="admission",type="other"} 3562.0
+admission_upstream_errors_total{application="admission",type="pool_timeout"} 10367.0
